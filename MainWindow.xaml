@@ -15,14 +15,27 @@
 
     </Window.Resources>
 
-    <Border Background="{DynamicResource PrimaryBackgroundBrush}">
+    <Border Background="{DynamicResource PrimaryBackgroundBrush}"
+            CornerRadius="8"
+            BorderThickness="1"
+            BorderBrush="{DynamicResource WindowBorderBrush}">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" 
+                            BlurRadius="15" 
+                            ShadowDepth="0" 
+                            Opacity="0.3"/>
+        </Border.Effect>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Background="{DynamicResource TitleBarBackgroundBrush}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <Border Grid.Row="0" 
+                    Background="{DynamicResource TitleBarBackgroundBrush}" 
+                    MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
+                    CornerRadius="8,8,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
