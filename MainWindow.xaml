@@ -10,92 +10,95 @@
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="NoResize">
-    
-    <Window.Resources>
-        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
 
-        </Style>
-        <Style x:Key="TitleBarMinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground">
-                        <Setter.Value>
-                            <SolidColorBrush Color="Lavender"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="TitleBarCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground">
-                        <Setter.Value>
-                            <SolidColorBrush Color="Pink"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+    <Window.Resources>
+
     </Window.Resources>
-    
-    <Border Background="#24283B">
+
+    <Border Background="{DynamicResource PrimaryBackgroundBrush}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+
+            <Border Grid.Row="0" Background="{DynamicResource TitleBarBackgroundBrush}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <TextBlock Grid.Column="0" 
+
+                    <Button x:Name="MenuButton"
+                            Content="="
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center"
+                            Style="{DynamicResource TitleBarButtonStyle}"
+                      />
+
+                    <TextBlock Grid.Column="1" 
                                Text="RedFocus" 
                                VerticalAlignment="Center" 
-                               Margin="10,0,0,0"
-                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource PrimaryTextBrush}"
                                FontSize="14"/>
-                    
-                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <Button x:Name="MinimizeButton" 
                                 Width="45" 
                                 Height="40"
                                 Content="—"
                                 Click="MinimizeButton_Click"
-                                Style="{StaticResource TitleBarMinimizeButtonStyle}"/>
-                        
+                                Style="{DynamicResource TitleBarMinimizeButtonStyle}"/>
+
                         <Button x:Name="CloseButton" 
                                 Width="45" 
                                 Height="40"
                                 Content="✕"
                                 Click="CloseButton_Click"
-                                Style="{StaticResource TitleBarCloseButtonStyle}"/>
+                                Style="{DynamicResource TitleBarCloseButtonStyle}"/>
                     </StackPanel>
                 </Grid>
             </Border>
-            
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="340*"/>
-                    <ColumnDefinition Width="59*"/>
-                </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="1" Margin="10">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <TextBlock Text="选择主题：" 
+                     Foreground="{DynamicResource PrimaryTextBrush}"
+                     FontSize="16" 
+                     Margin="0,0,0,10"/>
+
+                    <Button Content="深色主题" 
+                  Click="DarkTheme_Click" 
+                  Width="120" 
+                  Height="35" 
+                  Margin="0,5"
+                  Background="{DynamicResource AccentBrush}"
+                  Foreground="White"
+                  BorderThickness="0"
+                  Cursor="Hand"/>
+
+                    <Button Content="浅色主题" 
+                  Click="LightTheme_Click" 
+                  Width="120" 
+                  Height="35" 
+                  Margin="0,5"
+                  Background="{DynamicResource AccentBrush}"
+                  Foreground="White"
+                  BorderThickness="0"
+                  Cursor="Hand"/>
+
+                    <Button Content="蓝色主题" 
+                  Click="BlueTheme_Click" 
+                  Width="120" 
+                  Height="35" 
+                  Margin="0,5"
+                  Background="{DynamicResource AccentBrush}"
+                  Foreground="White"
+                  BorderThickness="0"
+                  Cursor="Hand"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>
