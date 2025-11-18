@@ -5,11 +5,98 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedFocus"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        
-        
-        >
-    <Grid>
+        Title="MainWindow" Height="478" Width="360"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
-    </Grid>
+        </Style>
+        <Style x:Key="TitleBarMinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <SolidColorBrush Color="Lavender"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="TitleBarCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <SolidColorBrush Color="Pink"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Border Background="#24283B">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0" 
+                               Text="RedFocus" 
+                               VerticalAlignment="Center" 
+                               Margin="10,0,0,0"
+                               Foreground="White"
+                               FontSize="14"/>
+                    
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="MinimizeButton" 
+                                Width="45" 
+                                Height="40"
+                                Content="—"
+                                Click="MinimizeButton_Click"
+                                Style="{StaticResource TitleBarMinimizeButtonStyle}"/>
+                        
+                        <Button x:Name="CloseButton" 
+                                Width="45" 
+                                Height="40"
+                                Content="✕"
+                                Click="CloseButton_Click"
+                                Style="{StaticResource TitleBarCloseButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="340*"/>
+                    <ColumnDefinition Width="59*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
