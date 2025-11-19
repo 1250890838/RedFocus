@@ -34,7 +34,7 @@
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="border" Property="Opacity" Value="0.5"/>
                             </Trigger>
-                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Selected">
                                 <Setter TargetName="border" Property="Background" Value="{DynamicResource AccentBrush}"/>
                                 <Setter TargetName="border" Property="Opacity" Value="0.6"/>
                             </DataTrigger>
@@ -78,7 +78,7 @@
             <Button x:Name="OptionsButton" 
                     Grid.Column="1" 
                     Click="OptionsButton_Click"
-                     Height="36"
+                    Height="36"
                     Style="{StaticResource MenuButtonStyle}">
                 <Image Source="{svgc:SvgImage Source=/Icons/Setting.svg }"  Width="20" Height="20" />
             </Button>

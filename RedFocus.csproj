@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="SharpVectors" Version="1.8.5" />
   </ItemGroup>
 

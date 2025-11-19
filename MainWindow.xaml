@@ -15,36 +15,32 @@
     <Window.Resources>
         <Storyboard x:Key="MenuShowAnimation">
             <DoubleAnimation Storyboard.TargetName="MenuTransform"
-                           Storyboard.TargetProperty="Y"
-                           From="428"
+                           Storyboard.TargetProperty="X"
+                           From="-360"
                            To="0"
                            Duration="0:0:0.3">
                 <DoubleAnimation.EasingFunction>
                     <CubicEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="MenuOverlay"
-                           Storyboard.TargetProperty="Opacity"
-                           From="0"
-                           To="0.5"
-                           Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="MenuButtonTextTransform" Storyboard.TargetProperty="X"
+                             From="0" To="-6" Duration="0:0:0.1">
+            </DoubleAnimation>
         </Storyboard>
-        
+
         <Storyboard x:Key="MenuHideAnimation">
             <DoubleAnimation Storyboard.TargetName="MenuTransform"
-                           Storyboard.TargetProperty="Y"
+                           Storyboard.TargetProperty="X"
                            From="0"
-                           To="428"
+                           To="-360"
                            Duration="0:0:0.3">
                 <DoubleAnimation.EasingFunction>
                     <CubicEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="MenuOverlay"
-                           Storyboard.TargetProperty="Opacity"
-                           From="0.5"
-                           To="0"
-                           Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="MenuButtonTextTransform" Storyboard.TargetProperty="X"
+                             From="-6" To="0" Duration="0:0:0.1">
+            </DoubleAnimation>
         </Storyboard>
     </Window.Resources>
 
@@ -58,7 +54,7 @@
                             ShadowDepth="0" 
                             Opacity="0.3"/>
         </Border.Effect>
-        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -77,13 +73,21 @@
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="MenuButton"
-                            Content="&#x2630;"
                             FontSize="20"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             Click="MenuButton_Click"
                             Style="{DynamicResource TitleBarButtonStyle}"
-                            Width="50"/>
+                            Width="50">
+                        <Button.Content>
+                            <TextBlock x:Name="MenuButtonText" Text="&#x2630;">
+                                <TextBlock.RenderTransform>
+                                    <TranslateTransform x:Name="MenuButtonTextTransform" X="0"></TranslateTransform>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </Button.Content>
+
+                    </Button>
 
                     <TextBlock Grid.Column="1" 
                                Text="RedFocus" 
@@ -111,15 +115,25 @@
             </Border>
 
             <Grid Grid.Row="1" x:Name="ContentArea" ClipToBounds="True">
-                <Border x:Name="MenuOverlay"
-                        Background="Black"
-                        Opacity="0"
-                        Visibility="Collapsed"
-                        MouseLeftButtonDown="MenuOverlay_Click"/>
-                
-                <Border x:Name="MenuContainer" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <controls:CountdownCircle x:Name="CountdownTimer"
+                                    Width="200"
+                                    Height="200"
+                                    TotalSeconds="300"
+                                    CircleColor="{DynamicResource AccentBrush}"
+                                    TextColor="{DynamicResource PrimaryTextBrush}"
+                                    CircleThickness="10"
+                                    ShowText="True"
+                                    Margin="20"/>
+
+                <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="{Binding ElementName=ContentArea, Path=ColumnDefinitions.Count}" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>
-                        <TranslateTransform x:Name="MenuTransform" Y="428"/>
+                        <TranslateTransform x:Name="MenuTransform" X="-360" />
                     </Border.RenderTransform>
                     <controls:MenuPanel x:Name="MenuPanelControl"/>
                 </Border>

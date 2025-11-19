@@ -1,10 +1,9 @@
-namespace RedFocus.Pages
+namespace RedFocus.Pages;
+
+public partial class TasksPage
 {
-    public partial class TasksPage
+    public TasksPage()
     {
-        public TasksPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

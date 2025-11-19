@@ -1,27 +1,25 @@
 using System.Windows;
 
-namespace RedFocus.Pages
+namespace RedFocus.Pages;
+public partial class SettingsPage
 {
-    public partial class SettingsPage
+    public SettingsPage()
     {
-        public SettingsPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void DarkTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.CurrentTheme = Theme.Dark;
-        }
+    private void DarkTheme_Click(object sender, RoutedEventArgs e)
+    {
+        ThemeManager.CurrentTheme = Theme.Dark;
+    }
 
-        private void LightTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.CurrentTheme = Theme.Light;
-        }
+    private void LightTheme_Click(object sender, RoutedEventArgs e)
+    {
+        ThemeManager.CurrentTheme = Theme.Light;
+    }
 
-        private void BlueTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.CurrentTheme = Theme.Blue;
-        }
+    private void BlueTheme_Click(object sender, RoutedEventArgs e)
+    {
+        ThemeManager.CurrentTheme = Theme.Blue;
     }
 }

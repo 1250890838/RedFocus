@@ -1,10 +1,8 @@
-namespace RedFocus.Pages
+namespace RedFocus.Pages;
+public partial class StatisticsPage
 {
-    public partial class StatisticsPage
+    public StatisticsPage()
     {
-        public StatisticsPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

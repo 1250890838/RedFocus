@@ -55,21 +55,19 @@ public partial class MainWindow : Window
     {
         _isMenuOpen = true;
         MenuContainer.Visibility = Visibility.Visible;
-        MenuOverlay.Visibility = Visibility.Visible;
-
         var storyboard = (Storyboard)FindResource("MenuShowAnimation");
+        storyboard.Completed += (s, e) => { MenuButtonText.Text = "\u003C"; };
         storyboard.Begin();
     }
 
     private void HideMenu()
     {
         _isMenuOpen = false;
-
         var storyboard = (Storyboard)FindResource("MenuHideAnimation");
         storyboard.Completed += (s, e) =>
         {
             MenuContainer.Visibility = Visibility.Collapsed;
-            MenuOverlay.Visibility = Visibility.Collapsed;
+            MenuButtonText.Text = "\u2630";
         };
         storyboard.Begin();
     }
