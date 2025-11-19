@@ -10,8 +10,6 @@
 
     <UserControl.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Height" Value="50"/>
@@ -57,7 +55,7 @@
                 Background="{DynamicResource PrimaryBackgroundBrush}"
                 BorderBrush="{DynamicResource WindowBorderBrush}"
                 BorderThickness="0,1,0,0">
-            <ContentControl x:Name="PageContent" Content="{Binding CurrentPage, RelativeSource={RelativeSource AncestorType=local:MenuPanel}}"/>
+            <ContentControl x:Name="PageContent" Content="{Binding CurrentPage,RelativeSource={RelativeSource AncestorType=local:MenuPanel}}"/>
         </Border>
 
         <Grid Grid.Row="1" 
@@ -74,8 +72,7 @@
                     Grid.Column="0" 
                     Click="TimerConfigurationButton_Click"
                     Style="{StaticResource MenuButtonStyle}" Height="36">
-                <Image Source="{svgc:SvgImage Source=/Icons/Timer.svg }" Width="20" Height="20">
-                </Image>
+                <Image Source="{svgc:SvgImage Source=/Icons/Timer.svg }" Width="20" Height="20" />
             </Button>
 
             <Button x:Name="OptionsButton" 
@@ -83,8 +80,7 @@
                     Click="OptionsButton_Click"
                      Height="36"
                     Style="{StaticResource MenuButtonStyle}">
-                <Image Source="{svgc:SvgImage Source=/Icons/Setting.svg }"  Width="20" Height="20">
-                </Image>
+                <Image Source="{svgc:SvgImage Source=/Icons/Setting.svg }"  Width="20" Height="20" />
             </Button>
 
             <Button x:Name="ThemesButton" 
@@ -92,8 +88,7 @@
                     Click="ThemesButton_Click"
                     Height="36"
                     Style="{StaticResource MenuButtonStyle}">
-                <Image Source="{svgc:SvgImage Source=/Icons/Themes.svg }"  Width="20" Height="20">
-                </Image>
+                <Image Source="{svgc:SvgImage Source=/Icons/Themes.svg }"  Width="20" Height="20" />
             </Button>
 
             <Button x:Name="AboutButton" 
@@ -101,8 +96,7 @@
                     Click="AboutButton_Click"
                     Height="36"
                     Style="{StaticResource MenuButtonStyle}">
-                <Image Source="{svgc:SvgImage Source=/Icons/About.svg }"  Width="20" Height="20">
-                </Image>
+                <Image Source="{svgc:SvgImage Source=/Icons/About.svg }"  Width="20" Height="20" />
             </Button>
         </Grid>
     </Grid>
