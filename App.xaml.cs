@@ -12,8 +12,6 @@ namespace RedFocus
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            
-            // 初始化主题管理器
             ThemeManager.Initialize();
         }
     }

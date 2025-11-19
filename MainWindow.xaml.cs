@@ -5,50 +5,77 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RedFocus
+namespace RedFocus;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private bool _isMenuOpen = false;
+
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-        
-        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-        
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-        
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        InitializeComponent();
+    }
 
-        private void DarkTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.CurrentTheme = Theme.Dark;
-        }
+    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        this.DragMove();
+    }
 
-        private void LightTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.CurrentTheme = Theme.Light;
-        }
+    private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
 
-        private void BlueTheme_Click(object sender, RoutedEventArgs e)
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();
+    }
+
+    private void MenuButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isMenuOpen)
         {
-            ThemeManager.CurrentTheme = Theme.Blue;
+            HideMenu();
         }
+        else
+        {
+            ShowMenu();
+        }
+    }
+
+    private void ShowMenu()
+    {
+        _isMenuOpen = true;
+        MenuContainer.Visibility = Visibility.Visible;
+        MenuOverlay.Visibility = Visibility.Visible;
+
+        var storyboard = (Storyboard)FindResource("MenuShowAnimation");
+        storyboard.Begin();
+    }
+
+    private void HideMenu()
+    {
+        _isMenuOpen = false;
+
+        var storyboard = (Storyboard)FindResource("MenuHideAnimation");
+        storyboard.Completed += (s, e) =>
+        {
+            MenuContainer.Visibility = Visibility.Collapsed;
+            MenuOverlay.Visibility = Visibility.Collapsed;
+        };
+        storyboard.Begin();
+    }
+
+    private void MenuOverlay_Click(object sender, MouseButtonEventArgs e)
+    {
+        HideMenu();
     }
 }
