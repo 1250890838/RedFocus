@@ -16,54 +16,54 @@ namespace RedFocus.Controls
             set => SetValue(CurrentPageProperty, value);
         }
 
-        private readonly TimerPage _timerPage;
-        private readonly TasksPage _tasksPage;
-        private readonly StatisticsPage _statisticsPage;
-        private readonly SettingsPage _settingsPage;
+        private readonly TimerConfigurationPage _timerConfigurationPage;
+        private readonly OptionsPage _optionsPage;
+        private readonly ThemesPage _themesPage;
+        private readonly AboutPage _aboutPage;
 
         public MenuPanel()
         {
             InitializeComponent();
 
-            _timerPage = new TimerPage();
-            _tasksPage = new TasksPage();
-            _statisticsPage = new StatisticsPage();
-            _settingsPage = new SettingsPage();
+            _timerConfigurationPage = new TimerConfigurationPage();
+            _optionsPage = new OptionsPage();
+            _themesPage = new ThemesPage();
+            _aboutPage = new AboutPage();
 
-            CurrentPage = _timerPage;
+            CurrentPage = _timerConfigurationPage;
             UpdateButtonStates();
         }
 
         private void TimerConfigurationButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentPage = _timerPage;
+            CurrentPage = _timerConfigurationPage;
             UpdateButtonStates();
         }
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentPage = _tasksPage;
+            CurrentPage = _optionsPage;
             UpdateButtonStates();
         }
 
         private void ThemesButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentPage = _statisticsPage;
+            CurrentPage = _themesPage;
             UpdateButtonStates();
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentPage = _settingsPage;
+            CurrentPage = _aboutPage;
             UpdateButtonStates();
         }
 
         private void UpdateButtonStates()
         {
-            TimerConfigurationButton.Tag = ReferenceEquals(CurrentPage, _timerPage) ? "Selected" : null;
-            OptionsButton.Tag = ReferenceEquals(CurrentPage, _tasksPage) ? "Selected" : null;
-            ThemesButton.Tag = ReferenceEquals(CurrentPage, _statisticsPage) ? "Selected" : null;
-            AboutButton.Tag = ReferenceEquals(CurrentPage, _settingsPage) ? "Selected" : null;
+            TimerConfigurationButton.Tag = ReferenceEquals(CurrentPage, _timerConfigurationPage) ? "Selected" : null;
+            OptionsButton.Tag = ReferenceEquals(CurrentPage, _optionsPage) ? "Selected" : null;
+            ThemesButton.Tag = ReferenceEquals(CurrentPage, _themesPage) ? "Selected" : null;
+            AboutButton.Tag = ReferenceEquals(CurrentPage, _aboutPage) ? "Selected" : null;
         }
     }
 }

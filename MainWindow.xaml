@@ -131,7 +131,7 @@
                                     ShowText="True"
                                     Margin="20"/>
 
-                <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
+                <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>
                         <TranslateTransform x:Name="MenuTransform" X="-360" />
                     </Border.RenderTransform>
