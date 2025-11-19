@@ -76,4 +76,9 @@ public partial class MainWindow : Window
     {
         HideMenu();
     }
+
+    private void StartTimerButton_Click(object sender, RoutedEventArgs e)
+    {
+        CountdownTimer.Start();
+    }
 }

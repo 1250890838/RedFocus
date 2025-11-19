@@ -14,8 +14,8 @@
                     <Grid>
                         <Viewbox Stretch="Uniform">
                             <Canvas Width="200" Height="200">
-                                <Ellipse Canvas.Left="10" Canvas.Top="10"
-                                       Width="180" Height="180"
+                                <Ellipse Canvas.Left="0" Canvas.Top="0"
+                                       Width="200" Height="200"
                                        Stroke="{TemplateBinding BackgroundCircleColor}"
                                        StrokeThickness="{TemplateBinding CircleThickness}"
                                        Fill="Transparent"/>
@@ -23,7 +23,7 @@
                                 <Path x:Name="PART_ProgressPath"
                                       Canvas.Left="0" Canvas.Top="0"
                                       Stroke="{TemplateBinding CircleColor}"
-                                      StrokeThickness="{TemplateBinding CircleThickness}"
+                                      StrokeThickness="10"
                                       StrokeStartLineCap="Round"
                                       StrokeEndLineCap="Round"
                                       Fill="Transparent"/>

@@ -122,14 +122,15 @@
                 </Grid.RowDefinitions>
 
                 <controls:CountdownCircle x:Name="CountdownTimer"
-                                    Width="200"
-                                    Height="200"
+                                    Width="220"
+                                    Height="220"
                                     TotalSeconds="300"
                                     CircleColor="{DynamicResource AccentBrush}"
                                     TextColor="{DynamicResource PrimaryTextBrush}"
-                                    CircleThickness="10"
+                                    CircleThickness="3"
                                     ShowText="True"
                                     Margin="20"/>
+                <Button x:Name="StartTimerButton" Click="StartTimerButton_Click" Grid.Row="1" Content="Start"/>
 
                 <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>

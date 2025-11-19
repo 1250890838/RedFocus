@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 
 namespace RedFocus
@@ -37,8 +38,8 @@ namespace RedFocus
             };
 
             var existingTheme = Application.Current.Resources.MergedDictionaries
-                .FirstOrDefault(d => d.Source?.OriginalString?.Contains("Themes/") == true);
-            
+                .FirstOrDefault(d => d.Source?.OriginalString?.Contains("Theme.xaml") == true);
+
             if (existingTheme != null)
             {
                 Application.Current.Resources.MergedDictionaries.Remove(existingTheme);
