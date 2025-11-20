@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedFocus"
         xmlns:controls="clr-namespace:RedFocus.Controls"
+        xmlns:converters="clr-namespace:RedFocus.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="478" Width="360"
         WindowStyle="None"
@@ -130,7 +131,7 @@
                                     CircleThickness="3"
                                     ShowText="True"
                                     Margin="20"/>
-                <Button x:Name="StartTimerButton" Click="StartTimerButton_Click" Grid.Row="1" Content="Start"/>
+                <controls:SwitchButton IsActive="{Binding ElementName=CountdownTimer, Path=IsRunning}" Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" CountdownCircle="{Binding ElementName=CountdownTimer}" Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
 
                 <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>

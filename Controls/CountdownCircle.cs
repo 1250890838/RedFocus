@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,9 +12,7 @@ namespace RedFocus.Controls;
 public class CountdownCircle : Control
 {
     private DispatcherTimer? _timer;
-    private DateTime _startTime;
     private TimeSpan _remainingTime;
-    private bool _isPaused;
     private Path? _progressPath;
 
     static CountdownCircle()
@@ -235,20 +232,9 @@ public class CountdownCircle : Control
     /// </summary>
     public void Start()
     {
-        if (_timer == null) return;
-
-        if (_isPaused)
-        {
-            // 从暂停恢复
-            Resume();
-            return;
-        }
-
-        _remainingTime = TimeSpan.FromSeconds(TotalSeconds);
-        _startTime = DateTime.Now;
-        _isPaused = false;
-        IsRunning = true;
+        if (_timer == null || IsRunning) return;
         _timer.Start();
+        IsRunning = true;
     }
 
     /// <summary>
@@ -256,35 +242,8 @@ public class CountdownCircle : Control
     /// </summary>
     public void Pause()
     {
-        if (_timer == null || !IsRunning || _isPaused) return;
-
+        if (_timer == null || !IsRunning) return;
         _timer.Stop();
-        _isPaused = true;
-        IsRunning = false;
-    }
-
-    /// <summary>
-    /// 继续倒计时
-    /// </summary>
-    public void Resume()
-    {
-        if (_timer == null || !_isPaused) return;
-
-        _startTime = DateTime.Now;
-        _isPaused = false;
-        IsRunning = true;
-        _timer.Start();
-    }
-
-    /// <summary>
-    /// 停止倒计时
-    /// </summary>
-    public void Stop()
-    {
-        if (_timer == null) return;
-
-        _timer.Stop();
-        _isPaused = false;
         IsRunning = false;
     }
 
@@ -293,7 +252,7 @@ public class CountdownCircle : Control
     /// </summary>
     public void Reset()
     {
-        Stop();
+        Pause();
         _remainingTime = TimeSpan.FromSeconds(TotalSeconds);
         RemainingSeconds = TotalSeconds;
         UpdateDisplayText();
@@ -305,15 +264,13 @@ public class CountdownCircle : Control
 
     private void Timer_Tick(object? sender, EventArgs e)
     {
-        var elapsed = DateTime.Now - _startTime;
+        var elapsed = _timer!.Interval;
         _remainingTime -= elapsed;
-        _startTime = DateTime.Now;
-
         if (_remainingTime.TotalSeconds <= 0)
         {
             _remainingTime = TimeSpan.Zero;
             RemainingSeconds = 0;
-            Stop();
+            Pause();
             RaiseEvent(new RoutedEventArgs(CompletedEvent, this));
         }
         else
@@ -321,7 +278,6 @@ public class CountdownCircle : Control
             RemainingSeconds = _remainingTime.TotalSeconds;
             RaiseEvent(new RoutedEventArgs(TickEvent, this));
         }
-
         UpdateDisplayText();
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using RedFocus.Controls;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -77,8 +78,4 @@ public partial class MainWindow : Window
         HideMenu();
     }
 
-    private void StartTimerButton_Click(object sender, RoutedEventArgs e)
-    {
-        CountdownTimer.Start();
-    }
 }
