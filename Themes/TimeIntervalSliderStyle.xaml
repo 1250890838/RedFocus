@@ -3,13 +3,18 @@
     xmlns:controls="clr-namespace:RedFocus.Controls">
     <Style TargetType="{x:Type controls:TimeIntervalSlider}">
         <Setter Property="Template">
-       <Setter.Value>
-   <ControlTemplate TargetType="{x:Type controls:TimeIntervalSlider}">
-        <StackPanel x:Name="Container">
-         <TextBlock Text="{TemplateBinding Title}"/>
-        </StackPanel>
-     </ControlTemplate>
-       </Setter.Value>
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:TimeIntervalSlider}">
+                    <StackPanel x:Name="Container">
+                        <TextBlock Text="{TemplateBinding Title}" Foreground="{TemplateBinding TitleBrush}"
+                    FontSize="{TemplateBinding TitleFontSize}"/>
+                        <TextBlock Margin="0,10,0,0" Background="{TemplateBinding TimeIntervalTextBackgroundBrush}" 
+                                   Foreground="{TemplateBinding TimeIntervalTextBrush}" FontSize="{TemplateBinding TimeIntervalTextFontSize}"
+                                   Text="{TemplateBinding TimeInterval}" 
+                                   />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
     </Style>
 </ResourceDictionary>

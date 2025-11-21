@@ -42,31 +42,40 @@ public class TimeIntervalSlider : Control
         set => SetValue(TimeIntervalProperty, value);
     }
 
-    public static readonly DependencyProperty TimerIntervalTextBrushProperty =
-        DependencyProperty.Register(nameof(TimerIntervalTextBrush), typeof(Brush), typeof(TimeIntervalSlider),
-            new PropertyMetadata(null));
-    public Brush TimerIntervalTextBrush
+    public static readonly DependencyProperty MaxTimeIntervalProperty = 
+        DependencyProperty.Register(nameof(MaxTimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
+            new PropertyMetadata(TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30)));
+    public TimeSpan MaxTimeInterval
     {
-        get => (Brush)GetValue(TimerIntervalTextBrushProperty);
-        set => SetValue(TimerIntervalTextBrushProperty, value);
+        get => (TimeSpan)GetValue(MaxTimeIntervalProperty);
+        set => SetValue(MaxTimeIntervalProperty, value);
     }
 
-    public static readonly DependencyProperty TimerIntervalTextBackgroundBrushProperty =
-        DependencyProperty.Register(nameof(TimerIntervalTextBackgroundBrush), typeof(Brush), typeof(TimeIntervalSlider),
+    public static readonly DependencyProperty TimeIntervalTextBrushProperty =
+        DependencyProperty.Register(nameof(TimeIntervalTextBrush), typeof(Brush), typeof(TimeIntervalSlider),
             new PropertyMetadata(null));
-    public Brush TimerIntervalTextBackgroundBrush
+    public Brush TimeIntervalTextBrush
     {
-        get => (Brush)GetValue(TimerIntervalTextBackgroundBrushProperty);
-        set => SetValue(TimerIntervalTextBackgroundBrushProperty, value);
+        get => (Brush)GetValue(TimeIntervalTextBrushProperty);
+        set => SetValue(TimeIntervalTextBrushProperty, value);
     }
 
-    public static readonly DependencyProperty TimerIntervalTextFontSizeProperty =
-        DependencyProperty.Register(nameof(TimerIntervalTextFontSize), typeof(double), typeof(TimeIntervalSlider),
+    public static readonly DependencyProperty TimeIntervalTextBackgroundBrushProperty =
+        DependencyProperty.Register(nameof(TimeIntervalTextBackgroundBrush), typeof(Brush), typeof(TimeIntervalSlider),
+            new PropertyMetadata(null));
+    public Brush TimeIntervalTextBackgroundBrush
+    {
+        get => (Brush)GetValue(TimeIntervalTextBackgroundBrushProperty);
+        set => SetValue(TimeIntervalTextBackgroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty TimeIntervalTextFontSizeProperty =
+        DependencyProperty.Register(nameof(TimeIntervalTextFontSize), typeof(double), typeof(TimeIntervalSlider),
             new PropertyMetadata(12.0));
-    public double TimerIntervalTextFontSize
+    public double TimeIntervalTextFontSize
     {
-        get => (double)GetValue(TimerIntervalTextFontSizeProperty);
-        set => SetValue(TimerIntervalTextFontSizeProperty, value);
+        get => (double)GetValue(TimeIntervalTextFontSizeProperty);
+        set => SetValue(TimeIntervalTextFontSizeProperty, value);
     }
 
     public static readonly DependencyProperty TitleProperty =
