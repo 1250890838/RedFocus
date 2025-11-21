@@ -125,13 +125,15 @@
                 <controls:CountdownCircle x:Name="CountdownTimer"
                                     Width="220"
                                     Height="220"
-                                    TotalSeconds="300"
+                                    TotalSeconds="20"
                                     CircleColor="{DynamicResource AccentBrush}"
                                     TextColor="{DynamicResource PrimaryTextBrush}"
                                     CircleThickness="3"
                                     ShowText="True"
                                     Margin="20"/>
-                <controls:SwitchButton IsActive="{Binding ElementName=CountdownTimer, Path=IsRunning}" Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" CountdownCircle="{Binding ElementName=CountdownTimer}" Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
+                <controls:SwitchButton IsActive="{Binding ElementName=CountdownTimer, Path=IsRunning}" Content="{Binding RelativeSource={RelativeSource Mode=Self}, 
+                    Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" CountdownCircle="{Binding ElementName=CountdownTimer}" 
+                                       Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
 
                 <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>

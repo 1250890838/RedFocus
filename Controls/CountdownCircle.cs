@@ -311,7 +311,7 @@ public class CountdownCircle : Control
         if (_progressPath == null) return;
 
         double canvasSize = 200;
-        double radius = (canvasSize - 20) / 2.0;
+        double radius = canvasSize / 2.0;
         double centerX = canvasSize / 2.0;
         double centerY = canvasSize / 2.0;
 

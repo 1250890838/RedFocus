@@ -7,20 +7,19 @@
     xmlns:controls="clr-namespace:RedFocus.Controls"
              mc:Ignorable="d" 
        d:DesignHeight="400" d:DesignWidth="340">
-    <Grid Background="{DynamicResource PrimaryBackgroundBrush}">
-        <StackPanel Margin="20" VerticalAlignment="Center">
-     <TextBlock Text="Timer Configuration" 
-           FontSize="24" 
- FontWeight="Bold" 
-         Foreground="{DynamicResource PrimaryTextBrush}"
-  HorizontalAlignment="Center"
-        Margin="0,0,0,20"/>
-
-     <TextBlock Text="Timer settings coming soon..." 
-         FontSize="14" 
-      Foreground="{DynamicResource PrimaryTextBrush}"
-       HorizontalAlignment="Center"
-        Opacity="0.7"/>
-  </StackPanel>
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid Margin="20,10,20,20" Background="{DynamicResource PrimaryBackgroundBrush}">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+                    <Setter Property="Margin" Value="0,0,0,10"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Timer" HorizontalAlignment="Center"/>
+            <TextBlock Text="Focus" HorizontalAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </UserControl>
