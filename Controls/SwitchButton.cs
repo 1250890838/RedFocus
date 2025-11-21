@@ -8,6 +8,12 @@ namespace RedFocus.Controls;
 
 public class SwitchButton : Button
 {
+    static SwitchButton()
+    {
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(SwitchButton),
+            new FrameworkPropertyMetadata(typeof(SwitchButton)));
+    }
+
     public SwitchButton()
     {
         Click += SwitchButton_Click;
@@ -30,8 +36,8 @@ public class SwitchButton : Button
 
     #region 依赖属性
 
-    static readonly DependencyProperty CountdownCircleProperty =
-               DependencyProperty.Register(nameof(CountdownCircle), typeof(CountdownCircle), typeof(SwitchButton),
+    public static readonly DependencyProperty CountdownCircleProperty =
+        DependencyProperty.Register(nameof(CountdownCircle), typeof(CountdownCircle), typeof(SwitchButton),
             new PropertyMetadata(null));
     public CountdownCircle CountdownCircle
     {
@@ -39,7 +45,7 @@ public class SwitchButton : Button
         set => SetValue(CountdownCircleProperty, value);
     }
 
-    static readonly DependencyProperty IsActiveProperty =
+    public static readonly DependencyProperty IsActiveProperty =
         DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(SwitchButton),
             new PropertyMetadata(false, OnIsActiveChanged));
     public bool IsActive
@@ -65,7 +71,7 @@ public class SwitchButton : Button
         }
     }
 
-    static readonly DependencyProperty UnicodeCharProperty =
+    public static readonly DependencyProperty UnicodeCharProperty =
         DependencyProperty.Register(nameof(UnicodeChar), typeof(string), typeof(SwitchButton),
             new PropertyMetadata("\u25B6"));
     public string UnicodeChar
