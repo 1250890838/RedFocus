@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="/Themes/DarkTheme.xaml"/>
                 <ResourceDictionary Source="/Themes/CountdownCircleStyle.xaml"/>
                 <ResourceDictionary Source="/Themes/SwtichButtonStyle.xaml" />
+                <ResourceDictionary Source="/Themes/TimeIntervalSliderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
