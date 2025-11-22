@@ -35,7 +35,7 @@ public class TimeIntervalSlider : Control
 
     public static readonly DependencyProperty TimeIntervalProperty =
         DependencyProperty.Register(nameof(TimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
-            new PropertyMetadata(TimeSpan.Zero));
+            new PropertyMetadata(TimeSpan.FromMinutes(15)));
     public TimeSpan TimeInterval
     {
         get => (TimeSpan)GetValue(TimeIntervalProperty);

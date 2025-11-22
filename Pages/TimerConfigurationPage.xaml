@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
        d:DesignHeight="400" d:DesignWidth="340">
     <UserControl.Resources>
+        
     </UserControl.Resources>
     <Grid Margin="20,10,20,20" Background="{DynamicResource PrimaryBackgroundBrush}">
         <StackPanel>
@@ -19,7 +20,14 @@
                 </Style>
             </StackPanel.Resources>
             <TextBlock Text="Timer" HorizontalAlignment="Center"/>
-            <TextBlock Text="Focus" HorizontalAlignment="Center"/>
+            <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
+                                         Title="Focus"
+                                         TimeInterval="00:15"
+                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleFontSize="14"
+                                         TimeIntervalTextFontSize="11.5"/>
         </StackPanel>
     </Grid>
 </UserControl>
