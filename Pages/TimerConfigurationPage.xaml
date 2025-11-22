@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
        d:DesignHeight="400" d:DesignWidth="340">
     <UserControl.Resources>
-        
+
     </UserControl.Resources>
     <Grid Margin="20,10,20,20" Background="{DynamicResource PrimaryBackgroundBrush}">
         <StackPanel>
@@ -46,7 +46,7 @@
                                          TimeIntervalTextFontSize="11.5"/>
             <controls:TimeIntervalSlider x:Name="RoundsSlider"
                                          Title="Rounds"
-                                         TimeInterval="00:04"
+                                         TimeInterval="00:15"
                                          MaxTimeInterval="00:12"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"

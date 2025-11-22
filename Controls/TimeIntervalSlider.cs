@@ -35,14 +35,14 @@ public class TimeIntervalSlider : Control
 
     public static readonly DependencyProperty TimeIntervalProperty =
         DependencyProperty.Register(nameof(TimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
-            new PropertyMetadata(TimeSpan.FromMinutes(15),null,CoerceValueCallback));
+            new PropertyMetadata(TimeSpan.FromMinutes(15), null, CoerceTimeIntervalCallback));
     public TimeSpan TimeInterval
     {
         get => (TimeSpan)GetValue(TimeIntervalProperty);
         set => SetValue(TimeIntervalProperty, value);
     }
 
-    public static object CoerceValueCallback(DependencyObject d, object baseValue)
+    public static object CoerceTimeIntervalCallback(DependencyObject d, object baseValue)
     {
         if (d is TimeIntervalSlider t)
         {
@@ -52,20 +52,27 @@ public class TimeIntervalSlider : Control
             }
             else
             {
-                return baseValue;       
-            } 
+                return baseValue;
+            }
         }
-        return null!;
+        return TimeSpan.Zero;
     }
 
-
-    public static readonly DependencyProperty MaxTimeIntervalProperty = 
+    public static readonly DependencyProperty MaxTimeIntervalProperty =
         DependencyProperty.Register(nameof(MaxTimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
-            new PropertyMetadata(TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30)));
+            new PropertyMetadata(TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), MaxTimeIntervalChangedCallback,null ));
     public TimeSpan MaxTimeInterval
     {
         get => (TimeSpan)GetValue(MaxTimeIntervalProperty);
-        set => SetValue(MaxTimeIntervalProperty, value);
+        set
+        {
+            SetValue(MaxTimeIntervalProperty, value);
+        }
+    }
+
+    public static void MaxTimeIntervalChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        d.CoerceValue(TimeIntervalProperty);
     }
 
     public static readonly DependencyProperty TimeIntervalTextBrushProperty =
