@@ -28,6 +28,30 @@
                                          TimeIntervalTextBackgroundBrush="Black"
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"/>
+            <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
+                                         Title="Short Break"
+                                         TimeInterval="00:15"
+                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleFontSize="14"
+                                         TimeIntervalTextFontSize="11.5"/>
+            <controls:TimeIntervalSlider x:Name="LongBreakSlider"
+                                         Title="Long Break"
+                                         TimeInterval="00:15"
+                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleFontSize="14"
+                                         TimeIntervalTextFontSize="11.5"/>
+            <controls:TimeIntervalSlider x:Name="RoundsSlider"
+                                         Title="Rounds"
+                                         TimeInterval="00:15"
+                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleFontSize="14"
+                                         TimeIntervalTextFontSize="11.5"/>
         </StackPanel>
     </Grid>
 </UserControl>

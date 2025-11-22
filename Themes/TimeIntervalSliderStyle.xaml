@@ -89,6 +89,9 @@
                                 Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TimeInterval, Converter={StaticResource timeSpanToDoubleConverter},Mode=TwoWay}" 
                                 Maximum="{TemplateBinding MaxTimeInterval, Converter={StaticResource timeSpanToDoubleConverter}}"
                                 Style="{StaticResource ModernSliderStyle}"
+                                SmallChange="1"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
                                 >
                         </Slider>
                     </StackPanel>

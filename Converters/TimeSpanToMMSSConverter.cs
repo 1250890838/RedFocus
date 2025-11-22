@@ -10,11 +10,21 @@ class TimeSpanToMMSSConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if(value is TimeSpan timeSpan)
+        string showType = (string)parameter;
+        if (showType == null)
         {
-            return $"{((int)Math.Floor(timeSpan.TotalMinutes)):D2}:{timeSpan.Seconds:D2}";
+            if (value is TimeSpan timeSpan)
+            {
+                return $"{((int)Math.Floor(timeSpan.TotalMinutes)):D2}:{timeSpan.Seconds:D2}";
+            }
         }
-        return "00:00";
+        else if(showType.Equals("Pure"))
+        {
+            return value is TimeSpan timeSpan
+                ? $"{((int)Math.Floor((double)timeSpan.Minutes)):D2}"
+                : "0";
+        }
+        throw new NotImplementedException();
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -105,5 +105,7 @@ public class TimeIntervalSlider : Control
         set => SetValue(TitleBrushProperty, value);
     }
 
+
+
     #endregion
 }
