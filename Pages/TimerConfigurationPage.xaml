@@ -46,12 +46,15 @@
                                          TimeIntervalTextFontSize="11.5"/>
             <controls:TimeIntervalSlider x:Name="RoundsSlider"
                                          Title="Rounds"
-                                         TimeInterval="00:15"
+                                         TimeInterval="00:04"
+                                         MaxTimeInterval="00:12"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBackgroundBrush="Black"
                                          TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"/>
+                                         TimeIntervalTextFontSize="11.5"
+                                         Style="{StaticResource IntRoundsSlider}"
+                                         />
         </StackPanel>
     </Grid>
 </UserControl>

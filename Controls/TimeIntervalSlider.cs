@@ -35,12 +35,29 @@ public class TimeIntervalSlider : Control
 
     public static readonly DependencyProperty TimeIntervalProperty =
         DependencyProperty.Register(nameof(TimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
-            new PropertyMetadata(TimeSpan.FromMinutes(15)));
+            new PropertyMetadata(TimeSpan.FromMinutes(15),null,CoerceValueCallback));
     public TimeSpan TimeInterval
     {
         get => (TimeSpan)GetValue(TimeIntervalProperty);
         set => SetValue(TimeIntervalProperty, value);
     }
+
+    public static object CoerceValueCallback(DependencyObject d, object baseValue)
+    {
+        if (d is TimeIntervalSlider t)
+        {
+            if ((TimeSpan)baseValue > t.MaxTimeInterval)
+            {
+                return t.MaxTimeInterval;
+            }
+            else
+            {
+                return baseValue;       
+            } 
+        }
+        return null!;
+    }
+
 
     public static readonly DependencyProperty MaxTimeIntervalProperty = 
         DependencyProperty.Register(nameof(MaxTimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
