@@ -85,7 +85,8 @@
                                    Text="{TemplateBinding TimeInterval,Converter={ StaticResource timeSpanToMMSSConverter}}" HorizontalAlignment="Center" 
                                    Typography.SlashedZero="True" FontFamily="Consolas"
                                    />
-                        <Slider Margin="0,10,0,0" HorizontalAlignment="Stretch" 
+                        <Slider x:Name="InnerSlider"
+                                Margin="0,10,0,0" HorizontalAlignment="Stretch" 
                                 Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TimeInterval, Converter={StaticResource timeSpanToDoubleConverter},Mode=TwoWay}" 
                                 Maximum="{TemplateBinding MaxTimeInterval, Converter={StaticResource timeSpanToDoubleConverter}}"
                                 Style="{StaticResource ModernSliderStyle}"
@@ -112,7 +113,7 @@
                                    Text="{TemplateBinding TimeInterval,Converter={ StaticResource timeSpanToMMSSConverter}, ConverterParameter='Pure'}" HorizontalAlignment="Center" 
                                    Typography.SlashedZero="True" FontFamily="Consolas"
                                    />
-                        <Slider Margin="0,10,0,0" HorizontalAlignment="Stretch" 
+                        <Slider x:Name="InnerSlider" Margin="0,10,0,0" HorizontalAlignment="Stretch" 
                                 Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TimeInterval, Converter={StaticResource timeSpanToDoubleConverter},Mode=TwoWay}" 
                                 Maximum="{TemplateBinding MaxTimeInterval, Converter={StaticResource timeSpanToDoubleConverter}}"
                                 Style="{StaticResource ModernSliderStyle}"

@@ -29,6 +29,7 @@
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"/>
             <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
+                                         SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
                                          Title="Short Break"
                                          TimeInterval="00:15"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"

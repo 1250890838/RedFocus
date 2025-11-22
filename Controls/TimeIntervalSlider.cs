@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace RedFocus.Controls;
 public class TimeIntervalSlider : Control
 {
+    private Slider? _slider;
     static TimeIntervalSlider()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(TimeIntervalSlider),
@@ -60,7 +63,7 @@ public class TimeIntervalSlider : Control
 
     public static readonly DependencyProperty MaxTimeIntervalProperty =
         DependencyProperty.Register(nameof(MaxTimeInterval), typeof(TimeSpan), typeof(TimeIntervalSlider),
-            new PropertyMetadata(TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), MaxTimeIntervalChangedCallback,null ));
+            new PropertyMetadata(TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), MaxTimeIntervalChangedCallback, null));
     public TimeSpan MaxTimeInterval
     {
         get => (TimeSpan)GetValue(MaxTimeIntervalProperty);
@@ -131,5 +134,40 @@ public class TimeIntervalSlider : Control
 
 
 
+    #endregion
+
+    #region 事件
+    public static readonly RoutedEvent SlideCompletedEvent =
+        EventManager.RegisterRoutedEvent(nameof(SlideCompleted), RoutingStrategy.Bubble,
+            typeof(RoutedPropertyChangedEventHandler<TimeSpan>), typeof(TimeIntervalSlider));
+    public event RoutedPropertyChangedEventHandler<TimeSpan> SlideCompleted
+    {
+        add => AddHandler(SlideCompletedEvent, value);
+        remove => RemoveHandler(SlideCompletedEvent, value);
+    }
+
+    #endregion
+
+    #region 公共方法
+
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+        if (_slider != null)
+            _slider.ValueChanged -= OnSliderValueChangedChanged;
+        _slider = GetTemplateChild("InnerSlider") as Slider;
+        if (_slider != null)
+            _slider.ValueChanged += OnSliderValueChangedChanged;
+    }
+
+    public void OnSliderValueChangedChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        Slider? slider = sender as Slider;
+        var args = new RoutedPropertyChangedEventArgs<TimeSpan>(
+            TimeSpan.FromMinutes(e.OldValue),
+            TimeSpan.FromMinutes(e.NewValue),
+            SlideCompletedEvent);
+        RaiseEvent(args);
+    }
     #endregion
 }
