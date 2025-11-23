@@ -12,7 +12,6 @@ namespace RedFocus.Controls;
 public class CountdownCircle : Control
 {
     private DispatcherTimer? _timer;
-    private TimeSpan _remainingTime;
     private Path? _progressPath;
 
     static CountdownCircle()
@@ -44,7 +43,7 @@ public class CountdownCircle : Control
     /// </summary>
     public static readonly DependencyProperty TotalSecondsProperty =
         DependencyProperty.Register(nameof(TotalSeconds), typeof(double), typeof(CountdownCircle),
-            new PropertyMetadata(60.0, OnTotalSecondsChanged));
+            new PropertyMetadata(10.0, OnTotalSecondsChanged));
 
     public double TotalSeconds
     {
@@ -253,7 +252,6 @@ public class CountdownCircle : Control
     public void Reset()
     {
         Pause();
-        _remainingTime = TimeSpan.FromSeconds(TotalSeconds);
         RemainingSeconds = TotalSeconds;
         UpdateDisplayText();
     }
@@ -265,18 +263,16 @@ public class CountdownCircle : Control
     private void Timer_Tick(object? sender, EventArgs e)
     {
         var elapsed = _timer!.Interval;
-        _remainingTime -= elapsed;
-        if (_remainingTime.TotalSeconds <= 0)
+        RemainingSeconds -= elapsed.TotalSeconds;
+        if (RemainingSeconds <= 0)
         {
-            _remainingTime = TimeSpan.Zero;
             RemainingSeconds = 0;
             Pause();
             RaiseEvent(new RoutedEventArgs(CompletedEvent, this));
         }
         else
         {
-            RemainingSeconds = _remainingTime.TotalSeconds;
-            RaiseEvent(new RoutedEventArgs(TickEvent, this));
+          //  RaiseEvent(new RoutedEventArgs(TickEvent, this));
         }
         UpdateDisplayText();
     }
@@ -296,14 +292,7 @@ public class CountdownCircle : Control
     private void UpdateDisplayText()
     {
         var timeSpan = TimeSpan.FromSeconds(RemainingSeconds);
-        if (timeSpan.TotalHours >= 1)
-        {
-            DisplayText = timeSpan.ToString(@"hh\:mm\:ss");
-        }
-        else
-        {
-            DisplayText = timeSpan.ToString(@"mm\:ss");
-        }
+        DisplayText = $"{(int)timeSpan.TotalMinutes}:{timeSpan.Seconds:D2}";
     }
 
     private void UpdateProgressPath()
