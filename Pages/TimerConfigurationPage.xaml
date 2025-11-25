@@ -5,10 +5,12 @@
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:RedFocus.Pages"
     xmlns:controls="clr-namespace:RedFocus.Controls"
-             mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:RedFocus.Converters"
+             mc:Ignorable="d"
+             
        d:DesignHeight="400" d:DesignWidth="340">
     <UserControl.Resources>
-
+        <converters:IntToTimeSpanConverter x:Key="intToTimeSpanConverter"/>
     </UserControl.Resources>
     <Grid Margin="20,10,20,20" Background="{DynamicResource PrimaryBackgroundBrush}">
         <StackPanel>
@@ -22,24 +24,25 @@
             <TextBlock Text="Timer" HorizontalAlignment="Center"/>
             <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
                                          Title="Focus"
-                                         TimeInterval="00:15"
+                                         TimeInterval="{Binding FocusTime}"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBackgroundBrush="Black"
                                          TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"/>
+                                         TimeIntervalTextFontSize="11.5"
+                                         />
             <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
                                          SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
                                          Title="Short Break"
-                                         TimeInterval="00:15"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBackgroundBrush="Black"
                                          TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"/>
+                                         TimeIntervalTextFontSize="11.5" 
+                                         TimeInterval="{Binding ShortBreakTime}"/>
             <controls:TimeIntervalSlider x:Name="LongBreakSlider"
                                          Title="Long Break"
-                                         TimeInterval="00:15"
+                                         TimeInterval="{Binding LongBreakTime}"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBackgroundBrush="Black"
@@ -47,7 +50,7 @@
                                          TimeIntervalTextFontSize="11.5"/>
             <controls:TimeIntervalSlider x:Name="RoundsSlider"
                                          Title="Rounds"
-                                         TimeInterval="00:15"
+                                         TimeInterval="{Binding Rounds, Converter={StaticResource intToTimeSpanConverter}, Mode=TwoWay}"
                                          MaxTimeInterval="00:12"
                                          TitleBrush="{DynamicResource PrimaryTextBrush}"
                                          TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"

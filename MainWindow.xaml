@@ -6,13 +6,16 @@
         xmlns:local="clr-namespace:RedFocus"
         xmlns:controls="clr-namespace:RedFocus.Controls"
         xmlns:converters="clr-namespace:RedFocus.Converters"
+        xmlns:vm="clr-namespace:RedFocus.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="478" Width="360"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="NoResize">
-
+    <Window.DataContext>
+        <vm:TimerConfigViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <Storyboard x:Key="MenuShowAnimation">
             <DoubleAnimation Storyboard.TargetName="MenuTransform"
