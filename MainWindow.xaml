@@ -132,8 +132,8 @@
                                     TextColor="{DynamicResource PrimaryTextBrush}"
                                     CircleThickness="3"
                                     ShowText="True"
-                                    TotalSeconds="60"
-                                    Margin="20"/>
+                                    Margin="20"
+                                          />
                 <controls:SwitchButton IsActive="{Binding ElementName=CountdownTimer, Path=IsRunning}" Content="{Binding RelativeSource={RelativeSource Mode=Self}, 
                     Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" CountdownCircle="{Binding ElementName=CountdownTimer}" 
                                        Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
