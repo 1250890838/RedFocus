@@ -16,35 +16,9 @@ public class SwitchButton : Button
 
     public SwitchButton()
     {
-        Click += SwitchButton_Click;
-    }
-
-    private void SwitchButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (CountdownCircle is not null)
-        {
-            if(CountdownCircle.IsRunning)
-            {
-                CountdownCircle.Pause();
-            }
-            else
-            {
-                CountdownCircle.Start();
-            }
-        }
     }
 
     #region 依赖属性
-
-    public static readonly DependencyProperty CountdownCircleProperty =
-        DependencyProperty.Register(nameof(CountdownCircle), typeof(CountdownCircle), typeof(SwitchButton),
-            new PropertyMetadata(null));
-    public CountdownCircle CountdownCircle
-    {
-        get => (CountdownCircle)GetValue(CountdownCircleProperty);
-        set => SetValue(CountdownCircleProperty, value);
-    }
-
     public static readonly DependencyProperty IsActiveProperty =
         DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(SwitchButton),
             new PropertyMetadata(false, OnIsActiveChanged));
@@ -60,12 +34,10 @@ public class SwitchButton : Button
             bool newValue = (bool)e.NewValue;
             if (newValue)
             {
-                button.CountdownCircle.Start();
                 button.UnicodeChar = "\u23F8";
             }
             else
             {
-                button.CountdownCircle.Pause();
                 button.UnicodeChar = "\u25B6";
             }
         }

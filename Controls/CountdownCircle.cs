@@ -11,7 +11,6 @@ namespace RedFocus.Controls;
 /// </summary>
 public class CountdownCircle : Control
 {
-    private DispatcherTimer? _timer;
     private Path? _progressPath;
 
     static CountdownCircle()
@@ -22,11 +21,6 @@ public class CountdownCircle : Control
 
     public CountdownCircle()
     {
-        _timer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(50)
-        };
-        _timer.Tick += Timer_Tick;
     }
 
     public override void OnApplyTemplate()
@@ -39,44 +33,44 @@ public class CountdownCircle : Control
     #region 依赖属性
 
     /// <summary>
-    /// 总时长（秒）
+    /// 总时长（分钟）
     /// </summary>
-    public static readonly DependencyProperty TotalSecondsProperty =
-        DependencyProperty.Register(nameof(TotalSeconds), typeof(double), typeof(CountdownCircle),
-            new PropertyMetadata(10.0, OnTotalSecondsChanged));
-
-    public double TotalSeconds
+    public static readonly DependencyProperty TotalMinutesProperty =
+        DependencyProperty.Register(nameof(TotalMinutes), typeof(double), typeof(CountdownCircle),
+            new PropertyMetadata(10.0, OnTotalMinutesChanged));
+    public double TotalMinutes
     {
-        get => (double)GetValue(TotalSecondsProperty);
-        set => SetValue(TotalSecondsProperty, value);
+        get => (double)GetValue(TotalMinutesProperty);
+        set => SetValue(TotalMinutesProperty, value);
     }
-
-    private static void OnTotalSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is CountdownCircle control)
-        {
-            control.Reset();
-        }
-    }
-
-    /// <summary>
-    /// 当前剩余秒数
-    /// </summary>
-    public static readonly DependencyProperty RemainingSecondsProperty =
-        DependencyProperty.Register(nameof(RemainingSeconds), typeof(double), typeof(CountdownCircle),
-            new PropertyMetadata(60.0, OnRemainingSecondsChanged));
-
-    public double RemainingSeconds
-    {
-        get => (double)GetValue(RemainingSecondsProperty);
-        private set => SetValue(RemainingSecondsProperty, value);
-    }
-
-    private static void OnRemainingSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnTotalMinutesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is CountdownCircle control)
         {
             control.UpdateProgress();
+            control.UpdateDisplayText();
+        }
+    }
+
+    /// <summary>
+    /// 当前剩余分钟数
+    /// </summary>
+    public static readonly DependencyProperty RemainingMinutesProperty =
+        DependencyProperty.Register(nameof(RemainingMinutes), typeof(double), typeof(CountdownCircle),
+            new PropertyMetadata(10.0, OnRemainingMinutesChanged));
+
+    public double RemainingMinutes
+    {
+        get => (double)GetValue(RemainingMinutesProperty);
+        set => SetValue(RemainingMinutesProperty, value);
+    }
+
+    private static void OnRemainingMinutesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is CountdownCircle control)
+        {
+            control.UpdateProgress();
+            control.UpdateDisplayText();
         }
     }
 
@@ -85,20 +79,12 @@ public class CountdownCircle : Control
     /// </summary>
     public static readonly DependencyProperty ProgressProperty =
         DependencyProperty.Register(nameof(Progress), typeof(double), typeof(CountdownCircle),
-            new PropertyMetadata(100.0, OnProgressChanged));
+            new PropertyMetadata(100.0));
 
     public double Progress
     {
         get => (double)GetValue(ProgressProperty);
         private set => SetValue(ProgressProperty, value);
-    }
-
-    private static void OnProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is CountdownCircle control)
-        {
-            control.UpdateProgressPath();
-        }
     }
 
     /// <summary>
@@ -178,120 +164,25 @@ public class CountdownCircle : Control
         get => (string)GetValue(DisplayTextProperty);
         private set => SetValue(DisplayTextProperty, value);
     }
-
-    /// <summary>
-    /// 是否正在运行
-    /// </summary>
-    public static readonly DependencyProperty IsRunningProperty =
-        DependencyProperty.Register(nameof(IsRunning), typeof(bool), typeof(CountdownCircle),
-            new PropertyMetadata(false));
-
-    public bool IsRunning
-    {
-        get => (bool)GetValue(IsRunningProperty);
-        private set => SetValue(IsRunningProperty, value);
-    }
-
-    #endregion
-
-    #region 路由事件
-
-    /// <summary>
-    /// 倒计时完成事件
-    /// </summary>
-    public static readonly RoutedEvent CompletedEvent =
-        EventManager.RegisterRoutedEvent(nameof(Completed), RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler), typeof(CountdownCircle));
-
-    public event RoutedEventHandler Completed
-    {
-        add => AddHandler(CompletedEvent, value);
-        remove => RemoveHandler(CompletedEvent, value);
-    }
-
-    /// <summary>
-    /// 倒计时tick事件（每次更新时触发）
-    /// </summary>
-    public static readonly RoutedEvent TickEvent =
-        EventManager.RegisterRoutedEvent(nameof(Tick), RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler), typeof(CountdownCircle));
-
-    public event RoutedEventHandler Tick
-    {
-        add => AddHandler(TickEvent, value);
-        remove => RemoveHandler(TickEvent, value);
-    }
-
-    #endregion
-
-    #region 公共方法
-
-    /// <summary>
-    /// 开始倒计时
-    /// </summary>
-    public void Start()
-    {
-        if (_timer == null || IsRunning) return;
-        _timer.Start();
-        IsRunning = true;
-    }
-
-    /// <summary>
-    /// 暂停倒计时
-    /// </summary>
-    public void Pause()
-    {
-        if (_timer == null || !IsRunning) return;
-        _timer.Stop();
-        IsRunning = false;
-    }
-
-    /// <summary>
-    /// 重置倒计时
-    /// </summary>
-    public void Reset()
-    {
-        Pause();
-        RemainingSeconds = TotalSeconds;
-        UpdateDisplayText();
-    }
-
     #endregion
 
     #region 私有方法
-
-    private void Timer_Tick(object? sender, EventArgs e)
-    {
-        var elapsed = _timer!.Interval;
-        RemainingSeconds -= elapsed.TotalSeconds;
-        if (RemainingSeconds <= 0)
-        {
-            RemainingSeconds = 0;
-            Pause();
-            RaiseEvent(new RoutedEventArgs(CompletedEvent, this));
-        }
-        else
-        {
-          //  RaiseEvent(new RoutedEventArgs(TickEvent, this));
-        }
-        UpdateDisplayText();
-    }
-
     private void UpdateProgress()
     {
-        if (TotalSeconds > 0)
+        if (TotalMinutes > 0)
         {
-            Progress = (RemainingSeconds / TotalSeconds) * 100;
+            Progress = (RemainingMinutes / TotalMinutes) * 100;
         }
         else
         {
             Progress = 0;
         }
+        UpdateProgressPath();
     }
 
     private void UpdateDisplayText()
     {
-        var timeSpan = TimeSpan.FromSeconds(RemainingSeconds);
+        var timeSpan = TimeSpan.FromMinutes(RemainingMinutes);
         DisplayText = $"{(int)timeSpan.TotalMinutes}:{timeSpan.Seconds:D2}";
     }
 

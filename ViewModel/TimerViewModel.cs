@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace RedFocus.ViewModel;
 public enum TimerState
@@ -11,37 +14,125 @@ public enum TimerState
     ShortBreak,
     LongBreak
 }
-public class TimerViewModel : ViewModelBase
+
+internal class TimerViewModel : ViewModelBase
 {
-    public TimerConfigViewModel TimerConfig { get; init; }
+    private DispatcherTimer _timer;
+    private TimerState _currentState;
+    private int _currentRound = 1;
+    private double _remainingMinutes;
+
+    [SetsRequiredMembers]
     public TimerViewModel(TimerConfigViewModel timerConfig)
     {
         TimerConfig = timerConfig;
-        CurrentState = TimerState.Focus;
+        _timer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(50)
+        };
+        _timer.Tick += Timer_Tick;
+        ToggleCommand = new RelayCommand(_ =>
+        {
+            if (_timer.IsEnabled)
+                Pause();
+            else
+                Start();
+        });
+        TimerState = TimerState.Focus;
+        _remainingMinutes = TimerState switch
+        {
+            TimerState.Focus => TimerConfig.FocusTime.TotalMinutes,
+            TimerState.ShortBreak => TimerConfig.ShortBreakTime.TotalMinutes,
+            TimerState.LongBreak => TimerConfig.LongBreakTime.TotalMinutes,
+            _ => 0.0
+        };
     }
 
-    private TimerState _currentState;
-    public TimerState CurrentState
+    #region 属性
+    required public TimerConfigViewModel TimerConfig { get; init; }
+    public TimerState TimerState
     {
         get => _currentState;
-        set
+        private set
         {
             _currentState = value;
             OnPropertyChanged();
         }
     }
-
-    public TimeSpan CurrentTime
+    public double TimerTotalMinutes
     {
         get
         {
-            return CurrentState switch
+            return TimerState switch
             {
-                TimerState.Focus => TimerConfig.FocusTime,
-                TimerState.ShortBreak => TimerConfig.ShortBreakTime,
-                TimerState.LongBreak => TimerConfig.LongBreakTime,
-                _ => TimeSpan.Zero
+                TimerState.Focus => TimerConfig.FocusTime.TotalMinutes,
+                TimerState.ShortBreak => TimerConfig.ShortBreakTime.TotalMinutes,
+                TimerState.LongBreak => TimerConfig.LongBreakTime.TotalMinutes,
+                _ => 0.0
             };
         }
     }
+    public double TimerRemainingMinutes
+    {
+        get => _remainingMinutes;
+        private set
+        {
+            _remainingMinutes = value;
+            OnPropertyChanged();
+        }
+    }
+    public int CurrentRound
+    {
+        get => _currentRound;
+        private set
+        {
+            _currentRound = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsRunning => _timer.IsEnabled;
+    public ICommand ToggleCommand { get; }
+    #endregion
+
+    #region 私有成员
+    private void Timer_Tick(object? sender, EventArgs e)
+    {
+        var elapsed = _timer!.Interval;
+        TimerRemainingMinutes -= elapsed.TotalMinutes;
+        if (TimerRemainingMinutes <= 0)
+        {
+            TimerRemainingMinutes = 0;
+            Pause();
+            // 切换状态逻辑
+            if (TimerState == TimerState.Focus)
+            {
+                if (CurrentRound == TimerConfig.Rounds)
+                {
+                    TimerState = TimerState.LongBreak;
+                }
+                else
+                {
+                    TimerState = TimerState.ShortBreak;
+                }
+            }
+            else
+            {
+                TimerState = TimerState.Focus;
+                CurrentRound++;
+            }
+        }
+    }
+    private void Start()
+    {
+        _timer.Start();
+        OnPropertyChanged(nameof(IsRunning));
+    }
+
+    private void Pause()
+    {
+        _timer.Stop();
+        OnPropertyChanged(nameof(IsRunning));
+    }
+    #endregion
 }

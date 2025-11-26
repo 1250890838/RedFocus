@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RedFocus.ViewModel;
 
 namespace RedFocus;
 
@@ -23,6 +24,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        ViewModel.TimerConfigViewModel timerConfigViewModel = new ViewModel.TimerConfigViewModel();
+        ViewModel.TimerViewModel timerViewModel = new(timerConfigViewModel);
+        this.DataContext = timerViewModel;
     }
 
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

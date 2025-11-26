@@ -3,15 +3,17 @@ using System.Windows.Input;
 using RedFocus.Model;
 
 namespace RedFocus.ViewModel;
-public class TimerConfigViewModel : ViewModelBase
+internal class TimerConfigViewModel : ViewModelBase
 {
     private TimerConfig _timerConfig = new()
     {
-        FocusTime = TimeSpan.FromMinutes(25),
+        FocusTime = TimeSpan.FromMinutes(1),
         ShortBreakTime = TimeSpan.FromMinutes(5),
         LongBreakTime = TimeSpan.FromMinutes(15),
         Rounds = 4
     };
+
+    #region
     public TimeSpan FocusTime
     {
         get => _timerConfig.FocusTime;
@@ -65,10 +67,13 @@ public class TimerConfigViewModel : ViewModelBase
         }
     }
     public ICommand ResetCommand { get; }
+    #endregion
     public TimerConfigViewModel()
     {
         ResetCommand = new RelayCommand(_ => ResetToDefault());
     }
+
+    #region 公共成员
     public void Load(TimerConfig config)
     {
         _timerConfig = config;
@@ -78,6 +83,9 @@ public class TimerConfigViewModel : ViewModelBase
         OnPropertyChanged(nameof(Rounds));
     }
     public TimerConfig Export() => _timerConfig;
+    #endregion
+
+    #region 私有成员
     private void ResetToDefault()
     {
         Load(new TimerConfig
@@ -88,22 +96,5 @@ public class TimerConfigViewModel : ViewModelBase
             Rounds = 4
         });
     }
-    private class RelayCommand : ICommand
-    {
-        private readonly Action<object?> _execute;
-        private readonly Func<object?, bool>? _canExecute;
-        public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute = null)
-        {
-            _execute = execute;
-            _canExecute = canExecute;
-        }
-        public bool CanExecute(object? parameter) => _canExecute?.Invoke(parameter) ?? true;
-        public void Execute(object? parameter) => _execute(parameter);
-        public event EventHandler? CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-        public void RaiseCanExecuteChanged() => CommandManager.InvalidateRequerySuggested();
-    }
+    #endregion
 }
