@@ -156,13 +156,23 @@ public class CountdownCircle : Control
     /// 显示的文本
     /// </summary>
     public static readonly DependencyProperty DisplayTextProperty =
-        DependencyProperty.Register(nameof(DisplayText), typeof(string), typeof(CountdownCircle),
-            new PropertyMetadata("01:00"));
+        DependencyProperty.Register(nameof(DisplayText), typeof(string), typeof(CountdownCircle));
 
     public string DisplayText
     {
         get => (string)GetValue(DisplayTextProperty);
         private set => SetValue(DisplayTextProperty, value);
+    }
+
+    /// <summary>
+    /// 显示的状态文本
+    /// </summary>
+    public static readonly DependencyProperty StatusTextProperty =
+        DependencyProperty.Register(nameof(StatusText), typeof(string), typeof(CountdownCircle));
+    public string StatusText
+    {
+        get => (string)GetValue(StatusTextProperty);
+        set => SetValue(StatusTextProperty, value);
     }
     #endregion
 

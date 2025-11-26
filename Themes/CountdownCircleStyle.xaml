@@ -29,7 +29,7 @@
                                       Fill="Transparent"/>
 
                                 <TextBlock x:Name="TimeText"
-                                         Canvas.Left="100" Canvas.Top="85"
+                                         Canvas.Left="10" Canvas.Top="75"
                                          Text="{TemplateBinding DisplayText}"
                                          FontSize="32"
                                          FontWeight="Bold"
@@ -37,9 +37,6 @@
                                          TextAlignment="Center"
                                          Width="180"
                                          Visibility="{TemplateBinding ShowText, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <TextBlock.RenderTransform>
-                                        <TranslateTransform X="-90"/>
-                                    </TextBlock.RenderTransform>
                                 </TextBlock>
                             </Canvas>
                         </Viewbox>
