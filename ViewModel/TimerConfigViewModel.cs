@@ -13,7 +13,7 @@ internal class TimerConfigViewModel : ViewModelBase
         Rounds = 4
     };
 
-    #region
+    #region 属性
     public TimeSpan FocusTime
     {
         get => _timerConfig.FocusTime;

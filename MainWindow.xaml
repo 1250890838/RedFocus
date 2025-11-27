@@ -139,7 +139,11 @@
                     Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" 
                                        Command="{Binding ToggleCommand}"
                                        Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
-
+                <StackPanel Margin="12,15,12,15" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"></TextBlock>
+                    <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
+                    <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"></TextBlock>
+                </StackPanel>
 
                 <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>

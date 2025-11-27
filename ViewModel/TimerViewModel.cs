@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace RedFocus.ViewModel;
 public enum TimerState
@@ -136,6 +137,13 @@ internal class TimerViewModel : ViewModelBase
         TimerRemainingMinutes -= elapsed.TotalMinutes;
         if (TimerRemainingMinutes <= 0)
         {
+            string title = TimerState switch
+            {
+                TimerState.Focus => "专注时间到！",
+                TimerState.ShortBreak => "短休息时间到！",
+                TimerState.LongBreak => "长休息时间到！",
+                _ => "时间到！"
+            };
             TimerRemainingMinutes = 0;
             Pause();
             // 切换状态逻辑
@@ -152,10 +160,36 @@ internal class TimerViewModel : ViewModelBase
             }
             else
             {
+                if (TimerState == TimerState.LongBreak)
+                {
+                    CurrentRound = 1;
+                }
+                else
+                {
+                    CurrentRound++;
+                }
                 TimerState = TimerState.Focus;
-                CurrentRound++;
             }
+            string content = TimerState switch
+            {
+                TimerState.Focus => "开始新的专注时间，继续加油！",
+                TimerState.ShortBreak => "休息一下，放松片刻！",
+                TimerState.LongBreak => "享受一个长休息吧！",
+                _ => "新的时间段开始了！"
+            };
+            OnPropertyChanged(nameof(TimerTotalMinutes));
+            TimerRemainingMinutes = TimerTotalMinutes;
+            Start();
+            ShowWindowsNotification(title, content);
         }
+    }
+
+    private void ShowWindowsNotification(string title, string content)
+    {
+        var builder = new ToastContentBuilder()
+            .AddText(title)
+            .AddText(content);
+        builder.Show();
     }
     private void Start()
     {
