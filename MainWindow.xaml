@@ -14,6 +14,7 @@
         Background="Transparent"
         ResizeMode="NoResize">
     <Window.Resources>
+        <converters:TimerStateToStringConverter x:Key="TimerStateToStringConverter"/>
         <Storyboard x:Key="MenuShowAnimation">
             <DoubleAnimation Storyboard.TargetName="MenuTransform"
                            Storyboard.TargetProperty="X"
@@ -129,6 +130,7 @@
                                     TextColor="{DynamicResource PrimaryTextBrush}"
                                     CircleThickness="3"
                                     ShowText="True"
+                                    StatusText="{Binding TimerState, Converter={StaticResource TimerStateToStringConverter}}"
                                     Margin="20"
                                     TotalMinutes="{Binding TimerTotalMinutes}"
                                     RemainingMinutes="{Binding TimerRemainingMinutes}"

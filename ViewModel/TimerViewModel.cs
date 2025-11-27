@@ -26,6 +26,7 @@ internal class TimerViewModel : ViewModelBase
     public TimerViewModel(TimerConfigViewModel timerConfig)
     {
         TimerConfig = timerConfig;
+        TimerConfig.PropertyChanged += (_, args) => OnTimeConfigChanged(args);
         _timer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(50)
@@ -96,6 +97,39 @@ internal class TimerViewModel : ViewModelBase
     #endregion
 
     #region 私有成员
+    private void OnTimeConfigChanged(PropertyChangedEventArgs args)
+    {
+        switch(args.PropertyName)
+        {
+            case nameof(TimerConfig.FocusTime) when TimerState == TimerState.Focus:
+                TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+                Pause();
+                break;
+            case nameof(TimerConfig.FocusTime):
+                TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+                break;
+            case nameof(TimerConfig.ShortBreakTime) when TimerState == TimerState.ShortBreak:
+                TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+                Pause();
+                break;
+            case nameof(TimerConfig.ShortBreakTime):
+                TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+                break;
+            case nameof(TimerConfig.LongBreakTime) when TimerState == TimerState.LongBreak:
+                TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+                Pause();
+                break;
+            case nameof(TimerConfig.LongBreakTime):
+                TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+                break;
+        }
+    }
     private void Timer_Tick(object? sender, EventArgs e)
     {
         var elapsed = _timer!.Interval;
