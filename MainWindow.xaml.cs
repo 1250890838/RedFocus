@@ -90,4 +90,13 @@ public partial class MainWindow : Window
             timerViewModel.ProcessRoundChanged();
         }
     }
+
+    private void ResetButton_Click(object sender, RoutedEventArgs e)
+    {
+        object context = this.DataContext;
+        if (context is ViewModel.TimerViewModel timerViewModel)
+        {
+            timerViewModel.Reset();
+        }
+    }
 }

@@ -145,6 +145,11 @@ internal class TimerViewModel : ViewModelBase
         Start();
         ShowWindowsNotification(title, content);
     }
+    public void Reset()
+    {
+        TimerRemainingMinutes = TimerTotalMinutes;
+        Pause();
+    }
     #endregion
 
     #region 私有成员
@@ -190,8 +195,6 @@ internal class TimerViewModel : ViewModelBase
             ProcessRoundChanged();
         }
     }
-
-
     private void ShowWindowsNotification(string title, string content)
     {
         var builder = new ToastContentBuilder()
@@ -204,7 +207,6 @@ internal class TimerViewModel : ViewModelBase
         _timer.Start();
         OnPropertyChanged(nameof(IsRunning));
     }
-
     private void Pause()
     {
         _timer.Stop();
