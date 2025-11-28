@@ -86,7 +86,7 @@ internal class TimerViewModel : ViewModelBase
     public int CurrentRound
     {
         get => _currentRound;
-        private set
+        set
         {
             _currentRound = value;
             OnPropertyChanged();
@@ -97,10 +97,60 @@ internal class TimerViewModel : ViewModelBase
     public ICommand ToggleCommand { get; }
     #endregion
 
+    #region 公有成员
+    public void ProcessRoundChanged()
+    {
+        string title = TimerState switch
+        {
+            TimerState.Focus => "专注时间到！",
+            TimerState.ShortBreak => "短休息时间到！",
+            TimerState.LongBreak => "长休息时间到！",
+            _ => "时间到！"
+        };
+        TimerRemainingMinutes = 0;
+        Pause();
+        // 切换状态逻辑
+        if (TimerState == TimerState.Focus)
+        {
+            if (CurrentRound == TimerConfig.Rounds)
+            {
+                TimerState = TimerState.LongBreak;
+            }
+            else
+            {
+                TimerState = TimerState.ShortBreak;
+            }
+        }
+        else
+        {
+            if (TimerState == TimerState.LongBreak)
+            {
+                CurrentRound = 1;
+            }
+            else
+            {
+                CurrentRound++;
+            }
+            TimerState = TimerState.Focus;
+        }
+        string content = TimerState switch
+        {
+            TimerState.Focus => "开始新的专注时间，继续加油！",
+            TimerState.ShortBreak => "休息一下，放松片刻！",
+            TimerState.LongBreak => "享受一个长休息吧！",
+            _ => "新的时间段开始了！"
+        };
+        OnPropertyChanged(nameof(TimerTotalMinutes));
+        TimerRemainingMinutes = TimerTotalMinutes;
+        Start();
+        ShowWindowsNotification(title, content);
+    }
+    #endregion
+
     #region 私有成员
     private void OnTimeConfigChanged(PropertyChangedEventArgs args)
     {
-        switch(args.PropertyName)
+        switch (args.PropertyName)
         {
             case nameof(TimerConfig.FocusTime) when TimerState == TimerState.Focus:
                 TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
@@ -137,52 +187,10 @@ internal class TimerViewModel : ViewModelBase
         TimerRemainingMinutes -= elapsed.TotalMinutes;
         if (TimerRemainingMinutes <= 0)
         {
-            string title = TimerState switch
-            {
-                TimerState.Focus => "专注时间到！",
-                TimerState.ShortBreak => "短休息时间到！",
-                TimerState.LongBreak => "长休息时间到！",
-                _ => "时间到！"
-            };
-            TimerRemainingMinutes = 0;
-            Pause();
-            // 切换状态逻辑
-            if (TimerState == TimerState.Focus)
-            {
-                if (CurrentRound == TimerConfig.Rounds)
-                {
-                    TimerState = TimerState.LongBreak;
-                }
-                else
-                {
-                    TimerState = TimerState.ShortBreak;
-                }
-            }
-            else
-            {
-                if (TimerState == TimerState.LongBreak)
-                {
-                    CurrentRound = 1;
-                }
-                else
-                {
-                    CurrentRound++;
-                }
-                TimerState = TimerState.Focus;
-            }
-            string content = TimerState switch
-            {
-                TimerState.Focus => "开始新的专注时间，继续加油！",
-                TimerState.ShortBreak => "休息一下，放松片刻！",
-                TimerState.LongBreak => "享受一个长休息吧！",
-                _ => "新的时间段开始了！"
-            };
-            OnPropertyChanged(nameof(TimerTotalMinutes));
-            TimerRemainingMinutes = TimerTotalMinutes;
-            Start();
-            ShowWindowsNotification(title, content);
+            ProcessRoundChanged();
         }
     }
+
 
     private void ShowWindowsNotification(string title, string content)
     {

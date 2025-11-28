@@ -7,6 +7,7 @@
         xmlns:controls="clr-namespace:RedFocus.Controls"
         xmlns:converters="clr-namespace:RedFocus.Converters"
         xmlns:vm="clr-namespace:RedFocus.ViewModel"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
         Title="MainWindow" Height="478" Width="360"
         WindowStyle="None"
@@ -81,6 +82,9 @@
                             Click="MenuButton_Click"
                             Style="{DynamicResource TitleBarButtonStyle}"
                             Width="50">
+                        <Button.ToolTip>
+                            设置
+                        </Button.ToolTip>
                         <Button.Content>
                             <TextBlock x:Name="MenuButtonText" Text="&#x2630;">
                                 <TextBlock.RenderTransform>
@@ -139,11 +143,39 @@
                     Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" 
                                        Command="{Binding ToggleCommand}"
                                        Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
-                <StackPanel Margin="12,15,12,15" Grid.Row="2" Orientation="Horizontal">
-                    <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"></TextBlock>
-                    <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
-                    <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"></TextBlock>
-                </StackPanel>
+                <DockPanel Margin="12,15,12,15" Grid.Row="2" LastChildFill="False">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"></TextBlock>
+                        <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
+                        <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"></TextBlock>
+                    </StackPanel>
+                    <Button x:Name="NextRoundButton" BorderBrush="Transparent" Background="Transparent" DockPanel.Dock="Right" Click="NextRoundButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Grid Background="Transparent">
+                                                <Image x:Name="IconImage" 
+                                                    Source="{svgc:SvgImage Source=/Icons/NextRound.svg}" 
+                                                    Width="20" 
+                                                    Height="20"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="IconImage"  Property="Source" Value="{svgc:SvgImage Source=/Icons/NextRoundHovered.svg}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DockPanel>
 
                 <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
                     <Border.RenderTransform>

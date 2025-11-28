@@ -20,7 +20,6 @@
                                        Stroke="{TemplateBinding BackgroundCircleColor}"
                                        StrokeThickness="{TemplateBinding CircleThickness}"
                                        Fill="Transparent"/>
-
                                 <Path x:Name="PART_ProgressPath"
                                       Canvas.Left="0" Canvas.Top="0"
                                       Stroke="{TemplateBinding CircleColor}"
@@ -28,7 +27,6 @@
                                       StrokeStartLineCap="Round"
                                       StrokeEndLineCap="Round"
                                       Fill="Transparent"/>
-
                                 <TextBlock x:Name="TimeText"
                                          Canvas.Left="10" Canvas.Top="75"
                                          Text="{TemplateBinding DisplayText}"

@@ -82,4 +82,12 @@ public partial class MainWindow : Window
         HideMenu();
     }
 
+    private void NextRoundButton_Click(object sender, RoutedEventArgs e)
+    {
+        object context = this.DataContext;
+        if (context is ViewModel.TimerViewModel timerViewModel)
+        {
+            timerViewModel.ProcessRoundChanged();
+        }
+    }
 }
