@@ -19,7 +19,7 @@
             <Trigger Property="IsActive" Value="False">
                 <Trigger.EnterActions>
                     <BeginStoryboard Name="DeactivateFlash">
-                        <Storyboard>
+                        <Storyboard FillBehavior="Stop">
                             <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
                                       Storyboard.TargetProperty="Opacity" 
                                         From="1"
@@ -32,14 +32,11 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <StopStoryboard BeginStoryboardName="DeactivateFlash"/>
-                </Trigger.ExitActions>
             </Trigger>
             <Trigger Property="IsActive" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard Name="ActivateFlash">
-                        <Storyboard>
+                        <Storyboard FillBehavior="Stop">
                             <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
                                            Storyboard.TargetProperty="Opacity" 
                                              From="1"
@@ -52,11 +49,7 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <StopStoryboard BeginStoryboardName="ActivateFlash"/>
-                </Trigger.ExitActions>
             </Trigger>
-     
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
