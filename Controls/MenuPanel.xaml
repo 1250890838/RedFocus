@@ -27,10 +27,15 @@
                             <Rectangle x:Name="selectionIndicator"
                                       Height="3"
                                       VerticalAlignment="Bottom"
-                                      Fill="Red"
                                       Margin="30,0"
                                       Visibility="Collapsed"
                                       RenderTransformOrigin="0.5,0.5">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#FF6A00" Offset="0.0"/>
+                                        <GradientStop Color="#FFB800" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
                                 <Rectangle.RenderTransform>
                                     <ScaleTransform x:Name="indicatorScale" ScaleX="0.1"/>
                                 </Rectangle.RenderTransform>
