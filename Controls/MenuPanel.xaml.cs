@@ -1,26 +1,25 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RedFocus.Pages;
 
 namespace RedFocus.Controls
 {
     public partial class MenuPanel : UserControl
     {
-        public static readonly DependencyProperty CurrentPageProperty =
-            DependencyProperty.Register(nameof(CurrentPage), typeof(UserControl), typeof(MenuPanel),
-                new PropertyMetadata(null));
-
-        public UserControl? CurrentPage
-        {
-            get => (UserControl?)GetValue(CurrentPageProperty);
-            set => SetValue(CurrentPageProperty, value);
-        }
-
         private readonly TimerConfigurationPage _timerConfigurationPage;
         private readonly OptionsPage _optionsPage;
         private readonly ThemesPage _themesPage;
         private readonly AboutPage _aboutPage;
 
+        public static readonly DependencyProperty CurrentPageProperty =
+    DependencyProperty.Register(nameof(CurrentPage), typeof(UserControl), typeof(MenuPanel),
+        new PropertyMetadata(null));
+        public UserControl? CurrentPage
+        {
+            get => (UserControl?)GetValue(CurrentPageProperty);
+            set => SetValue(CurrentPageProperty, value);
+        }
         public MenuPanel()
         {
             InitializeComponent();

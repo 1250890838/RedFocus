@@ -16,27 +16,10 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="TemplateBorder" Property="Background" Value="Red"/>
             </Trigger>
-            <Trigger Property="IsActive" Value="False">
-                <Trigger.EnterActions>
-                    <BeginStoryboard Name="DeactivateFlash">
-                        <Storyboard FillBehavior="Stop">
-                            <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
-                                      Storyboard.TargetProperty="Opacity" 
-                                        From="1"
-                                      To="0" Duration="0:0:0.2"/>
-                            <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
-                                      Storyboard.TargetProperty="Opacity"
-                                        From="0"
-                                      To="1" Duration="0:0:0.5" 
-                                      BeginTime="0:0:0.2"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-            </Trigger>
             <Trigger Property="IsActive" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard Name="ActivateFlash">
-                        <Storyboard FillBehavior="Stop">
+                        <Storyboard>
                             <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
                                            Storyboard.TargetProperty="Opacity" 
                                              From="1"
@@ -49,6 +32,21 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                        <BeginStoryboard Name="DeactivateFlash">
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
+                                      Storyboard.TargetProperty="Opacity" 
+                                        From="1"
+                                      To="0" Duration="0:0:0.2"/>
+                                <DoubleAnimation Storyboard.TargetName="TemplateBorder" 
+                                      Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                      To="1" Duration="0:0:0.5" 
+                                      BeginTime="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                </Trigger.ExitActions>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

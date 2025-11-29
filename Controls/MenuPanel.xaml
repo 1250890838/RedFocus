@@ -6,37 +6,89 @@
              xmlns:local="clr-namespace:RedFocus.Controls"
              xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
              mc:Ignorable="d" 
-             d:DesignHeight="428" d:DesignWidth="360">
+             d:DesignHeight="428" d:DesignWidth="360"
+             >
 
     <UserControl.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Height" Value="50"/>
-            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" 
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Margin="5,2">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                        </Border>
+                        <Grid>
+                            <Border x:Name="border" 
+                                    Background="Transparent"
+                                    BorderBrush="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"/>
+                            </Border>
+                            <Rectangle x:Name="selectionIndicator"
+                                      Height="3"
+                                      VerticalAlignment="Bottom"
+                                      Fill="Red"
+                                      Margin="30,0"
+                                      Visibility="Collapsed"
+                                      RenderTransformOrigin="0.5,0.5">
+                                <Rectangle.RenderTransform>
+                                    <ScaleTransform x:Name="indicatorScale" ScaleX="0.1"/>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="{DynamicResource AccentBrush}"/>
-                                <Setter TargetName="border" Property="Opacity" Value="0.3"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
                             </Trigger>
                             <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Selected">
-                                <Setter TargetName="border" Property="Background" Value="{DynamicResource AccentBrush}"/>
-                                <Setter TargetName="border" Property="Opacity" Value="0.6"/>
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="indicatorScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           From="0.1"
+                                                           To="1"
+                                                           Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="selectionIndicator"
+                                                                            Storyboard.TargetProperty="Visibility"
+                                                                            BeginTime="0:0:0.2">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="indicatorScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           From="1"
+                                                           To="0.1"
+                                                           Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="selectionIndicator"
+                                                                            Storyboard.TargetProperty="Visibility"
+                                                                            BeginTime="0:0:0.2">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Collapsed</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -45,7 +97,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="{DynamicResource PrimaryBackgroundBrush}">
+    <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="36"/>
@@ -59,7 +111,7 @@
         </Border>
 
         <Grid Grid.Row="1" 
-              Background="{DynamicResource PrimaryBackgroundBrush}"
+              Background="	#2c3043"
               Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
