@@ -139,10 +139,8 @@
                                     TotalMinutes="{Binding TimerTotalMinutes}"
                                     RemainingMinutes="{Binding TimerRemainingMinutes}"
                                           />
-                <controls:SwitchButton IsActive="{Binding IsRunning}" Content="{Binding RelativeSource={RelativeSource Mode=Self}, 
-                    Path=UnicodeChar}" Template="{StaticResource switchButtonStyle}"  x:Name="SwtichTimerButton" 
-                                       Command="{Binding ToggleCommand}"
-                                       Foreground="White" BorderBrush="Pink" BorderThickness="1.2" Background="Transparent" Height="58" Width="58" Grid.Row="1" />
+                <controls:SwitchButton Grid.Row="1" />
+                
                 <DockPanel Margin="12,15,12,15" Grid.Row="2" LastChildFill="False">
                     <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                         <StackPanel Orientation="Horizontal" >
@@ -157,7 +155,7 @@
 
                     <Button x:Name="NextRoundButton" BorderBrush="Transparent" Background="Transparent" DockPanel.Dock="Right" Click="NextRoundButton_Click">
                         <Button.Style>
-                            <Style TargetType="Button">
+                        <Style TargetType="Button">
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="BorderBrush" Value="Transparent"/>
                                 <Setter Property="Template">

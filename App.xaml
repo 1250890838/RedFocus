@@ -7,10 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/DarkTheme.xaml"/>
-                <ResourceDictionary Source="/Themes/CountdownCircleStyle.xaml"/>
-                <ResourceDictionary Source="/Themes/SwtichButtonStyle.xaml" />
-                <ResourceDictionary Source="/Themes/TimeIntervalSliderStyle.xaml" />
-                <ResourceDictionary Source="/Themes/TextButton.xaml" />
+                <ResourceDictionary Source="/Themes/BuiltInControls.xaml" />
+                <ResourceDictionary Source="/Themes/CustomControls.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

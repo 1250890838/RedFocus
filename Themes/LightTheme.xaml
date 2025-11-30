@@ -1,5 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:RedFocus.Converters"
+                    xmlns:local="clr-namespace:RedFocus.Controls"
+                    >
     
     <Color x:Key="PrimaryBackgroundColor">#F5F5F5</Color>
     <Color x:Key="TitleBarBackgroundColor">Transparent</Color>
@@ -16,36 +19,4 @@
     <SolidColorBrush x:Key="CloseButtonHoverBrush" Color="{StaticResource CloseButtonHoverColor}"/>
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
     <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource WindowBorderColor}"/>
-    
-    <Style x:Key="TitleBarButtonStyle" TargetType="Button">
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-		<Setter Property="BorderThickness" Value="0"/>
-		<Setter Property="FontSize" Value="16"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="Button">
-					<Border Background="{TemplateBinding Background}">
-						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style x:Key="TitleBarMinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
-		<Style.Triggers>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Foreground" Value="{StaticResource MinimizeButtonHoverBrush}"/>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
-
-	<Style x:Key="TitleBarCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
-		<Style.Triggers>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Foreground" Value="{DynamicResource CloseButtonHoverBrush}"/>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
 </ResourceDictionary>
