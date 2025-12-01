@@ -4,34 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
          xmlns:local="clr-namespace:RedFocus.Pages"
+             xmlns:controls="clr-namespace:RedFocus.Controls"
            mc:Ignorable="d" 
   d:DesignHeight="400" d:DesignWidth="340">
+    <UserControl.Resources>
+        <Style TargetType="controls:ColorItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid Background="{DynamicResource PrimaryBackgroundBrush}">
 		<StackPanel Margin="20">
-			<TextBlock Text="Options"
-    FontSize="24"
+			<TextBlock Text="Themes"
+    FontSize="18"
         FontWeight="Bold"
           Foreground="{DynamicResource PrimaryTextBrush}"
     HorizontalAlignment="Center"
         Margin="0,0,0,30"/>
-
-			<TextBlock Text="Theme"
-			  FontSize="16"
-				   Foreground="{DynamicResource PrimaryTextBrush}"
-					  Margin="0,0,0,10"/>
-
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,20">
 				<Button Content="Dark" Click="DarkTheme_Click" Width="80" Margin="5"/>
 				<Button Content="Light" Click="LightTheme_Click" Width="80" Margin="5"/>
 				<Button Content="Blue" Click="BlueTheme_Click" Width="80" Margin="5"/>
 			</StackPanel>
-
-			<TextBlock Text="More options coming soon..."
-				FontSize="14"
-		Foreground="{DynamicResource PrimaryTextBrush}"
-					HorizontalAlignment="Center"
-				 Opacity="0.7"
-		 Margin="0,20,0,0"/>
-		</StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
