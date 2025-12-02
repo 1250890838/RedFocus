@@ -50,7 +50,7 @@
     <Border Background="{DynamicResource PrimaryBackgroundBrush}"
             CornerRadius="8"
             BorderThickness="1"
-            BorderBrush="{DynamicResource WindowBorderBrush}">
+            BorderBrush="{DynamicResource PrimaryBackgroundBrush}">
         <Border.Effect>
             <DropShadowEffect Color="Black" 
                             BlurRadius="15" 
@@ -65,7 +65,7 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" 
-                    Background="{DynamicResource TitleBarBackgroundBrush}" 
+                    Background="{DynamicResource PrimaryBackgroundBrush}" 
                     MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
                     CornerRadius="8,8,0,0">
                 <Grid>
@@ -99,7 +99,7 @@
                                Text="RedFocus" 
                                VerticalAlignment="Center" 
                                HorizontalAlignment="Center"
-                               Foreground="{DynamicResource PrimaryTextBrush}"
+                               Foreground="{DynamicResource StaticTextBrush}"
                                FontSize="14"/>
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
@@ -131,7 +131,7 @@
                                     Width="220"
                                     Height="220"
                                     CircleColor="{DynamicResource AccentBrush}"
-                                    TextColor="{DynamicResource PrimaryTextBrush}"
+                                    TextColor="{DynamicResource StaticTextBrush}"
                                     CircleThickness="3"
                                     ShowText="True"
                                     StatusText="{Binding TimerState, Converter={StaticResource TimerStateToStringConverter}}"

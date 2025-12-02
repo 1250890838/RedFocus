@@ -106,7 +106,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Background="{DynamicResource PrimaryBackgroundBrush}">
+    <Grid Background="{DynamicResource PanelBackgroundBrush}">
         <StackPanel Margin="20">
             <TextBlock Text="Themes"
     FontSize="18"
@@ -126,8 +126,9 @@
                             Height="50"
                             Margin="0,0,0,10"
                             PrimaryColor="{Binding PrimaryColor}"
+                            AccentColor="{Binding AccentColor}"
                             Text="{Binding Name}"
-                            IsSelected="{Binding IsSelected}"
+                            IsSelected="{Binding IsSelected,Mode=TwoWay}"
                             Selected="ThemeItemControl_Selected"
                             ResourceUri="{Binding ResourceUri}"
                         />

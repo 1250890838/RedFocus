@@ -15,9 +15,9 @@ class ThemeSelectorViewModel
     {
         var themeUris = new Dictionary<string, string>
             {
+                {"Dark Theme", "/Themes/DarkTheme.xaml"},
                 {"Blue Theme", "/Themes/BlueTheme.xaml"},
                 {"Light Theme", "/Themes/LightTheme.xaml"},
-                {"Dark Theme", "/Themes/DarkTheme.xaml"}
             };
         LoadThemes(themeUris);
     }
@@ -44,13 +44,14 @@ class ThemeSelectorViewModel
                 IsSelected = false
             };
             if (resourceDict.Contains("AccentBrush") &&
-    resourceDict["AccentBrush"] is SolidColorBrush accentBrush)
+                resourceDict["AccentBrush"] is SolidColorBrush accentBrush)
             {
                 brush = accentBrush;
             }
             item.AccentColor = brush;
             Themes.Add(item);
         }
+        Themes[0].IsSelected = true;
     }
 
     public static void ApplyTheme(string resourceUri)

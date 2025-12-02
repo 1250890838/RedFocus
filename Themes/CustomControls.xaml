@@ -61,7 +61,7 @@
         <Setter Property="Width" Value="58"/>
         <Setter Property="Height" Value="58"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Pink"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
         <Setter Property="BorderThickness" Value="1.2"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Command" Value="{Binding ToggleCommand}" />
@@ -77,7 +77,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="TemplateBorder" Property="Background" Value="Red"/>
+                            <Setter TargetName="TemplateBorder" Property="Background" Value="{DynamicResource AccentBrush}"/>
                         </Trigger>
                         <Trigger Property="IsActive" Value="True">
                             <Trigger.EnterActions>
@@ -118,7 +118,7 @@
     </Style>
 
     <Style TargetType="Button" x:Key="TextButton">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource StaticTextBrush}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
@@ -131,7 +131,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="Red"/>
+                <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

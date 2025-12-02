@@ -3,19 +3,15 @@
                     xmlns:converters="clr-namespace:RedFocus.Converters"
                     xmlns:local="clr-namespace:RedFocus.Controls"
                     >
-    <Color x:Key="PrimaryBackgroundColor">#24283B</Color>
-    <Color x:Key="TitleBarBackgroundColor">Transparent</Color>
-    <Color x:Key="PrimaryTextColor">White</Color>
-    <Color x:Key="MinimizeButtonHoverColor">Lavender</Color>
-    <Color x:Key="CloseButtonHoverColor">Pink</Color>
-    <Color x:Key="AccentColor">#7AA2F7</Color>
-    <Color x:Key="WindowBorderColor">#3A3F58</Color>
-    
+    <Color x:Key="PrimaryBackgroundColor">#181818</Color>
+    <Color x:Key="PanelBackgroundColor">#343434</Color>
+    <Color x:Key="AccentColor">White</Color>
+    <Color x:Key="StaticTextColor">White</Color>
+    <Color x:Key="TitleColor">#FFE589</Color>
+
     <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}"/>
-    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackgroundColor}"/>
-    <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}"/>
-    <SolidColorBrush x:Key="MinimizeButtonHoverBrush" Color="{StaticResource MinimizeButtonHoverColor}"/>
-    <SolidColorBrush x:Key="CloseButtonHoverBrush" Color="{StaticResource CloseButtonHoverColor}"/>
+    <SolidColorBrush x:Key="PanelBackgroundBrush" Color="{StaticResource PanelBackgroundColor}"/>
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
-    <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource WindowBorderColor}"/>
+    <SolidColorBrush x:Key="StaticTextBrush" Color="{StaticResource StaticTextColor}"/>
+    <SolidColorBrush x:Key="TitleBrush" Color="{StaticResource TitleColor}"/>
 </ResourceDictionary>
