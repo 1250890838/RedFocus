@@ -6,6 +6,7 @@
          xmlns:local="clr-namespace:RedFocus.Pages"
              xmlns:controls="clr-namespace:RedFocus.Controls"
              xmlns:converters="clr-namespace:RedFocus.Converters"
+             xmlns:model="clr-namespace:RedFocus.Model"
            mc:Ignorable="d" 
   d:DesignHeight="400" d:DesignWidth="340"
   UseLayoutRounding="True"
@@ -13,10 +14,60 @@
     <UserControl.Resources>
         <converters:BackgroundToForegroundConverter x:Key="BackgroundToForegroundConverter" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <Style TargetType="controls:ColorItem">
+        <Style x:Key="CleanListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="Selector.IsSelectionActive" Value="False">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="controls:ThemeItemControl">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="controls:ColorItem">
+                    <ControlTemplate TargetType="controls:ThemeItemControl">
                         <Grid 
                             Width="{TemplateBinding Width}" 
                             Height="{TemplateBinding Height}"
@@ -25,10 +76,8 @@
                                 <ColumnDefinition Width="5"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
                             <Rectangle Grid.Column="0"
                                        Fill="{TemplateBinding AccentColor}"/>
-
                             <Border Grid.Column="1"
                                     Padding="0"
                                     Background="{TemplateBinding PrimaryColor}"
@@ -65,34 +114,26 @@
           Foreground="{DynamicResource PrimaryTextBrush}"
     HorizontalAlignment="Center"
         Margin="0,0,0,30"/>
-            <StackPanel x:Name="ColorItemsContainer" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,20" controls:ColorItem.Selected="OnColorItemSelected">
-                <controls:ColorItem x:Name="BlueThemeItem"
-                                     Width="325"
-                                     Height="50"
-                                     Margin="0,0,0,15"
-                                     Text="Blue Theme"
-                                     PrimaryColor="DodgerBlue"
-                                     AccentColor="Coral"
-                                    />
-                <controls:ColorItem x:Name="LightThemeItem"
-                                     Width="325"
-                                     Height="50"
-                                     Margin="0,0,0,15"
-                                     Text="Light Theme"
-                                     PrimaryColor="White"
-                                     AccentColor="CadetBlue"
-                                    />
-                <controls:ColorItem x:Name="DarkThemeItem"
-                                     Width="325"
-                                     Height="50"
-                                     Margin="0,0,0,15"
-                                     Text="Dark Theme"
-                                     PrimaryColor="Black"
-                                     AccentColor="ForestGreen"
-                                     IsSelected="True" 
-                                    />
-
-            </StackPanel>
+            <ListBox ItemsSource="{Binding Themes}" 
+                 Background="Transparent"
+                 BorderThickness="0"
+                     Style="{StaticResource CleanListBoxStyle}"
+                     >
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type model:ThemeItem}">
+                        <controls:ThemeItemControl 
+                            Width="325"
+                            Height="50"
+                            Margin="0,0,0,10"
+                            PrimaryColor="{Binding PrimaryColor}"
+                            Text="{Binding Name}"
+                            IsSelected="{Binding IsSelected}"
+                            Selected="ThemeItemControl_Selected"
+                            ResourceUri="{Binding ResourceUri}"
+                        />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
     </Grid>
 </UserControl>

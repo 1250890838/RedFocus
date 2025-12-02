@@ -1,6 +1,7 @@
 using RedFocus.Controls;
 using System.Windows;
 using System.Windows.Controls;
+using RedFocus.ViewModel;
 
 namespace RedFocus.Pages;
 public partial class ThemesPage : UserControl
@@ -8,36 +9,22 @@ public partial class ThemesPage : UserControl
     public ThemesPage()
     {
         InitializeComponent();
+        this.DataContext = new ThemeSelectorViewModel();
     }
-
-    void OnColorItemSelected(object? sender,bool arg)
+    private void ThemeItemControl_Selected(object sender, RoutedEventArgs e)
     {
-
-    }
-
-    private void OnColorItemSelected(object sender, RoutedEventArgs e)
-    {
-        if (!(e.OriginalSource is ColorItem colorItem))
+        if (sender is ThemeItemControl themeItem)
         {
-            return;
-        }
-        foreach (var child in ColorItemsContainer.Children)
-        {
-            if (child is ColorItem item)
-            {
-                if (item != colorItem)
-                {
-                    item.IsSelected = false;
-                }
-            }
+            ThemeSelectorViewModel.ApplyTheme(themeItem.ResourceUri);
         }
 
-        ThemeManager.ApplyTheme(colorItem.Name switch
+        var viewModel = this.DataContext as ThemeSelectorViewModel;
+        foreach (var item in viewModel.Themes)
         {
-            "LightThemeItem" => Theme.Light,
-            "DarkThemeItem" => Theme.Dark,
-            "BlueThemeItem" => Theme.Blue,
-            _ => Theme.Dark
-        });
+            if (item.ResourceUri != (sender as ThemeItemControl)?.ResourceUri)
+                item.IsSelected = false;
+        }
+
+        e.Handled = true;
     }
 }

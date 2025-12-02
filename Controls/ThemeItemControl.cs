@@ -13,16 +13,16 @@ using System.Windows.Shapes;
 using RedFocus.ViewModel;
 
 namespace RedFocus.Controls;
-public class ColorItem : Control
+public class ThemeItemControl : Control
 {
-    static ColorItem()
+    static ThemeItemControl()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorItem), new FrameworkPropertyMetadata(typeof(ColorItem)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(ThemeItemControl), new FrameworkPropertyMetadata(typeof(ThemeItemControl)));
     }
 
     #region 依赖属性
     public static readonly DependencyProperty AccentColorProperty =
-        DependencyProperty.Register(nameof(AccentColor), typeof(Brush), typeof(ColorItem),
+        DependencyProperty.Register(nameof(AccentColor), typeof(Brush), typeof(ThemeItemControl),
             new PropertyMetadata(Brushes.Transparent));
     public Brush AccentColor
     {
@@ -31,7 +31,7 @@ public class ColorItem : Control
     }
 
     public static readonly DependencyProperty PrimaryColorProperty =
-        DependencyProperty.Register(nameof(PrimaryColor), typeof(Brush), typeof(ColorItem),
+        DependencyProperty.Register(nameof(PrimaryColor), typeof(Brush), typeof(ThemeItemControl),
             new PropertyMetadata(Brushes.Transparent));
     public Brush PrimaryColor
     {
@@ -40,7 +40,7 @@ public class ColorItem : Control
     }
 
     public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register(nameof(Text), typeof(string), typeof(ColorItem),
+        DependencyProperty.Register(nameof(Text), typeof(string), typeof(ThemeItemControl),
             new PropertyMetadata(""));
     public string Text
     {
@@ -49,19 +49,29 @@ public class ColorItem : Control
     }
 
     public static readonly DependencyProperty IsSelectedProperty =
-        DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(ColorItem),
+        DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(ThemeItemControl),
             new PropertyMetadata(false));
     public bool IsSelected
     {
         get => (bool)GetValue(IsSelectedProperty);
         set => SetValue(IsSelectedProperty, value);
     }
+
+    public static readonly DependencyProperty ResourceUriProperty =
+        DependencyProperty.Register(nameof(ResourceUri), typeof(string), typeof(ThemeItemControl),
+            new PropertyMetadata(""));
+    public string ResourceUri
+    {
+        get => (string)GetValue(ResourceUriProperty);
+        set => SetValue(ResourceUriProperty, value);
+    }
+
     #endregion
 
     #region 路由事件
     public static readonly RoutedEvent SelectedEvent =
         EventManager.RegisterRoutedEvent(nameof(Selected), RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler), typeof(ColorItem));
+            typeof(RoutedEventHandler), typeof(ThemeItemControl));
     public event RoutedEventHandler Selected
     {
         add => AddHandler(SelectedEvent, value);
@@ -71,12 +81,8 @@ public class ColorItem : Control
     protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
     {
         base.OnMouseLeftButtonUp(e);
-
-        if (!IsSelected)
-        {
-            IsSelected = true;
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(SelectedEvent, this));
-        }
+        IsSelected = true;
+        e.Handled = true;
+        RaiseEvent(new RoutedEventArgs(SelectedEvent, this));
     }
 }
