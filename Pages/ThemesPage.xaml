@@ -5,31 +5,94 @@
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
          xmlns:local="clr-namespace:RedFocus.Pages"
              xmlns:controls="clr-namespace:RedFocus.Controls"
+             xmlns:converters="clr-namespace:RedFocus.Converters"
            mc:Ignorable="d" 
-  d:DesignHeight="400" d:DesignWidth="340">
+  d:DesignHeight="400" d:DesignWidth="340"
+  UseLayoutRounding="True"
+  SnapsToDevicePixels="True">
     <UserControl.Resources>
+        <converters:BackgroundToForegroundConverter x:Key="BackgroundToForegroundConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style TargetType="controls:ColorItem">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate>
+                    <ControlTemplate TargetType="controls:ColorItem">
+                        <Grid 
+                            Width="{TemplateBinding Width}" 
+                            Height="{TemplateBinding Height}"
+                            SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.Column="0"
+                                       Fill="{TemplateBinding AccentColor}"/>
+
+                            <Border Grid.Column="1"
+                                    Padding="0"
+                                    Background="{TemplateBinding PrimaryColor}"
+                                    SnapsToDevicePixels="True">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>           
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Margin="10,0"
+                                               Text="{TemplateBinding Text}"
+                                               Foreground="{TemplateBinding PrimaryColor, Converter={StaticResource BackgroundToForegroundConverter}}"
+                                               VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Column="1"
+                                               Text="&#x2713;"
+                                               VerticalAlignment="Center"
+                                               Foreground="{TemplateBinding AccentColor}"
+                                               Visibility="{TemplateBinding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="20" FontWeight="Bold" FontFamily="Segoe UI"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
     <Grid Background="{DynamicResource PrimaryBackgroundBrush}">
-		<StackPanel Margin="20">
-			<TextBlock Text="Themes"
+        <StackPanel Margin="20">
+            <TextBlock Text="Themes"
     FontSize="18"
         FontWeight="Bold"
           Foreground="{DynamicResource PrimaryTextBrush}"
     HorizontalAlignment="Center"
         Margin="0,0,0,30"/>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,20">
-				<Button Content="Dark" Click="DarkTheme_Click" Width="80" Margin="5"/>
-				<Button Content="Light" Click="LightTheme_Click" Width="80" Margin="5"/>
-				<Button Content="Blue" Click="BlueTheme_Click" Width="80" Margin="5"/>
-			</StackPanel>
+            <StackPanel x:Name="ColorItemsContainer" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,20" controls:ColorItem.Selected="OnColorItemSelected">
+                <controls:ColorItem x:Name="BlueThemeItem"
+                                     Width="325"
+                                     Height="50"
+                                     Margin="0,0,0,15"
+                                     Text="Blue Theme"
+                                     PrimaryColor="DodgerBlue"
+                                     AccentColor="Coral"
+                                    />
+                <controls:ColorItem x:Name="LightThemeItem"
+                                     Width="325"
+                                     Height="50"
+                                     Margin="0,0,0,15"
+                                     Text="Light Theme"
+                                     PrimaryColor="White"
+                                     AccentColor="CadetBlue"
+                                    />
+                <controls:ColorItem x:Name="DarkThemeItem"
+                                     Width="325"
+                                     Height="50"
+                                     Margin="0,0,0,15"
+                                     Text="Dark Theme"
+                                     PrimaryColor="Black"
+                                     AccentColor="ForestGreen"
+                                     IsSelected="True" 
+                                    />
+
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

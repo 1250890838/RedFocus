@@ -1,28 +1,43 @@
+using RedFocus.Controls;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RedFocus.Pages
+namespace RedFocus.Pages;
+public partial class ThemesPage : UserControl
 {
-    public partial class ThemesPage : UserControl
+    public ThemesPage()
     {
-        public ThemesPage()
+        InitializeComponent();
+    }
+
+    void OnColorItemSelected(object? sender,bool arg)
+    {
+
+    }
+
+    private void OnColorItemSelected(object sender, RoutedEventArgs e)
+    {
+        if (!(e.OriginalSource is ColorItem colorItem))
         {
-            InitializeComponent();
+            return;
+        }
+        foreach (var child in ColorItemsContainer.Children)
+        {
+            if (child is ColorItem item)
+            {
+                if (item != colorItem)
+                {
+                    item.IsSelected = false;
+                }
+            }
         }
 
-        private void DarkTheme_Click(object sender, RoutedEventArgs e)
+        ThemeManager.ApplyTheme(colorItem.Name switch
         {
-            ThemeManager.ApplyTheme(Theme.Dark);
-        }
-
-        private void LightTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ApplyTheme(Theme.Light);
-        }
-
-        private void BlueTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ApplyTheme(Theme.Blue);
-        }
+            "LightThemeItem" => Theme.Light,
+            "DarkThemeItem" => Theme.Dark,
+            "BlueThemeItem" => Theme.Blue,
+            _ => Theme.Dark
+        });
     }
 }
