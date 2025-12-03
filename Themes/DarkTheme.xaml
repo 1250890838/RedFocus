@@ -6,7 +6,7 @@
     <Color x:Key="PrimaryBackgroundColor">#181818</Color>
     <Color x:Key="PanelBackgroundColor">#343434</Color>
     <Color x:Key="AccentColor">White</Color>
-    <Color x:Key="StaticTextColor">White</Color>
+    <Color x:Key="StaticTextColor">#CCCCCC</Color>
     <Color x:Key="TitleColor">#FFE589</Color>
     <Color x:Key="TrackColor">#1D252C</Color>
     <Color x:Key="FocusProgressColor">#E17D8C</Color>
