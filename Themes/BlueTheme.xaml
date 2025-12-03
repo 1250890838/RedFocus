@@ -8,10 +8,20 @@
     <Color x:Key="AccentColor">White</Color>
     <Color x:Key="StaticTextColor">White</Color>
     <Color x:Key="TitleColor">#05E589</Color>
+    <Color x:Key="TrackColor">#1D252C</Color>
+    <Color x:Key="FocusProgressColor">#E17D8C</Color>
+    <Color x:Key="ShortBreakProgressColor">#32CDD7</Color>
+    <Color x:Key="LongBreakProgressColor">#6695E5</Color>
+    <Color x:Key="RoundsProgressColor">#708BA0</Color>
 
     <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}"/>
     <SolidColorBrush x:Key="PanelBackgroundBrush" Color="{StaticResource PanelBackgroundColor}"/>
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
     <SolidColorBrush x:Key="StaticTextBrush" Color="{StaticResource StaticTextColor}"/>
     <SolidColorBrush x:Key="TitleBrush" Color="{StaticResource TitleColor}"/>
+    <SolidColorBrush x:Key="TrackBrush" Color="{StaticResource TrackColor}"/>
+    <SolidColorBrush x:Key="FocusProgressBrush" Color="{StaticResource FocusProgressColor}"/>
+    <SolidColorBrush x:Key="ShortBreakProgressBrush" Color="{StaticResource ShortBreakProgressColor}"/>
+    <SolidColorBrush x:Key="LongBreakProgressBrush" Color="{StaticResource LongBreakProgressColor}"/>
+    <SolidColorBrush x:Key="RoundsProgressBrush" Color="{StaticResource RoundsProgressColor}"/>
 </ResourceDictionary>

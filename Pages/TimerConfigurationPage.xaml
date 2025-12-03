@@ -30,6 +30,8 @@
                                          TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"
+                                         ProgressBrush="{DynamicResource FocusProgressBrush}"
+                                         TrackBrush="{DynamicResource TrackBrush}"
                                          />
             <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
                                          SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
@@ -39,7 +41,10 @@
                                          TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
                                          TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5" />
+                                         TimeIntervalTextFontSize="11.5"
+                                         ProgressBrush="{DynamicResource ShortBreakProgressBrush}"
+                                         TrackBrush="{DynamicResource TrackBrush}"
+                                         />
             <controls:TimeIntervalSlider x:Name="LongBreakSlider"
                                          Title="Long Break"
                                          TimeInterval="{Binding TimerConfig.LongBreakTime,Mode=TwoWay}"
@@ -47,7 +52,10 @@
                                          TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
                                          TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"/>
+                                         TimeIntervalTextFontSize="11.5"
+                                         ProgressBrush="{DynamicResource LongBreakProgressBrush}"
+                                         TrackBrush="{DynamicResource TrackBrush}"
+                                         />
             <controls:TimeIntervalSlider x:Name="RoundsSlider"
                                          Title="Rounds"
                                          TimeInterval="{Binding TimerConfig.Rounds, Converter={StaticResource intToTimeSpanConverter},Mode=TwoWay}"
@@ -58,6 +66,8 @@
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"
                                          Style="{StaticResource IntRoundsSlider}"
+                                         ProgressBrush="{DynamicResource RoundsProgressBrush}"
+                                         TrackBrush="{DynamicResource TrackBrush}"
                                          />
         </StackPanel>
     </Grid>

@@ -144,7 +144,7 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Grid Background="Transparent">
                         <Ellipse x:Name="Dot" Width="20" Height="20" 
-                                 Fill="#007ACC" />
+                                 Fill="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType={x:Type local:TimeIntervalSlider}}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -165,7 +165,7 @@
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="RepeatButton">
-                                                        <Border Height="4" Background="Pink" VerticalAlignment="Center"/>
+                                                        <Border Height="3" Background="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType={x:Type local:TimeIntervalSlider}}}" VerticalAlignment="Center"/>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
@@ -180,7 +180,7 @@
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="RepeatButton">
-                                                        <Border Height="4" Background="Gray" VerticalAlignment="Center"/>
+                                                        <Border Height="3" Background="{Binding TrackBrush, RelativeSource={RelativeSource AncestorType={x:Type local:TimeIntervalSlider}}}" VerticalAlignment="Center"/>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
