@@ -19,8 +19,9 @@
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Border x:Name="border" 
-                                    Background="Transparent"
-                                    BorderBrush="Transparent">
+                                    Background="{DynamicResource PrimaryBackgroundBrush}"
+                                    BorderBrush="Transparent"
+                                    >
                                 <ContentPresenter HorizontalAlignment="Center" 
                                                 VerticalAlignment="Center"/>
                             </Border>
@@ -115,19 +116,20 @@
         </Border>
 
         <Grid Grid.Row="1" 
-              Background="{DynamicResource PrimaryBackgroundBrush}"
+              Background="Transparent"
               Margin="0,0,0,0">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
             <Button x:Name="TimerConfigurationButton" 
                     Grid.Column="0" 
                     Click="TimerConfigurationButton_Click"
-                    Style="{StaticResource MenuButtonStyle}" Height="36">
+                    Style="{StaticResource MenuButtonStyle}" Height="36"
+                    >
                 <Image Source="{svgc:SvgImage Source=/Icons/Timer.svg }" Width="20" Height="20" />
             </Button>
 

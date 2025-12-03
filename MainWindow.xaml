@@ -49,8 +49,7 @@
 
     <Border Background="{DynamicResource PrimaryBackgroundBrush}"
             CornerRadius="8"
-            BorderThickness="1"
-            BorderBrush="{DynamicResource PrimaryBackgroundBrush}">
+            >
         <Border.Effect>
             <DropShadowEffect Color="Black" 
                             BlurRadius="15" 
