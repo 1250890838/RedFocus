@@ -84,7 +84,7 @@
                                     SnapsToDevicePixels="True">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>           
+                                        <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="30"/>
                                     </Grid.ColumnDefinitions>
 
@@ -129,8 +129,9 @@
                             AccentColor="{Binding AccentColor}"
                             Text="{Binding Name}"
                             IsSelected="{Binding IsSelected,Mode=TwoWay}"
-                            Selected="ThemeItemControl_Selected"
                             ResourceUri="{Binding ResourceUri}"
+                            Command="{Binding DataContext.ApplyThemeCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+
                         />
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -66,6 +66,19 @@ public class ThemeItemControl : Control
         set => SetValue(ResourceUriProperty, value);
     }
 
+    public static readonly DependencyProperty CommandProperty =
+    DependencyProperty.Register(
+        nameof(Command),
+        typeof(ICommand),
+        typeof(ThemeItemControl),
+        new PropertyMetadata(null));
+
+    public ICommand? Command
+    {
+        get => (ICommand?)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
     #endregion
 
     #region 路由事件
@@ -78,11 +91,17 @@ public class ThemeItemControl : Control
         remove => RemoveHandler(SelectedEvent, value);
     }
     #endregion
+
+
     protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
     {
         base.OnMouseLeftButtonUp(e);
         IsSelected = true;
         e.Handled = true;
         RaiseEvent(new RoutedEventArgs(SelectedEvent, this));
+        if(Command != null && Command.CanExecute(ResourceUri))
+        {
+            Command.Execute(ResourceUri);
+        }
     }
 }

@@ -11,20 +11,4 @@ public partial class ThemesPage : UserControl
         InitializeComponent();
         this.DataContext = new ThemeSelectorViewModel();
     }
-    private void ThemeItemControl_Selected(object sender, RoutedEventArgs e)
-    {
-        if (sender is ThemeItemControl themeItem)
-        {
-            ThemeSelectorViewModel.ApplyTheme(themeItem.ResourceUri);
-        }
-
-        var viewModel = this.DataContext as ThemeSelectorViewModel;
-        foreach (var item in viewModel.Themes)
-        {
-            if (item.ResourceUri != (sender as ThemeItemControl)?.ResourceUri)
-                item.IsSelected = false;
-        }
-
-        e.Handled = true;
-    }
 }

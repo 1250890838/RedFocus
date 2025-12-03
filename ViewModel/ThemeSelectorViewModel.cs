@@ -1,16 +1,17 @@
-﻿using RedFocus.Model;
+﻿using RedFocus.Controls;
+using RedFocus.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace RedFocus.ViewModel;
 class ThemeSelectorViewModel
 {
     public List<ThemeItem> Themes { get; set; } = new List<ThemeItem>();
-
     public ThemeSelectorViewModel()
     {
         var themeUris = new Dictionary<string, string>
@@ -21,6 +22,7 @@ class ThemeSelectorViewModel
             };
         LoadThemes(themeUris);
     }
+    public ICommand ApplyThemeCommand => new RelayCommand(ApplyTheme);
 
     private void LoadThemes(Dictionary<string, string> uris)
     {
@@ -54,8 +56,12 @@ class ThemeSelectorViewModel
         Themes[0].IsSelected = true;
     }
 
-    public static void ApplyTheme(string resourceUri)
+    public void ApplyTheme(object? uri)
     {
+        if(uri is not string resourceUri)
+        {
+            return;
+        }
         var existingTheme = Application.Current.Resources.MergedDictionaries
             .FirstOrDefault(d => d.Source?.OriginalString?.Contains("Theme.xaml") == true);
 
@@ -69,5 +75,11 @@ class ThemeSelectorViewModel
             Source = new Uri(resourceUri, UriKind.Relative)
         };
         Application.Current.Resources.MergedDictionaries.Add(newTheme);
+
+        foreach (var item in Themes)
+        {
+            if (item.ResourceUri != resourceUri)
+                item.IsSelected = false;
+        }
     }
 }
