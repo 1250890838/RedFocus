@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <converters:IntToTimeSpanConverter x:Key="intToTimeSpanConverter"/>
     </UserControl.Resources>
-    <Grid Margin="20,10,20,20" Background="{DynamicResource PrimaryBackgroundBrush}">
+    <Grid Margin="20,10,20,20" Background="{DynamicResource PanelBackgroundBrush}">
         <StackPanel>
             <StackPanel.Resources>
                 <Style TargetType="TextBlock">
@@ -25,9 +25,9 @@
             <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
                                          Title="Focus"
                                          TimeInterval="{Binding TimerConfig.FocusTime, Mode=TwoWay}"
-                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"
                                          />
@@ -35,26 +35,26 @@
                                          SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
                                          Title="Short Break"
                                          TimeInterval="{Binding TimerConfig.ShortBreakTime, Mode=TwoWay}"
-                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5" />
             <controls:TimeIntervalSlider x:Name="LongBreakSlider"
                                          Title="Long Break"
                                          TimeInterval="{Binding TimerConfig.LongBreakTime,Mode=TwoWay}"
-                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"/>
             <controls:TimeIntervalSlider x:Name="RoundsSlider"
                                          Title="Rounds"
                                          TimeInterval="{Binding TimerConfig.Rounds, Converter={StaticResource intToTimeSpanConverter},Mode=TwoWay}"
                                          MaxTimeInterval="00:12"
-                                         TitleBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource PrimaryTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="Black"
+                                         TitleBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
                                          TitleFontSize="14"
                                          TimeIntervalTextFontSize="11.5"
                                          Style="{StaticResource IntRoundsSlider}"
