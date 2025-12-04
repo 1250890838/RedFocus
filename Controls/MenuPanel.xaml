@@ -30,12 +30,9 @@
                                       VerticalAlignment="Bottom"
                                       Margin="30,0"
                                       Visibility="Collapsed"
-                                      RenderTransformOrigin="0.5,0.5">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{DynamicResource AccentColor}">
-                                        
-                                    </SolidColorBrush>
-                                </Rectangle.Fill>
+                                      RenderTransformOrigin="0.5,0.5"
+                                       Fill="{DynamicResource AccentBrush}"
+                                       >
                                 <Rectangle.RenderTransform>
                                     <ScaleTransform x:Name="indicatorScale" ScaleX="0.1"/>
                                 </Rectangle.RenderTransform>
