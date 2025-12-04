@@ -63,7 +63,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
         <Setter Property="BorderThickness" Value="1.2"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{DynamicResource StaticTextBrush}"/>
         <Setter Property="Command" Value="{Binding ToggleCommand}" />
         <Setter Property="Template">
             <Setter.Value>
