@@ -77,7 +77,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="TemplateBorder" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                            <Setter TargetName="TemplateBorder" Property="Background" Value="{DynamicResource PrimaryBackgroundVariantBrush}"/>
                         </Trigger>
                         <Trigger Property="IsActive" Value="True">
                             <Trigger.EnterActions>
