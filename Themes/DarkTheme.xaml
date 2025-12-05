@@ -13,6 +13,7 @@
     <Color x:Key="ShortBreakProgressColor">#32CDD7</Color>
     <Color x:Key="LongBreakProgressColor">#6695E5</Color>
     <Color x:Key="RoundsProgressColor">#708BA0</Color>
+    <Color x:Key="IconColor">#FFFFFF</Color>
 
     <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}"/>
     <SolidColorBrush x:Key="PanelBackgroundBrush" Color="{StaticResource PanelBackgroundColor}"/>
@@ -24,4 +25,5 @@
     <SolidColorBrush x:Key="ShortBreakProgressBrush" Color="{StaticResource ShortBreakProgressColor}"/>
     <SolidColorBrush x:Key="LongBreakProgressBrush" Color="{StaticResource LongBreakProgressColor}"/>
     <SolidColorBrush x:Key="RoundsProgressBrush" Color="{StaticResource RoundsProgressColor}"/>
+    <SolidColorBrush x:Key="IconBrush" Color="{StaticResource IconColor}"/>
 </ResourceDictionary>
