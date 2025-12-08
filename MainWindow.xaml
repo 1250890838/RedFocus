@@ -98,7 +98,7 @@
                                Text="RedFocus" 
                                VerticalAlignment="Center" 
                                HorizontalAlignment="Center"
-                               Foreground="{DynamicResource StaticTextBrush}"
+                               Foreground="{DynamicResource TitleBrush}"
                                FontSize="14"/>
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">

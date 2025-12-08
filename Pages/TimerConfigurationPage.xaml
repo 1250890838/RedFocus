@@ -21,7 +21,7 @@
                     <Setter Property="Margin" Value="0,0,0,10"/>
                 </Style>
             </StackPanel.Resources>
-            <TextBlock Text="Timer" HorizontalAlignment="Center"/>
+            <TextBlock Text="Timer" HorizontalAlignment="Center" Foreground="{DynamicResource StaticTextBrush}"/>
             <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
                                          Title="Focus"
                                          TimeInterval="{Binding TimerConfig.FocusTime, Mode=TwoWay}"
