@@ -1,12 +1,8 @@
-﻿using RedFocus.Model;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace RedFocus.ViewModel;
 public enum TimerState

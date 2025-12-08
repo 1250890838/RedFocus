@@ -1,7 +1,5 @@
-using RedFocus.Controls;
-using System.Windows;
-using System.Windows.Controls;
 using RedFocus.ViewModel;
+using System.Windows.Controls;
 
 namespace RedFocus.Pages;
 public partial class ThemesPage : UserControl

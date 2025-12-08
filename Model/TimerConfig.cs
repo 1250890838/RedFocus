@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RedFocus.Model;
+﻿namespace RedFocus.Model;
 public class TimerConfig
 {
     public TimeSpan FocusTime { get; set; }

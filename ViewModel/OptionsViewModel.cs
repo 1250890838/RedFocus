@@ -1,5 +1,5 @@
-using System.Collections.ObjectModel;
 using RedFocus.Services;
+using System.Collections.ObjectModel;
 
 namespace RedFocus.ViewModel;
 

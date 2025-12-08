@@ -1,6 +1,5 @@
-﻿using System;
+﻿using RedFocus.Model;
 using System.Windows.Input;
-using RedFocus.Model;
 
 namespace RedFocus.ViewModel;
 internal class TimerConfigViewModel : ViewModelBase

@@ -1,10 +1,8 @@
-﻿using RedFocus.Controls;
-using RedFocus.Model;
+﻿using RedFocus.Model;
 using RedFocus.Properties;
 using RedFocus.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 

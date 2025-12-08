@@ -1,8 +1,5 @@
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Data;
 using RedFocus.Properties;
-using RedFocus.Services;
+using System.Windows.Data;
 
 namespace RedFocus.Extensions;
 
@@ -13,7 +10,7 @@ public class LocalizeExtension : Binding
 {
     public LocalizeExtension(string key) : base(key)
     {
- Source = Resources.Instance;
-   Mode = BindingMode.OneWay;
+        Source = Resources.Instance;
+        Mode = BindingMode.OneWay;
     }
 }

@@ -1,7 +1,6 @@
+using RedFocus.Pages;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using RedFocus.Pages;
 
 namespace RedFocus.Controls
 {

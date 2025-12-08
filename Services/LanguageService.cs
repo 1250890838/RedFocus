@@ -1,6 +1,6 @@
+using RedFocus.Properties;
 using System.ComponentModel;
 using System.Globalization;
-using RedFocus.Properties;
 
 namespace RedFocus.Services;
 

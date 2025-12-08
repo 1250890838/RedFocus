@@ -1,6 +1,5 @@
 ﻿using RedFocus.Properties;
 using RedFocus.ViewModel;
-using System;
 using System.Globalization;
 using System.Windows.Data;
 

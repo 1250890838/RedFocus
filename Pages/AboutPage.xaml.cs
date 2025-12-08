@@ -4,9 +4,9 @@ namespace RedFocus.Pages
 {
     public partial class AboutPage : UserControl
     {
-  public AboutPage()
+        public AboutPage()
         {
             InitializeComponent();
-      }
+        }
     }
 }

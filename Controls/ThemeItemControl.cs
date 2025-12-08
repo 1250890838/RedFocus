@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using RedFocus.ViewModel;
 
 namespace RedFocus.Controls;
 public class ThemeItemControl : Control
@@ -99,7 +90,7 @@ public class ThemeItemControl : Control
         IsSelected = true;
         e.Handled = true;
         RaiseEvent(new RoutedEventArgs(SelectedEvent, this));
-        if(Command != null && Command.CanExecute(ResourceUri))
+        if (Command != null && Command.CanExecute(ResourceUri))
         {
             Command.Execute(ResourceUri);
         }
