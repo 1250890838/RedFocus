@@ -1,192 +1,190 @@
 ﻿<Window x:Class="RedFocus.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedFocus"
-        xmlns:controls="clr-namespace:RedFocus.Controls"
-        xmlns:converters="clr-namespace:RedFocus.Converters"
-        xmlns:vm="clr-namespace:RedFocus.ViewModel"
+     xmlns:controls="clr-namespace:RedFocus.Controls"
+      xmlns:converters="clr-namespace:RedFocus.Converters"
+     xmlns:vm="clr-namespace:RedFocus.ViewModel"
         xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="478" Width="360"
+        xmlns:ext="clr-namespace:RedFocus.Extensions"
+     mc:Ignorable="d"
+ Title="MainWindow" Height="478" Width="360"
         WindowStyle="None"
-        AllowsTransparency="True"
+  AllowsTransparency="True"
         Background="Transparent"
-        ResizeMode="NoResize">
+      ResizeMode="NoResize">
     <Window.Resources>
         <converters:TimerStateToStringConverter x:Key="TimerStateToStringConverter"/>
-        <Storyboard x:Key="MenuShowAnimation">
-            <DoubleAnimation Storyboard.TargetName="MenuTransform"
-                           Storyboard.TargetProperty="X"
-                           From="-360"
-                           To="0"
-                           Duration="0:0:0.3">
-                <DoubleAnimation.EasingFunction>
-                    <CubicEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="MenuButtonTextTransform" Storyboard.TargetProperty="X"
-                             From="0" To="-6" Duration="0:0:0.1">
-            </DoubleAnimation>
-        </Storyboard>
+     <Storyboard x:Key="MenuShowAnimation">
+    <DoubleAnimation Storyboard.TargetName="MenuTransform"
+   Storyboard.TargetProperty="X"
+       From="-360"
+          To="0"
+     Duration="0:0:0.3">
+    <DoubleAnimation.EasingFunction>
+    <CubicEase EasingMode="EaseOut"/>
+     </DoubleAnimation.EasingFunction>
+          </DoubleAnimation>
+       <DoubleAnimation Storyboard.TargetName="MenuButtonTextTransform" Storyboard.TargetProperty="X"
+    From="0" To="-6" Duration="0:0:0.1">
+   </DoubleAnimation>
+     </Storyboard>
 
-        <Storyboard x:Key="MenuHideAnimation">
-            <DoubleAnimation Storyboard.TargetName="MenuTransform"
-                           Storyboard.TargetProperty="X"
-                           From="0"
-                           To="-360"
-                           Duration="0:0:0.3">
-                <DoubleAnimation.EasingFunction>
-                    <CubicEase EasingMode="EaseIn"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
+    <Storyboard x:Key="MenuHideAnimation">
+     <DoubleAnimation Storyboard.TargetName="MenuTransform"
+          Storyboard.TargetProperty="X"
+   From="0"
+        To="-360"
+   Duration="0:0:0.3">
+<DoubleAnimation.EasingFunction>
+       <CubicEase EasingMode="EaseIn"/>
+       </DoubleAnimation.EasingFunction>
+      </DoubleAnimation>
             <DoubleAnimation Storyboard.TargetName="MenuButtonTextTransform" Storyboard.TargetProperty="X"
-                             From="-6" To="0" Duration="0:0:0.1">
-            </DoubleAnimation>
-        </Storyboard>
+       From="-6" To="0" Duration="0:0:0.1">
+         </DoubleAnimation>
+  </Storyboard>
     </Window.Resources>
 
     <Border Background="{DynamicResource PrimaryBackgroundBrush}"
-            CornerRadius="8"
-            >
+    CornerRadius="8">
         <Border.Effect>
-            <DropShadowEffect Color="Black" 
-                            BlurRadius="15" 
-                            ShadowDepth="0" 
-                            Opacity="0.3"/>
-        </Border.Effect>
+   <DropShadowEffect Color="Black" 
+         BlurRadius="15" 
+      ShadowDepth="0" 
+    Opacity="0.3"/>
+ </Border.Effect>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+     <Grid>
+      <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+        <RowDefinition Height="*"/>
+   </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" 
-                    Background="{DynamicResource PrimaryBackgroundBrush}" 
-                    MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
-                    CornerRadius="8,8,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+      <Border Grid.Row="0" 
+ Background="{DynamicResource PrimaryBackgroundBrush}" 
+   MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
+    CornerRadius="8,8,0,0">
+  <Grid>
+     <Grid.ColumnDefinitions>
+     <ColumnDefinition Width="*"/>
+       <ColumnDefinition Width="3*"/>
+    <ColumnDefinition Width="Auto"/>
+   </Grid.ColumnDefinitions>
 
-                    <Button x:Name="MenuButton"
-                            FontSize="20"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Click="MenuButton_Click"
-                            Style="{DynamicResource TitleBarButtonStyle}"
-                            Width="50">
-                        <Button.ToolTip>
-                            设置
-                        </Button.ToolTip>
-                        <Button.Content>
-                            <TextBlock x:Name="MenuButtonText" Text="&#x2630;">
-                                <TextBlock.RenderTransform>
-                                    <TranslateTransform x:Name="MenuButtonTextTransform" X="0"></TranslateTransform>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                        </Button.Content>
+   <Button x:Name="MenuButton"
+           FontSize="20"
+      HorizontalContentAlignment="Center"
+    VerticalContentAlignment="Center"
+ Click="MenuButton_Click"
+     Style="{DynamicResource TitleBarButtonStyle}"
+        Width="50">
+   <Button.ToolTip>
+     <ToolTip Content="{ext:Localize Menu_Settings}"/>
+            </Button.ToolTip>
+<Button.Content>
+       <TextBlock x:Name="MenuButtonText" Text="&#x2630;">
+      <TextBlock.RenderTransform>
+              <TranslateTransform x:Name="MenuButtonTextTransform" X="0"/>
+    </TextBlock.RenderTransform>
+    </TextBlock>
+ </Button.Content>
+            </Button>
 
-                    </Button>
+         <TextBlock Grid.Column="1" 
+       Text="{ext:Localize AppTitle}" 
+        VerticalAlignment="Center" 
+      HorizontalAlignment="Center"
+       Foreground="{DynamicResource TitleBrush}"
+ FontSize="14"/>
 
-                    <TextBlock Grid.Column="1" 
-                               Text="RedFocus" 
-                               VerticalAlignment="Center" 
-                               HorizontalAlignment="Center"
-                               Foreground="{DynamicResource TitleBrush}"
-                               FontSize="14"/>
+          <StackPanel Grid.Column="2" Orientation="Horizontal">
+       <Button x:Name="MinimizeButton" 
+        Width="45" 
+   Height="40"
+      Content="&#x2014;"
+    Click="MinimizeButton_Click"
+     Style="{DynamicResource TitleBarMinimizeButtonStyle}"/>
 
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <Button x:Name="MinimizeButton" 
-                                Width="45" 
-                                Height="40"
-                                Content="&#x2014;"
-                                Click="MinimizeButton_Click"
-                                Style="{DynamicResource TitleBarMinimizeButtonStyle}"/>
+<Button x:Name="CloseButton" 
+ Width="45" 
+      Height="40"
+   Content="&#x2715;"
+        Click="CloseButton_Click"
+        Style="{DynamicResource TitleBarCloseButtonStyle}"/>
+       </StackPanel>
+       </Grid>
+  </Border>
 
-                        <Button x:Name="CloseButton" 
-                                Width="45" 
-                                Height="40"
-                                Content="&#x2715;"
-                                Click="CloseButton_Click"
-                                Style="{DynamicResource TitleBarCloseButtonStyle}"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
+        <Grid Grid.Row="1" x:Name="ContentArea" ClipToBounds="True">
+       <Grid.RowDefinitions>
+    <RowDefinition Height="*"/>
+ <RowDefinition Height="Auto"/>
+       <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" x:Name="ContentArea" ClipToBounds="True">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+     <controls:CountdownCircle x:Name="CountdownTimer"
+            Width="220"
+         Height="220"
+      CircleColor="{DynamicResource AccentBrush}"
+          TextColor="{DynamicResource StaticTextBrush}"
+  CircleThickness="3"
+   ShowText="True"
+    StatusText="{Binding TimerState, Converter={StaticResource TimerStateToStringConverter}}"
+         Margin="20"
+     TotalMinutes="{Binding TimerTotalMinutes}"
+      RemainingMinutes="{Binding TimerRemainingMinutes}"/>
+<controls:SwitchButton Grid.Row="1" />
+        
+       <DockPanel Margin="12,15,12,15" Grid.Row="2" LastChildFill="False">
+     <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+              <StackPanel Orientation="Horizontal">
+    <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"/>
+       <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
+          <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"/>
+     </StackPanel>
+             <Button x:Name="ResetButton" Margin="0,5,0,0" Style="{StaticResource ResourceKey=TextButton}" Click="ResetButton_Click">
+       <TextBlock Text="{ext:Localize Main_Reset}" FontSize="12"/>
+    </Button>
+           </StackPanel>
 
-                <controls:CountdownCircle x:Name="CountdownTimer"
-                                    Width="220"
-                                    Height="220"
-                                    CircleColor="{DynamicResource AccentBrush}"
-                                    TextColor="{DynamicResource StaticTextBrush}"
-                                    CircleThickness="3"
-                                    ShowText="True"
-                                    StatusText="{Binding TimerState, Converter={StaticResource TimerStateToStringConverter}}"
-                                    Margin="20"
-                                    TotalMinutes="{Binding TimerTotalMinutes}"
-                                    RemainingMinutes="{Binding TimerRemainingMinutes}"
-                                          />
-                <controls:SwitchButton Grid.Row="1" />
-                
-                <DockPanel Margin="12,15,12,15" Grid.Row="2" LastChildFill="False">
-                    <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"></TextBlock>
-                            <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
-                            <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"></TextBlock>
-                        </StackPanel>
-                        <Button x:Name="ResetButton" Margin="0,5,0,0" Style="{StaticResource ResourceKey=TextButton}" Click="ResetButton_Click">
-                            <TextBlock Text="Reset"  FontSize="12"/>
-                        </Button>
-                    </StackPanel>
+    <Button x:Name="NextRoundButton" BorderBrush="Transparent" Background="Transparent" DockPanel.Dock="Right" Click="NextRoundButton_Click">
+   <Button.Style>
+     <Style TargetType="Button">
+       <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+    <Setter Property="Template">
+     <Setter.Value>
+      <ControlTemplate TargetType="{x:Type Button}">
+       <Grid Background="Transparent">
+   <Image x:Name="IconImage" 
+    Source="{svgc:SvgImage Source=/Icons/NextRound.svg}" 
+       Width="16" 
+  Height="16"/>
+       <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+     </Grid>
+     <ControlTemplate.Triggers>
+    <Trigger Property="IsMouseOver" Value="True">
+   <Setter TargetName="IconImage" Property="Source" Value="{svgc:SvgImage Source=/Icons/NextRoundHovered.svg}"/>
+      </Trigger>
+     </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+ </Style>
+  </Button.Style>
+         </Button>
+    </DockPanel>
 
-                    <Button x:Name="NextRoundButton" BorderBrush="Transparent" Background="Transparent" DockPanel.Dock="Right" Click="NextRoundButton_Click">
-                        <Button.Style>
-                        <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Grid Background="Transparent">
-                                                <Image x:Name="IconImage" 
-                                                    Source="{svgc:SvgImage Source=/Icons/NextRound.svg}" 
-                                                    Width="16" 
-                                                    Height="16"/>
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="IconImage"  Property="Source" Value="{svgc:SvgImage Source=/Icons/NextRoundHovered.svg}"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </DockPanel>
-
-                <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
-                    <Border.RenderTransform>
-                        <TranslateTransform x:Name="MenuTransform" X="-360" />
-                    </Border.RenderTransform>
-                    <controls:MenuPanel x:Name="MenuPanelControl"/>
-                </Border>
-            </Grid>
-        </Grid>
+            <Border x:Name="MenuContainer" Visibility="Collapsed" Grid.ColumnSpan="1" Grid.RowSpan="{Binding ElementName=ContentArea,Path=RowDefinitions.Count}">
+        <Border.RenderTransform>
+         <TranslateTransform x:Name="MenuTransform" X="-360" />
+     </Border.RenderTransform>
+    <controls:MenuPanel x:Name="MenuPanelControl"/>
+      </Border>
+   </Grid>
+ </Grid>
     </Border>
 </Window>

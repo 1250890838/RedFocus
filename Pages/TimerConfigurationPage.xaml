@@ -1,74 +1,72 @@
 <UserControl x:Class="RedFocus.Pages.TimerConfigurationPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:local="clr-namespace:RedFocus.Pages"
-    xmlns:controls="clr-namespace:RedFocus.Controls"
-             xmlns:converters="clr-namespace:RedFocus.Converters" xmlns:viewmodel="clr-namespace:RedFocus.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TimerViewModel}"
-             mc:Ignorable="d"
-             
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+   xmlns:local="clr-namespace:RedFocus.Pages"
+  xmlns:controls="clr-namespace:RedFocus.Controls"
+   xmlns:converters="clr-namespace:RedFocus.Converters"
+xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
+     xmlns:ext="clr-namespace:RedFocus.Extensions"
+     d:DataContext="{d:DesignInstance Type=viewmodel:TimerViewModel}"
+         mc:Ignorable="d"
        d:DesignHeight="400" d:DesignWidth="340">
     <UserControl.Resources>
         <converters:IntToTimeSpanConverter x:Key="intToTimeSpanConverter"/>
-    </UserControl.Resources>
-    <Grid Margin="20,10,20,20" Background="{DynamicResource PanelBackgroundBrush}">
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="16"/>
-                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-                    <Setter Property="Margin" Value="0,0,0,10"/>
-                </Style>
+   </UserControl.Resources>
+  <Grid Margin="20,10,20,20" Background="{DynamicResource PanelBackgroundBrush}">
+    <StackPanel>
+<StackPanel.Resources>
+          <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+  <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+    <Setter Property="Margin" Value="0,0,0,10"/>
+   </Style>
             </StackPanel.Resources>
-            <TextBlock Text="Timer" HorizontalAlignment="Center" Foreground="{DynamicResource StaticTextBrush}"/>
-            <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
-                                         Title="Focus"
-                                         TimeInterval="{Binding TimerConfig.FocusTime, Mode=TwoWay}"
-                                         TitleBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
-                                         TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"
-                                         ProgressBrush="{DynamicResource FocusProgressBrush}"
-                                         TrackBrush="{DynamicResource TrackBrush}"
-                                         />
-            <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
-                                         SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
-                                         Title="Short Break"
-                                         TimeInterval="{Binding TimerConfig.ShortBreakTime, Mode=TwoWay}"
-                                         TitleBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
-                                         TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"
-                                         ProgressBrush="{DynamicResource ShortBreakProgressBrush}"
-                                         TrackBrush="{DynamicResource TrackBrush}"
-                                         />
-            <controls:TimeIntervalSlider x:Name="LongBreakSlider"
-                                         Title="Long Break"
-                                         TimeInterval="{Binding TimerConfig.LongBreakTime,Mode=TwoWay}"
-                                         TitleBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
-                                         TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"
-                                         ProgressBrush="{DynamicResource LongBreakProgressBrush}"
-                                         TrackBrush="{DynamicResource TrackBrush}"
-                                         />
-            <controls:TimeIntervalSlider x:Name="RoundsSlider"
-                                         Title="Rounds"
-                                         TimeInterval="{Binding TimerConfig.Rounds, Converter={StaticResource intToTimeSpanConverter},Mode=TwoWay}"
-                                         MaxTimeInterval="00:12"
-                                         TitleBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
-                                         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
-                                         TitleFontSize="14"
-                                         TimeIntervalTextFontSize="11.5"
-                                         Style="{StaticResource IntRoundsSlider}"
-                                         ProgressBrush="{DynamicResource RoundsProgressBrush}"
-                                         TrackBrush="{DynamicResource TrackBrush}"
-                                         />
+   <TextBlock Text="{ext:Localize TimerConfig_Title}" HorizontalAlignment="Center" Foreground="{DynamicResource StaticTextBrush}"/>
+      <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
+       Title="{ext:Localize TimerConfig_Focus}"
+      TimeInterval="{Binding TimerConfig.FocusTime, Mode=TwoWay}"
+     TitleBrush="{DynamicResource StaticTextBrush}"
+           TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+     TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
+      TitleFontSize="14"
+     TimeIntervalTextFontSize="11.5"
+           ProgressBrush="{DynamicResource FocusProgressBrush}"
+  TrackBrush="{DynamicResource TrackBrush}"/>
+    <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
+    SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
+      Title="{ext:Localize TimerConfig_ShortBreak}"
+            TimeInterval="{Binding TimerConfig.ShortBreakTime, Mode=TwoWay}"
+           TitleBrush="{DynamicResource StaticTextBrush}"
+     TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+       TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
+     TitleFontSize="14"
+        TimeIntervalTextFontSize="11.5"
+           ProgressBrush="{DynamicResource ShortBreakProgressBrush}"
+        TrackBrush="{DynamicResource TrackBrush}"/>
+     <controls:TimeIntervalSlider x:Name="LongBreakSlider"
+       Title="{ext:Localize TimerConfig_LongBreak}"
+      TimeInterval="{Binding TimerConfig.LongBreakTime,Mode=TwoWay}"
+         TitleBrush="{DynamicResource StaticTextBrush}"
+       TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+     TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
+     TitleFontSize="14"
+    TimeIntervalTextFontSize="11.5"
+      ProgressBrush="{DynamicResource LongBreakProgressBrush}"
+        TrackBrush="{DynamicResource TrackBrush}"/>
+   <controls:TimeIntervalSlider x:Name="RoundsSlider"
+     Title="{ext:Localize TimerConfig_Rounds}"
+      TimeInterval="{Binding TimerConfig.Rounds, Converter={StaticResource intToTimeSpanConverter},Mode=TwoWay}"
+       MaxTimeInterval="00:12"
+  TitleBrush="{DynamicResource StaticTextBrush}"
+       TimeIntervalTextBrush="{DynamicResource StaticTextBrush}"
+         TimeIntervalTextBackgroundBrush="{DynamicResource PrimaryBackgroundBrush}"
+ TitleFontSize="14"
+  TimeIntervalTextFontSize="11.5"
+      Style="{StaticResource IntRoundsSlider}"
+       ProgressBrush="{DynamicResource RoundsProgressBrush}"
+          TrackBrush="{DynamicResource TrackBrush}"/>
         </StackPanel>
     </Grid>
 </UserControl>

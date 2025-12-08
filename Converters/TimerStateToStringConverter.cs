@@ -1,30 +1,30 @@
-﻿using RedFocus.ViewModel;
+﻿using RedFocus.Properties;
+using RedFocus.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
 using System.Windows.Data;
 
-namespace RedFocus.Converters
+namespace RedFocus.Converters;
+
+internal class TimerStateToStringConverter : IValueConverter
 {
-    internal class TimerStateToStringConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        if (value is TimerState state)
         {
-            if (value is TimerState state)
+            return state switch
             {
-                return state switch
-                {
-                    TimerState.Focus => "FOCUS",
-                    TimerState.LongBreak => "LONG BREAK",
-                    TimerState.ShortBreak => "SHORT BREAK",
-                    _ => $"UNKNOWN ({state})",
-                };
-            }
-            return "Start";
+                TimerState.Focus => Resources.Instance.TimerState_Focus,
+                TimerState.LongBreak => Resources.Instance.TimerState_LongBreak,
+                TimerState.ShortBreak => Resources.Instance.TimerState_ShortBreak,
+                _ => $"UNKNOWN ({state})",
+            };
         }
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        return Resources.Instance.TimerState_Start;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
     }
 }

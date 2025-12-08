@@ -1,12 +1,106 @@
 <UserControl x:Class="RedFocus.Pages.OptionsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RedFocus.Pages"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="340">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+       xmlns:local="clr-namespace:RedFocus.Pages"
+xmlns:ext="clr-namespace:RedFocus.Extensions"
+   xmlns:vm="clr-namespace:RedFocus.ViewModel"
+     mc:Ignorable="d" 
+       d:DesignHeight="400" d:DesignWidth="340">
+    <UserControl.DataContext>
+   <vm:OptionsViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+<!-- Icon Style for Section Headers -->
+<Style x:Key="SectionIconStyle" TargetType="Path">
+            <Setter Property="Width" Value="20"/>
+   <Setter Property="Height" Value="20"/>
+<Setter Property="Fill" Value="{DynamicResource AccentBrush}"/>
+     <Setter Property="Stretch" Value="Uniform"/>
+    <Setter Property="Margin" Value="0,0,10,0"/>
+      </Style>
+    </UserControl.Resources>
+    
     <Grid Background="{DynamicResource PrimaryBackgroundBrush}">
+        <StackPanel Margin="30,20">
+  <!-- Page Title -->
+   <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+  <Path Data="M512 74.667c-17.067 0-32 14.933-32 32v128h-128c-17.067 0-32 14.933-32 32s14.933 32 32 32h128v128c0 17.067 14.933 32 32 32s32-14.933 32-32v-128h128c17.067 0 32-14.933 32-32s-14.933-32-32-32h-128v-128c0-17.067-14.933-32-32-32z m0 874.667c-200.533 0-362.667-162.133-362.667-362.667s162.133-362.667 362.667-362.667 362.667 162.133 362.667 362.667-162.133 362.667-362.667 362.667z m0-789.333c-235.733 0-426.667 190.933-426.667 426.667s190.933 426.667 426.667 426.667 426.667-190.933 426.667-426.667-190.933-426.667-426.667-426.667z"
+   Style="{StaticResource SectionIconStyle}"
+   VerticalAlignment="Center"/>
+    <TextBlock Text="{ext:Localize Options_Title}" 
+      FontSize="28" 
+       FontWeight="Light" 
+ Foreground="{DynamicResource StaticTextBrush}"
+      VerticalAlignment="Center"/>
+  </StackPanel>
 
+      <!-- Language Selection Section -->
+     <Border Background="{DynamicResource PanelBackgroundBrush}"
+          CornerRadius="8"
+Padding="20"
+   Margin="0,0,0,15">
+     <Border.Effect>
+      <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="0" Opacity="0.1"/>
+     </Border.Effect>
+     
+            <Grid>
+ <Grid.RowDefinitions>
+  <RowDefinition Height="Auto"/>
+       <RowDefinition Height="15"/>
+      <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <!-- Section Label with Icon -->
+       <StackPanel Grid.Row="0" Orientation="Horizontal">
+       <Path Data="M478.72 358.4c-12.373333-12.373333-32.64-12.373333-45.013333 0-12.373333 12.373333-12.373333 32.64 0 45.013333l102.4 102.4H128c-17.493333 0-32 14.506667-32 32s14.506667 32 32 32h408.106667l-102.4 102.4c-12.373333 12.373333-12.373333 32.64 0 45.013334 6.4 6.4 14.506667 9.386667 22.506666 9.386666s16.106667-2.986667 22.506667-9.386666l160-160c12.373333-12.373333 12.373333-32.64 0-45.013334l-160-160zM896 128H128C75.093333 128 32 171.093333 32 224v149.333333c0 17.493333 14.506667 32 32 32s32-14.506667 32-32V224c0-17.493333 14.506667-32 32-32h768c17.493333 0 32 14.506667 32 32v576c0 17.493333-14.506667 32-32 32H128c-17.493333 0-32-14.506667-32-32v-149.333333c0-17.493333-14.506667-32-32-32s-32 14.506667-32 32V800c0 52.906667 43.093333 96 96 96h768c52.906667 0 96-43.093333 96-96V224c0-52.906667-43.093333-96-96-96z"
+   Style="{StaticResource SectionIconStyle}"/>
+      <TextBlock Text="{ext:Localize Options_Language}" 
+   FontSize="16"
+   FontWeight="Medium"
+    Foreground="{DynamicResource StaticTextBrush}"
+     VerticalAlignment="Center"/>
+     </StackPanel>
+
+       <!-- ComboBox with Animation -->
+        <ComboBox Grid.Row="2"
+ItemsSource="{Binding Languages}"
+   SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+    DisplayMemberPath="DisplayName"
+       HorizontalAlignment="Stretch"
+     Style="{StaticResource ModernComboBoxStyle}"
+   ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}">
+ <ComboBox.Resources>
+     <Storyboard x:Key="FadeIn">
+         <DoubleAnimation Storyboard.TargetProperty="Opacity"
+       From="0" To="1" Duration="0:0:0.2"/>
+     </Storyboard>
+          </ComboBox.Resources>
+ </ComboBox>
+            </Grid>
+    </Border>
+
+    <!-- Additional Settings Placeholder -->
+    <Border Background="{DynamicResource PanelBackgroundBrush}"
+    CornerRadius="8"
+Padding="20"
+     Margin="0,0,0,15"
+            Opacity="0.5">
+    <Border.Effect>
+       <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="0" Opacity="0.1"/>
+            </Border.Effect>
+          
+     <StackPanel>
+     <TextBlock Text="More Options Coming Soon..." 
+FontSize="14"
+       Foreground="{DynamicResource StaticTextBrush}"
+   HorizontalAlignment="Center"
+     FontStyle="Italic"/>
+     </StackPanel>
+        </Border>
+
+        </StackPanel>
     </Grid>
 </UserControl>
