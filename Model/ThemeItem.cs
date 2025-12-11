@@ -41,9 +41,6 @@ internal class ThemeItem : ViewModelBase
         set => SetProperty(ref _resourceUri, value);
     }
 
-    /// <summary>
-    /// 本地化资源键，用于多语言支持
-    /// </summary>
     public string LocalizationKey
     {
         get => _localizationKey;

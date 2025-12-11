@@ -16,14 +16,13 @@ internal class ThemeSelectorViewModel : ViewModelBase
     {
         var themeUris = new Dictionary<string, (string Uri, string Key)>
         {
-        {"Dark", ("/Themes/DarkTheme.xaml", "Theme_Dark")},
-     {"Blue", ("/Themes/BlueTheme.xaml", "Theme_Blue")},
-       {"Light", ("/Themes/LightTheme.xaml", "Theme_Light")},
+            {"Dark", ("/Themes/DarkTheme.xaml", "Theme_Dark")},
+            {"Blue", ("/Themes/BlueTheme.xaml", "Theme_Blue")},
+            {"Light", ("/Themes/LightTheme.xaml", "Theme_Light")},
         };
 
         LoadThemes(themeUris);
 
-        // 订阅语言变更事件
         LanguageService.Instance.LanguageChanged += OnLanguageChanged;
     }
 
@@ -47,7 +46,7 @@ internal class ThemeSelectorViewModel : ViewModelBase
 
             Brush accentBrush = Brushes.White;
             if (resourceDict.Contains("AccentBrush") &&
-       resourceDict["AccentBrush"] is SolidColorBrush accent)
+                resourceDict["AccentBrush"] is SolidColorBrush accent)
             {
                 accentBrush = accent;
             }
@@ -65,7 +64,6 @@ internal class ThemeSelectorViewModel : ViewModelBase
             Themes.Add(item);
         }
 
-        // 默认选择第一个主题
         if (Themes.Count > 0)
         {
             Themes[0].IsSelected = true;
@@ -85,7 +83,6 @@ internal class ThemeSelectorViewModel : ViewModelBase
 
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
-        // 更新所有主题名称
         foreach (var theme in Themes)
         {
             if (!string.IsNullOrEmpty(theme.LocalizationKey))
