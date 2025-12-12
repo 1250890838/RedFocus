@@ -1,7 +1,6 @@
-﻿using RedFocus.Model;
-using RedFocus.Properties;
+﻿using RedFocus.Localization;
+using RedFocus.Model;
 using RedFocus.Services;
-using RedFocus.Localization;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;

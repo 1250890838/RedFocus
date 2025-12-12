@@ -1,8 +1,5 @@
 ﻿using RedFocus.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using System.Windows.Threading;
 
 namespace RedFocus.Services;
@@ -26,7 +23,7 @@ internal class TimerService : ViewModelBase, ITimerService
 
     public double TotalMinutes { get => _totalMinutes; set => SetProperty(ref _totalMinutes, value); }
     public double RemainingMinutes { get => _remainingMinutes; set => SetProperty(ref _remainingMinutes, value); }
-    public bool IsRunning { get => _isRunning;  private set { SetProperty(ref _isRunning, value); } }
+    public bool IsRunning { get => _isRunning; private set { SetProperty(ref _isRunning, value); } }
 
     public event EventHandler? TimerCompleted;
 

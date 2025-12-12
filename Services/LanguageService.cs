@@ -2,7 +2,6 @@ using RedFocus.Localization;
 using RedFocus.Properties;
 using System.ComponentModel;
 using System.Globalization;
-using RedFocus.Localization;
 
 namespace RedFocus.Services;
 

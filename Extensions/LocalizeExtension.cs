@@ -1,5 +1,4 @@
 using RedFocus.Localization;
-using RedFocus.Properties;
 using System.Windows.Data;
 using System.Windows.Markup;
 

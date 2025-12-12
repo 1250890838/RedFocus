@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using global::RedFocus.Properties;
+﻿using global::RedFocus.Properties;
 using System.ComponentModel;
 using System.Globalization;
-using System.Resources;
 
 namespace RedFocus.Localization;
 public class TranslationSource : INotifyPropertyChanged

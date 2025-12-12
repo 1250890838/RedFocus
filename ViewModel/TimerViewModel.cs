@@ -1,11 +1,9 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
+using RedFocus.Localization;
+using RedFocus.Services;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
-using System.Windows.Threading;
-using RedFocus.Services;
-using RedFocus.Properties;
-using RedFocus.Localization;
 
 namespace RedFocus.ViewModel;
 public enum TimerState
@@ -164,8 +162,8 @@ internal class TimerViewModel : ViewModelBase
         string content = TimerState switch
         {
             TimerState.Focus => TranslationSource.Instance["Start_FocusTime"],
-            TimerState.ShortBreak =>TranslationSource.Instance["Start_ShortBreak"],
-            TimerState.LongBreak =>TranslationSource.Instance["Start_LongBreak"],
+            TimerState.ShortBreak => TranslationSource.Instance["Start_ShortBreak"],
+            TimerState.LongBreak => TranslationSource.Instance["Start_LongBreak"],
             _ => "Unkown Timer State"
         };
         Start();
