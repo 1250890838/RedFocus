@@ -1,9 +1,10 @@
 ﻿using RedFocus.ViewModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Threading;
 
 namespace RedFocus.Services;
-internal interface ITimerService
+internal interface ITimerService : INotifyPropertyChanged
 {
     public void Start();
     public void Pause();

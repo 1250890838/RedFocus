@@ -198,4 +198,7 @@
   <data name="Start_LongBreak" xml:space="preserve">
     <value>享受一个长休息吧！</value>
   </data>
+  <data name="Themes_PageTitle" xml:space="preserve">
+    <value>主题</value>
+  </data>
 </root>

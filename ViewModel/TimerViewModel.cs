@@ -17,10 +17,10 @@ internal class TimerViewModel : ViewModelBase
 {
     private TimerState _currentState;
     private int _currentRound = 1;
-    private readonly TimerService _timerService;
+    private readonly ITimerService _timerService;
 
     [SetsRequiredMembers]
-    public TimerViewModel(TimerConfigViewModel timerConfig, TimerService service)
+    public TimerViewModel(TimerConfigViewModel timerConfig, ITimerService service)
     {
         TimerConfig = timerConfig;
         _timerService = service;

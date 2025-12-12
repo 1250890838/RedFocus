@@ -198,4 +198,7 @@
   <data name="Start_LongBreak" xml:space="preserve">
     <value>Enjoy a long break!</value>
   </data>
+  <data name="Themes_PageTitle" xml:space="preserve">
+    <value>Themes</value>
+  </data>
 </root>

@@ -8,13 +8,7 @@ public class TranslationSource : INotifyPropertyChanged
     public static TranslationSource Instance { get; } = new TranslationSource();
 
     private TranslationSource() { }
-    public string this[string key]
-    {
-        get
-        {
-            return Resources.ResourceManager.GetString(key, Resources.Culture);
-        }
-    }
+    public string this[string key] => Resources.ResourceManager!.GetString(key, Resources.Culture) ?? string.Empty;
 
     public CultureInfo CurrentCulture
     {

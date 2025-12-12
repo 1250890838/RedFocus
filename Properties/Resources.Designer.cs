@@ -196,6 +196,15 @@ namespace RedFocus.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Themes 的本地化字符串。
+        /// </summary>
+        internal static string Themes_PageTitle {
+            get {
+                return ResourceManager.GetString("Themes_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Focus 的本地化字符串。
         /// </summary>
         internal static string TimerConfig_Focus {
