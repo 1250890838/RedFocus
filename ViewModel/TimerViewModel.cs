@@ -158,27 +158,15 @@ internal class TimerViewModel : ViewModelBase
                 OnPropertyChanged(nameof(TimerTotalMinutes));
                 Pause();
                 break;
-            case nameof(TimerConfig.FocusTime):
-                TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
-                OnPropertyChanged(nameof(TimerTotalMinutes));
-                break;
             case nameof(TimerConfig.ShortBreakTime) when TimerState == TimerState.ShortBreak:
                 TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
                 OnPropertyChanged(nameof(TimerTotalMinutes));
                 Pause();
                 break;
-            case nameof(TimerConfig.ShortBreakTime):
-                TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
-                OnPropertyChanged(nameof(TimerTotalMinutes));
-                break;
             case nameof(TimerConfig.LongBreakTime) when TimerState == TimerState.LongBreak:
                 TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
                 OnPropertyChanged(nameof(TimerTotalMinutes));
                 Pause();
-                break;
-            case nameof(TimerConfig.LongBreakTime):
-                TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
-                OnPropertyChanged(nameof(TimerTotalMinutes));
                 break;
         }
     }
