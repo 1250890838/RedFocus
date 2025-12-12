@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using RedFocus.ViewModel;
 
 namespace RedFocus;
 
@@ -14,8 +15,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        ViewModel.TimerConfigViewModel timerConfigViewModel = new ViewModel.TimerConfigViewModel();
-        ViewModel.TimerViewModel timerViewModel = new(timerConfigViewModel);
+        TimerConfigViewModel timerConfigViewModel = new ViewModel.TimerConfigViewModel();
+        TimerViewModel timerViewModel = new(timerConfigViewModel);
         this.DataContext = timerViewModel;
     }
 
