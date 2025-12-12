@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using RedFocus.ViewModel;
+using RedFocus.Services;
 
 namespace RedFocus;
 
@@ -16,7 +17,9 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         TimerConfigViewModel timerConfigViewModel = new ViewModel.TimerConfigViewModel();
-        TimerViewModel timerViewModel = new(timerConfigViewModel);
+        
+        TimerService timerService = new TimerService();
+        TimerViewModel timerViewModel = new(timerConfigViewModel,timerService);
         this.DataContext = timerViewModel;
     }
 
@@ -71,15 +74,6 @@ public partial class MainWindow : Window
     private void MenuOverlay_Click(object sender, MouseButtonEventArgs e)
     {
         HideMenu();
-    }
-
-    private void NextRoundButton_Click(object sender, RoutedEventArgs e)
-    {
-        object context = this.DataContext;
-        if (context is ViewModel.TimerViewModel timerViewModel)
-        {
-            timerViewModel.ProcessRoundChanged();
-        }
     }
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)

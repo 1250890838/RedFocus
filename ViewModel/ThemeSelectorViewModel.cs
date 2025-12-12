@@ -1,6 +1,7 @@
 ﻿using RedFocus.Model;
 using RedFocus.Properties;
 using RedFocus.Services;
+using RedFocus.Localization;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -74,9 +75,9 @@ internal class ThemeSelectorViewModel : ViewModelBase
     {
         return key switch
         {
-            "Theme_Dark" => Resources.Instance.Theme_Dark,
-            "Theme_Blue" => Resources.Instance.Theme_Blue,
-            "Theme_Light" => Resources.Instance.Theme_Light,
+            "Theme_Dark" => TranslationSource.Instance["Theme_Dark"],
+            "Theme_Blue" => TranslationSource.Instance["Theme_Blue"],
+            "Theme_Light" => TranslationSource.Instance["Theme_Light"],
             _ => key
         };
     }

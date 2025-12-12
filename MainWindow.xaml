@@ -141,16 +141,16 @@
        <DockPanel Margin="12,15,12,15" Grid.Row="2" LastChildFill="False">
      <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
               <StackPanel Orientation="Horizontal">
-    <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"/>
-       <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
-          <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"/>
+        <TextBlock Text="{Binding CurrentRound}" Foreground="#FFF1EFEF" FontSize="16"/>
+        <TextBlock Foreground="#FFEFEFEF" FontSize="16">/</TextBlock>
+        <TextBlock Text="{Binding TimerConfig.Rounds}" Foreground="#FFEFEEEE" FontSize="16"/>
      </StackPanel>
              <Button x:Name="ResetButton" Margin="0,5,0,0" Style="{StaticResource ResourceKey=TextButton}" Click="ResetButton_Click">
        <TextBlock Text="{ext:Localize Main_Reset}" FontSize="12"/>
     </Button>
            </StackPanel>
 
-    <Button x:Name="NextRoundButton" BorderBrush="Transparent" Background="Transparent" DockPanel.Dock="Right" Click="NextRoundButton_Click">
+    <Button x:Name="NextRoundButton" BorderBrush="Transparent" Background="Transparent" DockPanel.Dock="Right" Command="{Binding NextRoundCommand}">
    <Button.Style>
      <Style TargetType="Button">
        <Setter Property="Background" Value="Transparent"/>

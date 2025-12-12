@@ -1,49 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xsd:element name="root" msdata:IsDataSet="true">
+    <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
-      <xsd:choice maxOccurs="unbounded">
-    <xsd:element name="metadata">
-   <xsd:complexType>
-  <xsd:sequence>
-   <xsd:element name="value" type="xsd:string" minOccurs="0" />
-  </xsd:sequence>
-   <xsd:attribute name="name" use="required" type="xsd:string" />
-   <xsd:attribute name="type" type="xsd:string" />
- <xsd:attribute name="mimetype" type="xsd:string" />
-    <xsd:attribute ref="xml:space" />
-        </xsd:complexType>
-</xsd:element>
-       <xsd:element name="assembly">
-       <xsd:complexType>
-     <xsd:attribute name="alias" type="xsd:string" />
-       <xsd:attribute name="name" type="xsd:string" />
-  </xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
           </xsd:element>
-  <xsd:element name="data">
-    <xsd:complexType>
-      <xsd:sequence>
-       <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-  <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-       </xsd:sequence>
-    <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-   <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-  <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-       <xsd:attribute ref="xml:space" />
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
       </xsd:complexType>
-          </xsd:element>
- <xsd:element name="resheader">
-      <xsd:complexType>
-   <xsd:sequence>
-<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-         </xsd:sequence>
-  <xsd:attribute name="name" type="xsd:string" use="required" />
-  </xsd:complexType>
-      </xsd:element>
-    </xsd:choice>
-</xsd:complexType>
     </xsd:element>
   </xsd:schema>
   <resheader name="resmimetype">
@@ -62,63 +121,81 @@
     <value>RedFocus</value>
   </data>
   <data name="Menu_Settings" xml:space="preserve">
-    <value>&#x8BBE;&#x7F6E;</value>
+    <value>设置</value>
   </data>
   <data name="TimerState_Focus" xml:space="preserve">
-    <value>&#x4E13;&#x6CE8;</value>
+    <value>专注</value>
   </data>
   <data name="TimerState_ShortBreak" xml:space="preserve">
-    <value>&#x77ED;&#x4F11;&#x606F;</value>
+    <value>短休息</value>
   </data>
   <data name="TimerState_LongBreak" xml:space="preserve">
-    <value>&#x957F;&#x4F11;&#x606F;</value>
+    <value>长休息</value>
   </data>
   <data name="TimerState_Start" xml:space="preserve">
- <value>&#x5F00;&#x59CB;</value>
+    <value>开始</value>
   </data>
   <data name="TimerConfig_Title" xml:space="preserve">
-    <value>&#x8BA1;&#x65F6;&#x5668;</value>
+    <value>计时器</value>
   </data>
   <data name="TimerConfig_Focus" xml:space="preserve">
-    <value>&#x4E13;&#x6CE8;&#x65F6;&#x95F4;</value>
+    <value>专注时间</value>
   </data>
   <data name="TimerConfig_ShortBreak" xml:space="preserve">
-    <value>&#x77ED;&#x4F11;&#x606F;</value>
+    <value>短休息</value>
   </data>
   <data name="TimerConfig_LongBreak" xml:space="preserve">
-    <value>&#x957F;&#x4F11;&#x606F;</value>
+    <value>长休息</value>
   </data>
   <data name="TimerConfig_Rounds" xml:space="preserve">
-    <value>&#x8F6E;&#x6570;</value>
+    <value>轮数</value>
   </data>
   <data name="Main_Reset" xml:space="preserve">
-    <value>&#x91CD;&#x7F6E;</value>
+    <value>重置</value>
   </data>
   <data name="About_Title" xml:space="preserve">
-    <value>&#x5173;&#x4E8E;</value>
+    <value>关于</value>
   </data>
   <data name="About_ComingSoon" xml:space="preserve">
-    <value>&#x5173;&#x4E8E;&#x4FE1;&#x606F;&#x5373;&#x5C06;&#x63A8;&#x51FA;...</value>
+    <value>关于信息即将推出...</value>
   </data>
   <data name="Options_Title" xml:space="preserve">
-    <value>&#x9009;&#x9879;</value>
+    <value>选项</value>
   </data>
   <data name="Options_Language" xml:space="preserve">
- <value>&#x8BED;&#x8A00;</value>
+    <value>语言</value>
   </data>
   <data name="Language_English" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="Language_Chinese" xml:space="preserve">
-<value>&#x4E2D;&#x6587;</value>
+    <value>中文</value>
   </data>
   <data name="Theme_Dark" xml:space="preserve">
-    <value>&#x6697;&#x9ED1;&#x4E3B;&#x9898;</value>
+    <value>暗黑主题</value>
   </data>
   <data name="Theme_Blue" xml:space="preserve">
-    <value>&#x84DD;&#x8272;&#x4E3B;&#x9898;</value>
+    <value>蓝色主题</value>
   </data>
   <data name="Theme_Light" xml:space="preserve">
-    <value>&#x6D45;&#x8272;&#x4E3B;&#x9898;</value>
+    <value>浅色主题</value>
+  </data>
+  <data name="TimeTo_Focus" xml:space="preserve">
+    <value>专注时间到！</value>
+  </data>
+  <data name="TimeTo_ShortBreak" xml:space="preserve">
+    <value>短休息时间到！</value>
+  </data>
+  <data name="TimeTo_LongBreak" xml:space="preserve">
+    <value>长休息时间到！</value>
+  </data>
+  <data name="Start_FocusTime" xml:space="preserve">
+    <value>开始新的专注时间，继续加油！</value>
+  </data>
+  <data name="Start_ShortBreak" xml:space="preserve">
+    <value>休息一下，放松片刻！</value>
+  </data>
+  <data name="Start_LongBreak" xml:space="preserve">
+    <value>享受一个长休息吧！</value>
   </data>
 </root>

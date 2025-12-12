@@ -3,6 +3,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using System.Windows.Threading;
+using RedFocus.Services;
+using RedFocus.Properties;
+using RedFocus.Localization;
 
 namespace RedFocus.ViewModel;
 public enum TimerState
@@ -14,35 +17,43 @@ public enum TimerState
 
 internal class TimerViewModel : ViewModelBase
 {
-    private DispatcherTimer _timer;
     private TimerState _currentState;
     private int _currentRound = 1;
-    private double _remainingMinutes;
+    private readonly TimerService _timerService;
 
     [SetsRequiredMembers]
-    public TimerViewModel(TimerConfigViewModel timerConfig)
+    public TimerViewModel(TimerConfigViewModel timerConfig, TimerService service)
     {
         TimerConfig = timerConfig;
+        _timerService = service;
         TimerConfig.PropertyChanged += (_, args) => OnTimeConfigChanged(args);
-        _timer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(50)
-        };
-        _timer.Tick += Timer_Tick;
         ToggleCommand = new RelayCommand(_ =>
         {
-            if (_timer.IsEnabled)
-                Pause();
+            if (_timerService.IsRunning)
+                _timerService.Pause();
             else
-                Start();
+                _timerService.Start();
         });
         TimerState = TimerState.Focus;
-        _remainingMinutes = TimerState switch
+        _timerService.TimerCompleted += OnTimerCompleted;
+        _timerService.PropertyChanged += (_, args) =>
         {
-            TimerState.Focus => TimerConfig.FocusTime.TotalMinutes,
-            TimerState.ShortBreak => TimerConfig.ShortBreakTime.TotalMinutes,
-            TimerState.LongBreak => TimerConfig.LongBreakTime.TotalMinutes,
-            _ => 0.0
+            if (args.PropertyName == nameof(_timerService.RemainingMinutes))
+            {
+                OnPropertyChanged(nameof(TimerRemainingMinutes));
+            }
+            else if (args.PropertyName == nameof(_timerService.IsRunning))
+            {
+                OnPropertyChanged(nameof(IsRunning));
+            }
+            else if (args.PropertyName == nameof(_timerService.TotalMinutes))
+            {
+                OnPropertyChanged(nameof(TimerTotalMinutes));
+            }
+        };
+        TranslationSource.Instance.PropertyChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(TimerState));
         };
     }
 
@@ -53,59 +64,80 @@ internal class TimerViewModel : ViewModelBase
         get => _currentState;
         private set
         {
-            _currentState = value;
-            OnPropertyChanged();
-        }
-    }
-    public double TimerTotalMinutes
-    {
-        get
-        {
-            return TimerState switch
+            SetProperty(ref _currentState, value);
+            TimerTotalMinutes = TimerState switch
             {
                 TimerState.Focus => TimerConfig.FocusTime.TotalMinutes,
                 TimerState.ShortBreak => TimerConfig.ShortBreakTime.TotalMinutes,
                 TimerState.LongBreak => TimerConfig.LongBreakTime.TotalMinutes,
                 _ => 0.0
             };
+            TimerRemainingMinutes = TimerTotalMinutes;
         }
+
+    }
+    public double TimerTotalMinutes
+    {
+        get => _timerService.TotalMinutes;
+        private set => _timerService.TotalMinutes = value;
     }
     public double TimerRemainingMinutes
     {
-        get => _remainingMinutes;
-        private set
-        {
-            _remainingMinutes = value;
-            OnPropertyChanged();
-        }
+        get => _timerService.RemainingMinutes;
+        private set => _timerService.RemainingMinutes = value;
+
     }
     public int CurrentRound
     {
         get => _currentRound;
-        set
-        {
-            _currentRound = value;
-            OnPropertyChanged();
-        }
-    }
+        private set => SetProperty(ref _currentRound, value);
 
-    public bool IsRunning => _timer.IsEnabled;
+    }
+    public bool IsRunning => _timerService.IsRunning;
     public ICommand ToggleCommand { get; }
+    public ICommand NextRoundCommand => new RelayCommand(_ =>
+    {
+        OnTimerCompleted(this, System.EventArgs.Empty);
+    });
     #endregion
 
     #region 公有成员
-    public void ProcessRoundChanged()
+    public void Reset()
+    {
+        TimerRemainingMinutes = TimerTotalMinutes;
+        Pause();
+    }
+    #endregion
+
+    #region 私有成员
+    private void OnTimeConfigChanged(PropertyChangedEventArgs args)
+    {
+        switch (args.PropertyName)
+        {
+            case nameof(TimerConfig.FocusTime) when TimerState == TimerState.Focus:
+                TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
+                Pause();
+                break;
+            case nameof(TimerConfig.ShortBreakTime) when TimerState == TimerState.ShortBreak:
+                TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
+                Pause();
+                break;
+            case nameof(TimerConfig.LongBreakTime) when TimerState == TimerState.LongBreak:
+                TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
+                Pause();
+                break;
+        }
+    }
+
+    private void OnTimerCompleted(object? sender, System.EventArgs e)
     {
         string title = TimerState switch
         {
-            TimerState.Focus => "专注时间到！",
-            TimerState.ShortBreak => "短休息时间到！",
-            TimerState.LongBreak => "长休息时间到！",
-            _ => "时间到！"
+            TimerState.Focus => TranslationSource.Instance["TimeTo_Focus"],
+            TimerState.ShortBreak => TranslationSource.Instance["TimeTo_ShortBreak"],
+            TimerState.LongBreak => TranslationSource.Instance["TimeTo_LongBreak"],
+            _ => "Unkown Timer State"
         };
-        TimerRemainingMinutes = 0;
-        Pause();
-        // 切换状态逻辑
         if (TimerState == TimerState.Focus)
         {
             if (CurrentRound == TimerConfig.Rounds)
@@ -131,54 +163,15 @@ internal class TimerViewModel : ViewModelBase
         }
         string content = TimerState switch
         {
-            TimerState.Focus => "开始新的专注时间，继续加油！",
-            TimerState.ShortBreak => "休息一下，放松片刻！",
-            TimerState.LongBreak => "享受一个长休息吧！",
-            _ => "新的时间段开始了！"
+            TimerState.Focus => TranslationSource.Instance["Start_FocusTime"],
+            TimerState.ShortBreak =>TranslationSource.Instance["Start_ShortBreak"],
+            TimerState.LongBreak =>TranslationSource.Instance["Start_LongBreak"],
+            _ => "Unkown Timer State"
         };
-        OnPropertyChanged(nameof(TimerTotalMinutes));
-        TimerRemainingMinutes = TimerTotalMinutes;
         Start();
         ShowWindowsNotification(title, content);
     }
-    public void Reset()
-    {
-        TimerRemainingMinutes = TimerTotalMinutes;
-        Pause();
-    }
-    #endregion
 
-    #region 私有成员
-    private void OnTimeConfigChanged(PropertyChangedEventArgs args)
-    {
-        switch (args.PropertyName)
-        {
-            case nameof(TimerConfig.FocusTime) when TimerState == TimerState.Focus:
-                TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
-                OnPropertyChanged(nameof(TimerTotalMinutes));
-                Pause();
-                break;
-            case nameof(TimerConfig.ShortBreakTime) when TimerState == TimerState.ShortBreak:
-                TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
-                OnPropertyChanged(nameof(TimerTotalMinutes));
-                Pause();
-                break;
-            case nameof(TimerConfig.LongBreakTime) when TimerState == TimerState.LongBreak:
-                TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
-                OnPropertyChanged(nameof(TimerTotalMinutes));
-                Pause();
-                break;
-        }
-    }
-    private void Timer_Tick(object? sender, EventArgs e)
-    {
-        var elapsed = _timer!.Interval;
-        TimerRemainingMinutes -= elapsed.TotalMinutes;
-        if (TimerRemainingMinutes <= 0)
-        {
-            ProcessRoundChanged();
-        }
-    }
     private void ShowWindowsNotification(string title, string content)
     {
         var builder = new ToastContentBuilder()
@@ -188,13 +181,11 @@ internal class TimerViewModel : ViewModelBase
     }
     private void Start()
     {
-        _timer.Start();
-        OnPropertyChanged(nameof(IsRunning));
+        _timerService.Start();
     }
     private void Pause()
     {
-        _timer.Stop();
-        OnPropertyChanged(nameof(IsRunning));
+        _timerService.Pause();
     }
     #endregion
 }

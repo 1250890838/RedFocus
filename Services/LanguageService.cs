@@ -1,6 +1,8 @@
+using RedFocus.Localization;
 using RedFocus.Properties;
 using System.ComponentModel;
 using System.Globalization;
+using RedFocus.Localization;
 
 namespace RedFocus.Services;
 
@@ -53,7 +55,7 @@ public class LanguageService : INotifyPropertyChanged
             if (_currentCulture.Name != value.Name)
             {
                 _currentCulture = value;
-                Resources.Culture = value;
+                TranslationSource.Instance.CurrentCulture = value;
                 OnPropertyChanged(nameof(CurrentCulture));
                 OnLanguageChanged();
             }

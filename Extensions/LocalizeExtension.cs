@@ -1,16 +1,28 @@
+using RedFocus.Localization;
 using RedFocus.Properties;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace RedFocus.Extensions;
 
-/// <summary>
-/// 本地化绑定扩展 - 用于在 XAML 中绑定本地化字符串
-/// </summary>
-public class LocalizeExtension : Binding
+
+[MarkupExtensionReturnType(typeof(string))]
+public class LocalizeExtension : MarkupExtension
 {
-    public LocalizeExtension(string key) : base(key)
+    public string Key { get; set; }
+
+    public LocalizeExtension(string key)
     {
-        Source = Resources.Instance;
-        Mode = BindingMode.OneWay;
+        Key = key ?? throw new ArgumentNullException(nameof(key));
+    }
+
+    public override object ProvideValue(IServiceProvider serviceProvider)
+    {
+        var binding = new Binding($"[{Key}]")
+        {
+            Source = TranslationSource.Instance,
+            Mode = BindingMode.OneWay
+        };
+        return binding.ProvideValue(serviceProvider);
     }
 }
