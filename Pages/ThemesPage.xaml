@@ -109,14 +109,14 @@
 	</UserControl.Resources>
 	<Grid Background="{DynamicResource PanelBackgroundBrush}">
 		<StackPanel Margin="20">
-			<TextBlock Text="{ext:Localize Themes_PageTitle}">
+            <TextBlock Text="{ext:Localize Themes_PageTitle}"
 				FontSize="18"
 				FontWeight="Bold"
-				Foreground="{DynamicResource PrimaryTextBrush}"
+				Foreground="{DynamicResource StaticTextBrush}"
 				HorizontalAlignment="Center"
 				Margin="0,0,0,30"
-			</TextBlock>
-			<ListBox ItemsSource="{Binding Themes}"
+			/>
+            <ListBox ItemsSource="{Binding Themes}"
                  Background="Transparent"
                  BorderThickness="0"
                      Style="{StaticResource CleanListBoxStyle}"
