@@ -2,11 +2,13 @@ using RedFocus.ViewModel;
 using System.Windows.Controls;
 
 namespace RedFocus.Pages;
+
 public partial class ThemesPage : UserControl
 {
     public ThemesPage()
     {
         InitializeComponent();
-        this.DataContext = new ThemeSelectorViewModel();
+        // ´Ó DI ÈÝÆ÷»ñÈ¡ ViewModel
+        DataContext = App.GetService<ThemeSelectorViewModel>();
     }
 }

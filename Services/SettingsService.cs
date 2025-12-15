@@ -6,14 +6,12 @@ namespace RedFocus.Services;
 /// <summary>
 /// 设置服务 - 负责保存和加载用户设置到 JSON 文件
 /// </summary>
-public sealed class SettingsService
+public sealed class SettingsService : ISettingsService
 {
-    private static readonly Lazy<SettingsService> _instance = new(() => new SettingsService());
-    public static SettingsService Instance = _instance.Value;
     private readonly string _settingsFilePath;
     private UserSettings _settings;
 
-    private SettingsService()
+    public SettingsService()
     {
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         var appFolder = Path.Combine(appDataPath, "RedFocus");

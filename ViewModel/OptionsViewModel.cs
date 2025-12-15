@@ -3,15 +3,17 @@ using System.Collections.ObjectModel;
 
 namespace RedFocus.ViewModel;
 
-internal class OptionsViewModel : ViewModelBase
+public class OptionsViewModel : ViewModelBase
 {
+    private readonly ILanguageService _languageService;
     private LanguageInfo _selectedLanguage;
 
-    public OptionsViewModel()
+    public OptionsViewModel(ILanguageService languageService)
     {
-        Languages = new ObservableCollection<LanguageInfo>(LanguageService.SupportedLanguages);
+        _languageService = languageService;
+        Languages = new ObservableCollection<LanguageInfo>(_languageService.SupportedLanguages);
 
-        var currentCultureCode = LanguageService.Instance.CurrentCulture.Name;
+        var currentCultureCode = _languageService.CurrentCulture.Name;
         _selectedLanguage = Languages.FirstOrDefault(l => l.Code == currentCultureCode)
             ?? Languages.First();
     }
@@ -22,7 +24,7 @@ internal class OptionsViewModel : ViewModelBase
     public ObservableCollection<LanguageInfo> Languages { get; }
 
     /// <summary>
-    /// 当前选中的语言
+    /// 当前选择的语言
     /// </summary>
     public LanguageInfo SelectedLanguage
     {
@@ -33,7 +35,7 @@ internal class OptionsViewModel : ViewModelBase
             {
                 _selectedLanguage = value;
                 OnPropertyChanged();
-                LanguageService.Instance.SwitchLanguage(value.Code);
+                _languageService.SwitchLanguage(value.Code);
             }
         }
     }

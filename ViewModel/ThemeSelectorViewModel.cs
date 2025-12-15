@@ -8,12 +8,18 @@ using System.Windows.Media;
 
 namespace RedFocus.ViewModel;
 
-internal class ThemeSelectorViewModel : ViewModelBase
+public class ThemeSelectorViewModel : ViewModelBase
 {
+    private readonly ISettingsService _settingsService;
+    private readonly ILanguageService _languageService;
+
     public ObservableCollection<ThemeItem> Themes { get; set; } = new();
 
-    public ThemeSelectorViewModel()
+    public ThemeSelectorViewModel(ISettingsService settingsService, ILanguageService languageService)
     {
+        _settingsService = settingsService;
+        _languageService = languageService;
+
         var themeUris = new Dictionary<string, (string Uri, string Key)>
         {
             {"Dark", ("/Themes/DarkTheme.xaml", "Theme_Dark")},
@@ -21,8 +27,10 @@ internal class ThemeSelectorViewModel : ViewModelBase
             {"Light", ("/Themes/LightTheme.xaml", "Theme_Light")},
         };
         LoadThemes(themeUris);
-        LanguageService.Instance.LanguageChanged += OnLanguageChanged;
-        var currentTheme = SettingsService.Instance.CurrentTheme;
+        _languageService.LanguageChanged += OnLanguageChanged;
+
+        // 从保存的设置中选中当前主题
+        var currentTheme = _settingsService.CurrentTheme;
         var savedTheme = Themes.FirstOrDefault(t => t.ResourceUri == currentTheme);
         if (savedTheme != null)
         {
@@ -118,6 +126,7 @@ internal class ThemeSelectorViewModel : ViewModelBase
                 item.IsSelected = false;
         }
 
-        SettingsService.Instance.CurrentTheme = resourceUri;
+        // 使用注入的服务保存设置
+        _settingsService.CurrentTheme = resourceUri;
     }
 }

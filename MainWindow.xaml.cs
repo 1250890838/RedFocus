@@ -1,5 +1,4 @@
-﻿using RedFocus.Services;
-using RedFocus.ViewModel;
+﻿using RedFocus.ViewModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -13,14 +12,10 @@ public partial class MainWindow : Window
 {
     private bool _isMenuOpen = false;
 
-    public MainWindow()
+    public MainWindow(TimerViewModel timerViewModel)
     {
         InitializeComponent();
-        TimerConfigViewModel timerConfigViewModel = new ViewModel.TimerConfigViewModel();
-
-        TimerService timerService = new TimerService();
-        TimerViewModel timerViewModel = new(timerConfigViewModel, timerService);
-        this.DataContext = timerViewModel;
+        DataContext = timerViewModel;
     }
 
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -78,8 +73,7 @@ public partial class MainWindow : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        object context = this.DataContext;
-        if (context is ViewModel.TimerViewModel timerViewModel)
+        if (DataContext is TimerViewModel timerViewModel)
         {
             timerViewModel.Reset();
         }

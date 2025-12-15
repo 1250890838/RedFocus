@@ -2,7 +2,8 @@
 using System.Windows.Media;
 
 namespace RedFocus.Model;
-internal class ThemeItem : ViewModelBase
+
+public class ThemeItem : ViewModelBase
 {
     private Brush _accentColor = Brushes.Transparent;
     private Brush _primaryColor = Brushes.Transparent;

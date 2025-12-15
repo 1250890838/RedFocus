@@ -2,10 +2,10 @@
 using RedFocus.Localization;
 using RedFocus.Services;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 namespace RedFocus.ViewModel;
+
 public enum TimerState
 {
     Focus,
@@ -13,18 +13,20 @@ public enum TimerState
     LongBreak
 }
 
-internal class TimerViewModel : ViewModelBase
+public class TimerViewModel : ViewModelBase
 {
     private TimerState _currentState;
     private int _currentRound = 1;
     private readonly ITimerService _timerService;
+    private readonly TimerConfigViewModel _timerConfig;
 
-    [SetsRequiredMembers]
-    public TimerViewModel(TimerConfigViewModel timerConfig, ITimerService service)
+    public TimerViewModel(TimerConfigViewModel timerConfig, ITimerService timerService)
     {
-        TimerConfig = timerConfig;
-        _timerService = service;
-        TimerConfig.PropertyChanged += (_, args) => OnTimeConfigChanged(args);
+        _timerConfig = timerConfig;
+        _timerService = timerService;
+
+        _timerConfig.PropertyChanged += (_, args) => OnTimeConfigChanged(args);
+
         ToggleCommand = new RelayCommand(_ =>
         {
             if (_timerService.IsRunning)
@@ -32,6 +34,7 @@ internal class TimerViewModel : ViewModelBase
             else
                 _timerService.Start();
         });
+
         TimerState = TimerState.Focus;
         _timerService.TimerCompleted += OnTimerCompleted;
         _timerService.PropertyChanged += (_, args) =>
@@ -49,6 +52,7 @@ internal class TimerViewModel : ViewModelBase
                 OnPropertyChanged(nameof(TimerTotalMinutes));
             }
         };
+
         TranslationSource.Instance.PropertyChanged += (_, _) =>
         {
             OnPropertyChanged(nameof(TimerState));
@@ -56,7 +60,8 @@ internal class TimerViewModel : ViewModelBase
     }
 
     #region 属性
-    required public TimerConfigViewModel TimerConfig { get; init; }
+    public TimerConfigViewModel TimerConfig => _timerConfig;
+
     public TimerState TimerState
     {
         get => _currentState;
@@ -74,34 +79,38 @@ internal class TimerViewModel : ViewModelBase
         }
 
     }
+
     public double TimerTotalMinutes
     {
         get => _timerService.TotalMinutes;
         private set => _timerService.TotalMinutes = value;
     }
+
     public double TimerRemainingMinutes
     {
         get => _timerService.RemainingMinutes;
         private set => _timerService.RemainingMinutes = value;
-
     }
+
     public int CurrentRound
     {
         get => _currentRound;
         private set => SetProperty(ref _currentRound, value);
-
     }
+
     public bool IsRunning => _timerService.IsRunning;
+
     public ICommand ToggleCommand { get; }
+
     public ICommand NextRoundCommand => new RelayCommand(_ =>
     {
-        OnTimerCompleted(this, System.EventArgs.Empty);
-    });
-    public ICommand ResetToDefaultCommand => new RelayCommand(_ =>
-    {
-        TimerConfig.ResetToDefault();
+        OnTimerCompleted(this, EventArgs.Empty);
     });
 
+    public ICommand ResetToDefaultCommand => new RelayCommand(_ =>
+   {
+       TimerConfig.ResetToDefault();
+   });
     #endregion
 
     #region 公有成员
@@ -135,15 +144,16 @@ internal class TimerViewModel : ViewModelBase
         }
     }
 
-    private void OnTimerCompleted(object? sender, System.EventArgs e)
+    private void OnTimerCompleted(object? sender, EventArgs e)
     {
         string title = TimerState switch
         {
             TimerState.Focus => TranslationSource.Instance["TimeTo_Focus"],
             TimerState.ShortBreak => TranslationSource.Instance["TimeTo_ShortBreak"],
             TimerState.LongBreak => TranslationSource.Instance["TimeTo_LongBreak"],
-            _ => "Unkown Timer State"
+            _ => "Unknown Timer State"
         };
+
         if (TimerState == TimerState.Focus)
         {
             if (CurrentRound == TimerConfig.Rounds)
@@ -167,13 +177,15 @@ internal class TimerViewModel : ViewModelBase
             }
             TimerState = TimerState.Focus;
         }
+
         string content = TimerState switch
         {
             TimerState.Focus => TranslationSource.Instance["Start_FocusTime"],
             TimerState.ShortBreak => TranslationSource.Instance["Start_ShortBreak"],
             TimerState.LongBreak => TranslationSource.Instance["Start_LongBreak"],
-            _ => "Unkown Timer State"
+            _ => "Unknown Timer State"
         };
+
         Start();
         ShowWindowsNotification(title, content);
     }
@@ -181,14 +193,16 @@ internal class TimerViewModel : ViewModelBase
     private void ShowWindowsNotification(string title, string content)
     {
         var builder = new ToastContentBuilder()
-            .AddText(title)
-            .AddText(content);
+        .AddText(title)
+     .AddText(content);
         builder.Show();
     }
+
     private void Start()
     {
         _timerService.Start();
     }
+
     private void Pause()
     {
         _timerService.Pause();

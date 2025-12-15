@@ -8,33 +8,18 @@ namespace RedFocus.Services;
 /// <summary>
 /// 语言管理服务 - 提供多语言支持
 /// </summary>
-public class LanguageService : INotifyPropertyChanged
+public class LanguageService : ILanguageService, INotifyPropertyChanged
 {
-    private static LanguageService? _instance;
-    private static readonly object _lock = new();
-
-    public static LanguageService Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    _instance ??= new LanguageService();
-                }
-            }
-            return _instance;
-        }
-    }
-
     private CultureInfo _currentCulture;
+    private readonly ISettingsService _settingsService;
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public event EventHandler? LanguageChanged;
 
-    private LanguageService()
+    public LanguageService(ISettingsService settingsService)
     {
+        _settingsService = settingsService;
+
         var systemCulture = CultureInfo.CurrentUICulture;
         _currentCulture = systemCulture.Name.StartsWith("zh")
            ? new CultureInfo("zh-CN")
@@ -54,10 +39,13 @@ public class LanguageService : INotifyPropertyChanged
             if (_currentCulture.Name != value.Name)
             {
                 _currentCulture = value;
+                Resources.Culture = value;
                 TranslationSource.Instance.CurrentCulture = value;
                 OnPropertyChanged(nameof(CurrentCulture));
                 OnLanguageChanged();
-                SettingsService.Instance.CurrentLanguage = value.Name;
+
+                // 保存语言设置到 JSON 文件
+                _settingsService.CurrentLanguage = value.Name;
             }
         }
     }
@@ -89,11 +77,11 @@ public class LanguageService : INotifyPropertyChanged
     /// <summary>
     /// 获取支持的语言列表
     /// </summary>
-    public static IReadOnlyList<LanguageInfo> SupportedLanguages =>
+    public IReadOnlyList<LanguageInfo> SupportedLanguages =>
     [
-     new LanguageInfo("en-US", "English"),
-     new LanguageInfo("zh-CN", "中文")
-  ];
+        new LanguageInfo("en-US", "English"),
+        new LanguageInfo("zh-CN", "中文")
+    ];
 
     protected virtual void OnPropertyChanged(string propertyName)
     {

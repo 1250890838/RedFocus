@@ -3,8 +3,10 @@ using RedFocus.Services;
 using System.Windows.Input;
 
 namespace RedFocus.ViewModel;
-internal class TimerConfigViewModel : ViewModelBase
+
+public class TimerConfigViewModel : ViewModelBase
 {
+    private readonly ISettingsService _settingsService;
     private TimerConfig _timerConfig = null!;
 
     #region 属性
@@ -18,10 +20,11 @@ internal class TimerConfigViewModel : ViewModelBase
             {
                 _timerConfig.FocusTime = v;
                 OnPropertyChanged();
-                SettingsService.Instance.FocusDuration = (int)v.TotalMinutes;
+                _settingsService.FocusDuration = (int)v.TotalMinutes;
             }
         }
     }
+
     public TimeSpan ShortBreakTime
     {
         get => _timerConfig.ShortBreakTime;
@@ -32,10 +35,11 @@ internal class TimerConfigViewModel : ViewModelBase
             {
                 _timerConfig.ShortBreakTime = v;
                 OnPropertyChanged();
-                SettingsService.Instance.ShortBreakDuration = (int)v.TotalMinutes;
+                _settingsService.ShortBreakDuration = (int)v.TotalMinutes;
             }
         }
     }
+
     public TimeSpan LongBreakTime
     {
         get => _timerConfig.LongBreakTime;
@@ -46,10 +50,11 @@ internal class TimerConfigViewModel : ViewModelBase
             {
                 _timerConfig.LongBreakTime = v;
                 OnPropertyChanged();
-                SettingsService.Instance.LongBreakDuration = (int)v.TotalMinutes;
+                _settingsService.LongBreakDuration = (int)v.TotalMinutes;
             }
         }
     }
+
     public int Rounds
     {
         get => _timerConfig.Rounds;
@@ -60,15 +65,17 @@ internal class TimerConfigViewModel : ViewModelBase
             {
                 _timerConfig.Rounds = v;
                 OnPropertyChanged();
-                SettingsService.Instance.RoundsPerCycle = v;
+                _settingsService.RoundsPerCycle = v;
             }
         }
     }
+
     public ICommand ResetCommand { get; }
     #endregion
 
-    public TimerConfigViewModel()
+    public TimerConfigViewModel(ISettingsService settingsService)
     {
+        _settingsService = settingsService;
         ResetCommand = new RelayCommand(_ => ResetToDefault());
         LoadFromSettings();
     }
@@ -82,10 +89,12 @@ internal class TimerConfigViewModel : ViewModelBase
         OnPropertyChanged(nameof(LongBreakTime));
         OnPropertyChanged(nameof(Rounds));
     }
+
     public TimerConfig Export() => _timerConfig;
+
     public void ResetToDefault()
     {
-        SettingsService.Instance.ResetToDefaults();
+        _settingsService.ResetToDefaults();
         LoadFromSettings();
     }
     #endregion
@@ -93,13 +102,12 @@ internal class TimerConfigViewModel : ViewModelBase
     #region 私有成员
     private void LoadFromSettings()
     {
-        var settings = SettingsService.Instance;
         Load(new TimerConfig
         {
-            FocusTime = TimeSpan.FromMinutes(settings.FocusDuration),
-            ShortBreakTime = TimeSpan.FromMinutes(settings.ShortBreakDuration),
-            LongBreakTime = TimeSpan.FromMinutes(settings.LongBreakDuration),
-            Rounds = settings.RoundsPerCycle
+            FocusTime = TimeSpan.FromMinutes(_settingsService.FocusDuration),
+            ShortBreakTime = TimeSpan.FromMinutes(_settingsService.ShortBreakDuration),
+            LongBreakTime = TimeSpan.FromMinutes(_settingsService.LongBreakDuration),
+            Rounds = _settingsService.RoundsPerCycle
         });
     }
     #endregion

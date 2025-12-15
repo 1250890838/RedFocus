@@ -1,3 +1,4 @@
+using RedFocus.ViewModel;
 using System.Windows.Controls;
 
 namespace RedFocus.Pages
@@ -7,8 +8,11 @@ namespace RedFocus.Pages
         public OptionsPage()
         {
             InitializeComponent();
+            // ´Ó DI ÈÝÆ÷»ñÈ¡ ViewModel
+            DataContext = App.GetService<OptionsViewModel>();
         }
     }
 }
+
 
 
