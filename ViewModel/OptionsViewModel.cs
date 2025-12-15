@@ -13,7 +13,7 @@ internal class OptionsViewModel : ViewModelBase
 
         var currentCultureCode = LanguageService.Instance.CurrentCulture.Name;
         _selectedLanguage = Languages.FirstOrDefault(l => l.Code == currentCultureCode)
-   ?? Languages.First();
+            ?? Languages.First();
     }
 
     /// <summary>

@@ -57,6 +57,7 @@ public class LanguageService : INotifyPropertyChanged
                 TranslationSource.Instance.CurrentCulture = value;
                 OnPropertyChanged(nameof(CurrentCulture));
                 OnLanguageChanged();
+                SettingsService.Instance.CurrentLanguage = value.Name;
             }
         }
     }

@@ -20,10 +20,14 @@ internal class ThemeSelectorViewModel : ViewModelBase
             {"Blue", ("/Themes/BlueTheme.xaml", "Theme_Blue")},
             {"Light", ("/Themes/LightTheme.xaml", "Theme_Light")},
         };
-
         LoadThemes(themeUris);
-
         LanguageService.Instance.LanguageChanged += OnLanguageChanged;
+        var currentTheme = SettingsService.Instance.CurrentTheme;
+        var savedTheme = Themes.FirstOrDefault(t => t.ResourceUri == currentTheme);
+        if (savedTheme != null)
+        {
+            savedTheme.IsSelected = true;
+        }
     }
 
     public ICommand ApplyThemeCommand => new RelayCommand(ApplyTheme);
@@ -39,7 +43,7 @@ internal class ThemeSelectorViewModel : ViewModelBase
 
             Brush primaryBrush = Brushes.Black;
             if (resourceDict.Contains("PrimaryBackgroundBrush") &&
-               resourceDict["PrimaryBackgroundBrush"] is SolidColorBrush primaryBackgroundBrush)
+                resourceDict["PrimaryBackgroundBrush"] is SolidColorBrush primaryBackgroundBrush)
             {
                 primaryBrush = primaryBackgroundBrush;
             }
@@ -62,11 +66,6 @@ internal class ThemeSelectorViewModel : ViewModelBase
             };
 
             Themes.Add(item);
-        }
-
-        if (Themes.Count > 0)
-        {
-            Themes[0].IsSelected = true;
         }
     }
 
@@ -118,5 +117,7 @@ internal class ThemeSelectorViewModel : ViewModelBase
             if (item.ResourceUri != resourceUri)
                 item.IsSelected = false;
         }
+
+        SettingsService.Instance.CurrentTheme = resourceUri;
     }
 }

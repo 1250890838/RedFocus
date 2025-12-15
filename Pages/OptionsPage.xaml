@@ -93,11 +93,7 @@ Padding="20"
             </Border.Effect>
           
      <StackPanel>
-     <TextBlock Text="More Options Coming Soon..." 
-FontSize="14"
-       Foreground="{DynamicResource StaticTextBrush}"
-   HorizontalAlignment="Center"
-     FontStyle="Italic"/>
+
      </StackPanel>
         </Border>
 

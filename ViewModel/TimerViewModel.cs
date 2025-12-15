@@ -97,6 +97,11 @@ internal class TimerViewModel : ViewModelBase
     {
         OnTimerCompleted(this, System.EventArgs.Empty);
     });
+    public ICommand ResetToDefaultCommand => new RelayCommand(_ =>
+    {
+        TimerConfig.ResetToDefault();
+    });
+
     #endregion
 
     #region 公有成员

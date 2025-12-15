@@ -13,18 +13,18 @@ xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
        d:DesignHeight="400" d:DesignWidth="340">
     <UserControl.Resources>
         <converters:IntToTimeSpanConverter x:Key="intToTimeSpanConverter"/>
-   </UserControl.Resources>
-  <Grid Margin="20,10,20,20" Background="{DynamicResource PanelBackgroundBrush}">
-    <StackPanel>
-<StackPanel.Resources>
-          <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-  <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-    <Setter Property="Margin" Value="0,0,0,10"/>
-   </Style>
+    </UserControl.Resources>
+    <Grid Margin="20,10,20,20" Background="{DynamicResource PanelBackgroundBrush}">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+                    <Setter Property="Margin" Value="0,0,0,10"/>
+                </Style>
             </StackPanel.Resources>
-   <TextBlock Text="{ext:Localize TimerConfig_Title}" HorizontalAlignment="Center" Foreground="{DynamicResource StaticTextBrush}"/>
-      <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
+            <TextBlock Text="{ext:Localize TimerConfig_Title}" HorizontalAlignment="Center" Foreground="{DynamicResource StaticTextBrush}"/>
+            <controls:TimeIntervalSlider x:Name="FocusTimeSlider"
        Title="{ext:Localize TimerConfig_Focus}"
       TimeInterval="{Binding TimerConfig.FocusTime, Mode=TwoWay}"
      TitleBrush="{DynamicResource StaticTextBrush}"
@@ -34,7 +34,7 @@ xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
      TimeIntervalTextFontSize="11.5"
            ProgressBrush="{DynamicResource FocusProgressBrush}"
   TrackBrush="{DynamicResource TrackBrush}"/>
-    <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
+            <controls:TimeIntervalSlider x:Name="ShortBreakTimeSlider"
     SlideCompleted="ShortBreakTimeSlider_SlideCompleted"
       Title="{ext:Localize TimerConfig_ShortBreak}"
             TimeInterval="{Binding TimerConfig.ShortBreakTime, Mode=TwoWay}"
@@ -45,7 +45,7 @@ xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
         TimeIntervalTextFontSize="11.5"
            ProgressBrush="{DynamicResource ShortBreakProgressBrush}"
         TrackBrush="{DynamicResource TrackBrush}"/>
-     <controls:TimeIntervalSlider x:Name="LongBreakSlider"
+            <controls:TimeIntervalSlider x:Name="LongBreakSlider"
        Title="{ext:Localize TimerConfig_LongBreak}"
       TimeInterval="{Binding TimerConfig.LongBreakTime,Mode=TwoWay}"
          TitleBrush="{DynamicResource StaticTextBrush}"
@@ -55,7 +55,7 @@ xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
     TimeIntervalTextFontSize="11.5"
       ProgressBrush="{DynamicResource LongBreakProgressBrush}"
         TrackBrush="{DynamicResource TrackBrush}"/>
-   <controls:TimeIntervalSlider x:Name="RoundsSlider"
+            <controls:TimeIntervalSlider x:Name="RoundsSlider"
      Title="{ext:Localize TimerConfig_Rounds}"
       TimeInterval="{Binding TimerConfig.Rounds, Converter={StaticResource intToTimeSpanConverter},Mode=TwoWay}"
        MaxTimeInterval="00:12"
@@ -67,6 +67,37 @@ xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
       Style="{StaticResource IntRoundsSlider}"
        ProgressBrush="{DynamicResource RoundsProgressBrush}"
           TrackBrush="{DynamicResource TrackBrush}"/>
+            <Button x:Name="NextRoundButton" DockPanel.Dock="Right" Command="{Binding ResetToDefaultCommand}" Content="Reset Defaults">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Foreground" Value="{DynamicResource StaticTextBrush}"/>
+                        <Setter Property="FontSize" Value="15"/> 
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border 
+                                        BorderThickness="0"
+                                            Margin="0,10,0,0"
+                                            >
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Content="{TemplateBinding Content}"
+                                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                                          />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource TitleBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+
         </StackPanel>
     </Grid>
 </UserControl>
