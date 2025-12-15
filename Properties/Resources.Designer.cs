@@ -142,6 +142,15 @@ namespace RedFocus.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Reset Defaults 的本地化字符串。
+        /// </summary>
+        internal static string ResetTo_Defaults {
+            get {
+                return ResourceManager.GetString("ResetTo_Defaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Starting a new period of focused work, keep it up! 的本地化字符串。
         /// </summary>
         internal static string Start_FocusTime {

@@ -67,7 +67,7 @@ xmlns:viewmodel="clr-namespace:RedFocus.ViewModel"
       Style="{StaticResource IntRoundsSlider}"
        ProgressBrush="{DynamicResource RoundsProgressBrush}"
           TrackBrush="{DynamicResource TrackBrush}"/>
-            <Button x:Name="NextRoundButton" DockPanel.Dock="Right" Command="{Binding ResetToDefaultCommand}" Content="Reset Defaults">
+            <Button x:Name="NextRoundButton" DockPanel.Dock="Right" Command="{Binding ResetToDefaultCommand}" Content="{ext:Localize ResetTo_Defaults}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Foreground" Value="{DynamicResource StaticTextBrush}"/>

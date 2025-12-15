@@ -201,4 +201,7 @@
   <data name="Themes_PageTitle" xml:space="preserve">
     <value>Themes</value>
   </data>
+  <data name="ResetTo_Defaults" xml:space="preserve">
+    <value>Reset Defaults</value>
+  </data>
 </root>

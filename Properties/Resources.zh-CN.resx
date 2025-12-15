@@ -201,4 +201,7 @@
   <data name="Themes_PageTitle" xml:space="preserve">
     <value>主题</value>
   </data>
+  <data name="ResetTo_Defaults" xml:space="preserve">
+    <value>恢复默认设置</value>
+  </data>
 </root>
