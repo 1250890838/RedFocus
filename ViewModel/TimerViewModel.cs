@@ -118,15 +118,18 @@ internal class TimerViewModel : ViewModelBase
         switch (args.PropertyName)
         {
             case nameof(TimerConfig.FocusTime) when TimerState == TimerState.Focus:
-                TimerRemainingMinutes = TimerConfig.FocusTime.TotalMinutes;
+                TimerTotalMinutes = TimerConfig.FocusTime.TotalMinutes;
+                TimerRemainingMinutes = TimerTotalMinutes;
                 Pause();
                 break;
             case nameof(TimerConfig.ShortBreakTime) when TimerState == TimerState.ShortBreak:
-                TimerRemainingMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
+                TimerTotalMinutes = TimerConfig.ShortBreakTime.TotalMinutes;
+                TimerRemainingMinutes = TimerTotalMinutes;
                 Pause();
                 break;
             case nameof(TimerConfig.LongBreakTime) when TimerState == TimerState.LongBreak:
-                TimerRemainingMinutes = TimerConfig.LongBreakTime.TotalMinutes;
+                TimerTotalMinutes = TimerConfig.LongBreakTime.TotalMinutes;
+                TimerRemainingMinutes = TimerTotalMinutes;
                 Pause();
                 break;
         }
