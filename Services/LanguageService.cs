@@ -8,25 +8,13 @@ namespace RedFocus.Services;
 /// <summary>
 /// 语言管理服务 - 提供多语言支持
 /// </summary>
-public class LanguageService : ILanguageService, INotifyPropertyChanged
+public class LanguageService(ISettingsService settingsService) : ILanguageService, INotifyPropertyChanged
 {
-    private CultureInfo _currentCulture;
-    private readonly ISettingsService _settingsService;
+    private CultureInfo _currentCulture = null!;
+    private readonly ISettingsService _settingsService = settingsService;
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public event EventHandler? LanguageChanged;
-
-    public LanguageService(ISettingsService settingsService)
-    {
-        _settingsService = settingsService;
-
-        var systemCulture = CultureInfo.CurrentUICulture;
-        _currentCulture = systemCulture.Name.StartsWith("zh")
-           ? new CultureInfo("zh-CN")
-                   : new CultureInfo("en-US");
-
-        Resources.Culture = _currentCulture;
-    }
 
     /// <summary>
     /// 当前语言文化
@@ -36,15 +24,12 @@ public class LanguageService : ILanguageService, INotifyPropertyChanged
         get => _currentCulture;
         set
         {
-            if (_currentCulture.Name != value.Name)
+            if (_currentCulture?.Name != value.Name)
             {
                 _currentCulture = value;
-                Resources.Culture = value;
                 TranslationSource.Instance.CurrentCulture = value;
                 OnPropertyChanged(nameof(CurrentCulture));
                 OnLanguageChanged();
-
-                // 保存语言设置到 JSON 文件
                 _settingsService.CurrentLanguage = value.Name;
             }
         }
