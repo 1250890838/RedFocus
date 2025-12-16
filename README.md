@@ -6,6 +6,7 @@
 </p>
 
 <p align="center">
-  <img width="360" height="478" alt="RedFocus 截图 3" src="https://github.com/user-attachments/assets/f122b27e-aa61-4bc2-881b-9418b0b6e488" />
-  <img width="360" height="478" alt="RedFocus 截图 4" src="https://github.com/user-attachments/assets/38fa67e1-5d02-4699-9dbe-60d352fa1d03" />
+  <img width="360" height="478" alt="image" src="https://github.com/user-attachments/assets/f8609f19-9178-4eb8-ae95-744aabe09257" />
+  <img width="360" height="478" alt="image" src="https://github.com/user-attachments/assets/737224ff-f3f9-48be-940e-5ea76755f775" />
+
 </p>
