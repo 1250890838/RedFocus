@@ -10,7 +10,6 @@ public partial class App : Application
 {
     public App()
     {
-        // 配置依赖注入服务
         ServiceLocator.ConfigureServices();
     }
 
@@ -26,11 +25,9 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        // 获取服务
         var settingsService = GetService<ISettingsService>();
         var languageService = GetService<ILanguageService>();
 
-        // 应用保存的语言设置
         try
         {
             languageService.SwitchLanguage(settingsService.CurrentLanguage);
@@ -40,11 +37,9 @@ public partial class App : Application
             System.Diagnostics.Debug.WriteLine($"加载语言设置失败: {ex.Message}");
         }
 
-        // 应用保存的主题
         ApplyTheme(settingsService.CurrentTheme);
         System.Diagnostics.Debug.WriteLine($"设置文件位置: {settingsService.GetSettingsFilePath()}");
 
-        // 显示主窗口
         var mainWindow = GetService<MainWindow>();
         mainWindow.Show();
     }

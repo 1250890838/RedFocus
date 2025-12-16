@@ -17,18 +17,15 @@ public static class ServiceLocator
     {
         var services = new ServiceCollection();
 
-        // 注册服务（单例）
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddSingleton<ILanguageService, LanguageService>();
         services.AddSingleton<ITimerService, TimerService>();
 
-        // 注册 ViewModels（瞬时或单例根据需要）
         services.AddTransient<TimerConfigViewModel>();
         services.AddTransient<TimerViewModel>();
         services.AddTransient<ThemeSelectorViewModel>();
         services.AddTransient<OptionsViewModel>();
 
-        // 注册 MainWindow
         services.AddSingleton<MainWindow>();
 
         _serviceProvider = services.BuildServiceProvider();
