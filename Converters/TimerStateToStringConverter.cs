@@ -16,7 +16,7 @@ internal class TimerStateToStringConverter : IValueConverter
             {
                 TimerState.Focus => TranslationSource.Instance["TimerState_Focus"],
                 TimerState.LongBreak => TranslationSource.Instance["TimerState_LongBreak"],
-                TimerState.ShortBreak => TranslationSource.Instance["Resources.TimerState_ShortBreak"],
+                TimerState.ShortBreak => TranslationSource.Instance["TimerState_ShortBreak"],
                 _ => $"UNKNOWN ({state})",
             };
         }
